@@ -4,15 +4,15 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using BE;
 namespace DAL.Tools
 {
     public class UsuarioTools
     {
 
-        public static BE.Usuario FillObjectUsuario(DataRow dr)
+        public static UsuarioBE FillObjectUsuario(DataRow dr)
         {
-            BE.Usuario usuario = new BE.Usuario();
+            UsuarioBE usuario = new UsuarioBE();
          
 
             if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
@@ -54,7 +54,7 @@ namespace DAL.Tools
             return usuario;
         }
 
-        public static List<BE.Usuario> FillListUsuario(DataSet ds)
+        public static List<UsuarioBE> FillListUsuario(DataSet ds)
         {
             return ds.Tables[0].AsEnumerable().Select(dr => FillObjectUsuario(dr)).ToList();
         }

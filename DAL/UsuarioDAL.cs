@@ -4,12 +4,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BE;
 
 namespace DAL
 {
-    public class Usuario : Acceso
+    public class UsuarioDAL : Acceso
     {
-        public BE.Usuario GetUsuario(int idUsuario)
+        public UsuarioBE GetUsuario(int idUsuario)
         {
            
             try
@@ -20,7 +21,7 @@ namespace DAL
                 DataSet ds = ExecuteReader();
 
 
-                BE.Usuario Usuario = ds.Tables[0].Rows.Count <= 0 ? null : Tools.UsuarioTools.FillObjectUsuario(ds.Tables[0].Rows[0]);
+                BE.UsuarioBE Usuario = ds.Tables[0].Rows.Count <= 0 ? null : Tools.UsuarioTools.FillObjectUsuario(ds.Tables[0].Rows[0]);
 
                 return Usuario;
             }
@@ -30,7 +31,7 @@ namespace DAL
                 throw new Exception("Se produjo un error con la base de datos");
             }
         }
-        public List<BE.Usuario> GetUsuarios()
+        public List<UsuarioBE> GetUsuarios()
         {
 
             try
@@ -38,7 +39,7 @@ namespace DAL
                 xCommandText = Querys.UsuarioQuerys.GetUsers;
                 DataSet ds = ExecuteReader();
 
-                List<BE.Usuario> Usuarios = new List<BE.Usuario>();
+                List<BE.UsuarioBE> Usuarios = new List<BE.UsuarioBE>();
                 if (ds.Tables[0].Rows.Count > 0)
                     Usuarios = Tools.UsuarioTools.FillListUsuario(ds);
 
@@ -65,7 +66,7 @@ namespace DAL
             }
         }
 
-        public int RegistrarUsuario(BE.Usuario usuario)
+        public int RegistrarUsuario(UsuarioBE usuario)
         {
             try
             {
