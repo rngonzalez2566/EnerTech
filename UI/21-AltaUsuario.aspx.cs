@@ -36,7 +36,7 @@ namespace UI
 
                 };
 
-                usuarioBLL.RegistrarUsuario(usuario);
+                usuarioBLL.RegistrarUsuario(usuario, usuario.Password);
 
                 Response.Redirect("11-Login.aspx");
             }

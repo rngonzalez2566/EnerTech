@@ -93,10 +93,10 @@
             <!-- Incluir el logotipo de la empresa -->
             <img src="Images/logo.png" alt="Logo Software Factory" />
             <h2>Bienvenido</h2>
-            <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
             <asp:TextBox ID="txtEmail" runat="server" Placeholder="Email" TextMode="Email"></asp:TextBox><br />
             <asp:TextBox ID="txtPassword" runat="server" Placeholder="Contraseña" TextMode="Password"></asp:TextBox><br />
             <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" OnClick="btnLogin_Click" />
+            <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
             <a href="21-AltaUsuario.aspx" class="register-link">¿No tienes cuenta? Regístrate</a>
         </div>
     </form>

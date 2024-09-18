@@ -12,7 +12,7 @@ namespace DAL
     public class UsuarioDAL : Acceso
     {
        
-        public UsuarioBE GetUsuario(int idUsuario)
+        public UsuarioBE GetUsuario(string idUsuario)
         {
            
             try
@@ -105,6 +105,31 @@ namespace DAL
 
                 throw new Exception(ErrorMessages.ERR001);
             }
+        }
+
+        public void SumarContadorbloqueo(UsuarioBE usuario)
+        {
+            try
+            {
+                xCommandText = Querys.UsuarioQuerys.addBlock;
+
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@user", usuario.Id);
+
+                executeNonQuery();
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
+        public UsuarioBE Login(string user)
+        {
+            UsuarioBE usuario = GetUsuario(user);
+
+            return usuario;
         }
     }
 }

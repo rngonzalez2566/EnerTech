@@ -259,6 +259,10 @@
       <Project>{7a6e02e1-4719-4519-b725-1dd1455860f4}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{ec8634b5-2634-4a4f-aca0-f989433dcb1a}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
