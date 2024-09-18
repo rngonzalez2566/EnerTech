@@ -43,9 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Acceso.cs" />
+    <Compile Include="BitacoraDAL.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Querys\BitacoraQuerys.cs" />
     <Compile Include="Querys\UsuarioQuerys.cs" />
+    <Compile Include="Tools\BitacoraTools.cs" />
     <Compile Include="Tools\UsuarioTools.cs" />
     <Compile Include="UsuarioDAL.cs" />
   </ItemGroup>

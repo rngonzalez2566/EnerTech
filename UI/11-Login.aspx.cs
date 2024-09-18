@@ -28,7 +28,7 @@ namespace UI
                UsuarioBE usuario = usuarioBLL.Login(txtEmail.Text, txtPassword.Text);
                if (usuario != null)
                {
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("13-MenuPrincipal.aspx");
                 }
                else
                {

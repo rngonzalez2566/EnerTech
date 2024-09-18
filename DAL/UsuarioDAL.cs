@@ -59,12 +59,14 @@ namespace DAL
             try
             {
                 xCommandText = Querys.UsuarioQuerys.BlockUser;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@id", idUsuario);
                 executeNonQuery();
             }
             catch
             {
 
-                throw new Exception("Se produjo un error con la base de datos");
+                throw new Exception(ErrorMessages.ERR001);
             }
         }
 
@@ -73,12 +75,14 @@ namespace DAL
             try
             {
                 xCommandText = Querys.UsuarioQuerys.UnlockUser;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@user", idUsuario);
                 executeNonQuery();
             }
             catch
             {
 
-                throw new Exception("Se produjo un error con la base de datos");
+                throw new Exception(ErrorMessages.ERR001);
             }
         }
 

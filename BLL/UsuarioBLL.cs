@@ -17,6 +17,7 @@ namespace BLL
     public class UsuarioBLL
     {
         UsuarioDAL usuarioDAL = new UsuarioDAL();   
+        BitacoraBLL bitacora = new BitacoraBLL();
         public int RegistrarUsuario(UsuarioBE usuario, string password)
         {
             ValidarUsuario(usuario, password);
@@ -31,7 +32,8 @@ namespace BLL
                     usuario.Contador = 0;
 
                     int _id = usuarioDAL.RegistrarUsuario(usuario);
-
+                    bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente","Media",usuario);
+                    
                     scope.Complete();
 
                     return _id;
@@ -57,11 +59,14 @@ namespace BLL
                     {
 
                         usuarioDAL.DesbloquearUsuario(usuario.Id);
+                        bitacora.RegistrarBitacora($"{user} - Inicio sesion correctamente", "Baja", usuario);
+
                         return usuario;
                     }
                     else
                     {
                         usuarioDAL.SumarContadorbloqueo(usuario);
+                        bitacora.RegistrarBitacora($"{user} - Inicio de sesion incorrecto", "Medio", usuario);
                         throw new Exception(ErrorMessages.ERR012);
                     }
                 }
@@ -93,7 +98,11 @@ namespace BLL
                 throw new Exception(ErrorMessages.ERR017);
             
             if (usuario.Contador >= 3)
+            {
+                bitacora.RegistrarBitacora($"{Encriptador.Descencriptar(usuario.Email)} - Usuario Bloqueado", "Medio", usuario);
                 throw new Exception(ErrorMessages.ERR013);
+            }
+                
         }
 
         private bool ValidarFormatoPassword(string password)

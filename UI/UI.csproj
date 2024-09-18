@@ -103,7 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="11-Login.aspx" />
+    <Content Include="13-MenuPrincipal.aspx" />
     <Content Include="21-AltaUsuario.aspx" />
+    <Content Include="60-Bitacora.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -194,12 +196,26 @@
     <Compile Include="11-Login.aspx.designer.cs">
       <DependentUpon>11-Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="13-MenuPrincipal.aspx.cs">
+      <DependentUpon>13-MenuPrincipal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="13-MenuPrincipal.aspx.designer.cs">
+      <DependentUpon>13-MenuPrincipal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="21-AltaUsuario.aspx.cs">
       <DependentUpon>21-AltaUsuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="21-AltaUsuario.aspx.designer.cs">
       <DependentUpon>21-AltaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="60-Bitacora.aspx.cs">
+      <DependentUpon>60-Bitacora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="60-Bitacora.aspx.designer.cs">
+      <DependentUpon>60-Bitacora.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
