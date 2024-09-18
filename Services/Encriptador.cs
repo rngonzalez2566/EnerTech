@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class Encriptador
+    public static class Encriptador
     {
 
-        public string Encriptar(string Valor)
+        public static string Encriptar(string Valor)
         {
   
             byte[] textAsBytes = System.Text.Encoding.UTF8.GetBytes(Valor);
@@ -20,7 +20,7 @@ namespace Services
 
         }
 
-        public string Descencriptar(string Valor)
+        public static string Descencriptar(string Valor)
         {
 
             byte[] textAsBytes = Convert.FromBase64String(Valor);
@@ -30,7 +30,7 @@ namespace Services
 
         }
 
-        public string Hash(string Valor)
+        public static string Hash(string Valor)
         {
 
             UnicodeEncoding codificar = new UnicodeEncoding();

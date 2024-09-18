@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
+using Services;
 
 namespace DAL
 {
     public class UsuarioDAL : Acceso
     {
+       
         public UsuarioBE GetUsuario(int idUsuario)
         {
            
@@ -66,6 +68,20 @@ namespace DAL
             }
         }
 
+        public void DesbloquearUsuario(int idUsuario)
+        {
+            try
+            {
+                xCommandText = Querys.UsuarioQuerys.UnlockUser;
+                executeNonQuery();
+            }
+            catch
+            {
+
+                throw new Exception("Se produjo un error con la base de datos");
+            }
+        }
+
         public int RegistrarUsuario(UsuarioBE usuario)
         {
             try
@@ -87,7 +103,7 @@ namespace DAL
             catch
             {
 
-                throw new Exception("Se produjo un error con la base de datos");
+                throw new Exception(ErrorMessages.ERR001);
             }
         }
     }

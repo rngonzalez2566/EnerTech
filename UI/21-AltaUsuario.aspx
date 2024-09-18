@@ -64,12 +64,12 @@
     </style>
 </head>
 <body>
-    <div class="register-container">
+    <div class="register-container"><asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="false" CssClass="error-label"></asp:Label>
         <h2>Registro de Usuario</h2>
         <!-- Formulario de registro -->
         <form id="form1" runat="server">
             <!-- Email -->
-            <asp:TextBox ID="txtEmail" runat="server" Placeholder="Email" TextMode="Email"></asp:TextBox><br />
+            <asp:TextBox ID="txtEmail" runat="server" Placeholder="Email" TextMode="Email" OnTextChanged="txtEmail_TextChanged"></asp:TextBox><br />
             
             <!-- Password -->
             <asp:TextBox ID="txtPassword" runat="server" Placeholder="Contraseña" TextMode="Password"></asp:TextBox><br />
