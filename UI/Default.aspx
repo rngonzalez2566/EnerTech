@@ -38,7 +38,7 @@
         header {
             position: relative;
             height: 500px;
-            background: url('Images/banner-renewable-energy.jpg') no-repeat center center/cover;
+            background: url('Images/banner-renewable-energy.jpg') no-repeat center center;
             display: flex;
             justify-content: center;
             align-items: center;

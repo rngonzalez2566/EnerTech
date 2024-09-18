@@ -14,9 +14,14 @@ namespace UI
     public partial class _11_Login : System.Web.UI.Page
     {
         UsuarioBLL usuarioBLL = new UsuarioBLL();
+
+        SessionManager _sessionManager = new SessionManager();
         protected void Page_Load(object sender, EventArgs e)
         {
+            var usuario = _sessionManager.Get<UsuarioBE>("Usuario");
 
+            if (usuario != null)
+                Response.Redirect("13-MenuPrincipal.aspx");
 
         }
 
@@ -28,6 +33,7 @@ namespace UI
                UsuarioBE usuario = usuarioBLL.Login(txtEmail.Text, txtPassword.Text);
                if (usuario != null)
                {
+                    _sessionManager.Set("Usuario", usuario);
                     Response.Redirect("13-MenuPrincipal.aspx");
                 }
                else

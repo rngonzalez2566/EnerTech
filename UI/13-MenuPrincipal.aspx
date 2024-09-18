@@ -112,5 +112,9 @@
         <h1>Menú Principal</h1>
         <p>Bienvenido al sistema de administración. Selecciona una de las opciones en la barra de navegación para gestionar el sistema.</p>
     </div>
+
+    <div>
+        <h2>Hola, <%: usuario.Email %> </h2>
+    </div>
 </body>
 </html>
