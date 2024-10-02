@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BE;
 using System.Data;
+using System.IO;
 
 namespace DAL.Tools
 {
@@ -14,7 +15,9 @@ namespace DAL.Tools
         public static BitacoraBE FillObjectBitacora(DataRow dr)
         {
             BitacoraBE Bitacora = new BitacoraBE();
+            UsuarioDAL user = new UsuarioDAL();
             Bitacora.usuario = new UsuarioBE();
+
 
             if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
                 Bitacora.Id = Convert.ToInt32(dr["Id"]);
@@ -31,7 +34,16 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("id_usuario") && !Convert.IsDBNull(dr["id_usuario"]))
                 Bitacora.usuario.Id = Convert.ToInt32(dr["id_usuario"]);
 
-
+            if (Bitacora.usuario.Id == 0)
+            {
+                Bitacora.usuario.Nombre = "Sistema";
+            }
+            else
+            {
+                Bitacora.usuario = user.GetUsuarioID(Bitacora.usuario.Id);
+                Bitacora.usuario.Nombre = Services.Encriptador.Descencriptar(Bitacora.usuario.Nombre);
+            }
+           
 
             return Bitacora;
         }

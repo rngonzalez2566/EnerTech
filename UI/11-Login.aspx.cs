@@ -45,7 +45,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                lblMessage.Text = $"Error al intentar iniciar sesion: {ex.Message}";
+                lblMessage.Text = ex.Message;
                 lblMessage.Visible = true;
             }
         }

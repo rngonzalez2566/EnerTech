@@ -30,7 +30,29 @@ namespace DAL
 			catch
 			{
 
-                throw new Exception("Se produjo un error con la base de datos");
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
+        public UsuarioBE GetUsuarioID(int idUsuario)
+        {
+
+            try
+            {
+                xCommandText = Querys.UsuarioQuerys.GetUser_id;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@user", idUsuario);
+                DataSet ds = ExecuteReader();
+
+
+                BE.UsuarioBE Usuario = ds.Tables[0].Rows.Count <= 0 ? null : Tools.UsuarioTools.FillObjectUsuario(ds.Tables[0].Rows[0]);
+
+                return Usuario;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
             }
         }
         public List<UsuarioBE> GetUsuarios()
@@ -50,7 +72,7 @@ namespace DAL
             catch
             {
 
-                throw new Exception("Se produjo un error con la base de datos");
+                throw new Exception(ErrorMessages.ERR001);
             }
         }
 

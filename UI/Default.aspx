@@ -28,10 +28,22 @@
             margin: 0 15px;
             font-size: 18px;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         nav a:hover {
             color: #aed581;
+        }
+
+        .btn-login {
+            padding: 8px 15px;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+
+        .btn-login:hover {
+            background-color: white;
+            color: #00796b;
         }
 
         /* Encabezado con imagen */
@@ -57,18 +69,6 @@
             margin-top: 10px;
         }
 
-        /* Animación suave */
-        .content section {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .content.visible section {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
         /* Secciones */
         .content {
             max-width: 1200px;
@@ -85,15 +85,12 @@
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Ajuste de tamaño de imágenes */
         .content section img {
-            width: 50%; /* Reduce el ancho al 50% */
-            height: auto;
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
             border-radius: 10px;
             margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .content section h2 {
@@ -116,30 +113,34 @@
             padding: 20px 0;
         }
 
-        /* Animaciones */
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        footer .footer-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 50px;
         }
+
+        footer .footer-content div {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        footer h4 {
+            margin-bottom: 10px;
+        }
+
     </style>
 
-    <!-- Barra de navegación con enlace al login -->
+    <!-- Barra de navegación -->
     <nav>
-        <a href="Home.aspx">Inicio</a>
-        <a href="About.aspx">Quiénes Somos</a>
-        <a href="Services.aspx">Servicios</a>
-        <a href="Contact.aspx">Contacto</a>
-        <a href="11-Login.aspx" class="btn btn-login">Iniciar Sesión</a> <!-- Enlace al formulario de login -->
+        <a href="#quienes-somos">Quiénes Somos</a>
+        <a href="#mision">Misión</a>
+        <a href="#vision">Visión</a>
+        <a href="#footer">Contacto</a> <!-- Este enlace apunta al footer -->
+        <a href="11-Login.aspx" class="btn-login">Iniciar Sesión</a> <!-- Opción de iniciar sesión -->
     </nav>
 
     <!-- Encabezado con imagen de fondo -->
-    <header>
+    <header id="inicio">
         <h1>EnerTech</h1>
         <p>Innovación en Energías Renovables</p>
     </header>
@@ -147,8 +148,19 @@
     <!-- Contenido principal -->
     <div class="content" id="mainContent">
 
+        <!-- Sección de Quiénes Somos -->
+        <section id="quienes-somos">
+            <img src="Images/team-image.jpg" alt="Quiénes Somos" />
+            <h2>Quiénes Somos</h2>
+            <p>
+                Somos una empresa tecnológica comprometida con el desarrollo de soluciones innovadoras para la industria de energías renovables.
+                Con un equipo multidisciplinario de ingenieros, desarrolladores y expertos en tecnología, trabajamos día a día
+                para ofrecer software que potencia la eficiencia y sostenibilidad en cada proyecto.
+            </p>
+        </section>
+
         <!-- Sección de Misión -->
-        <section>
+        <section id="mision">
             <img src="Images/mission-image.jpg" alt="Nuestra Misión" />
             <h2>Nuestra Misión</h2>
             <p>
@@ -159,7 +171,7 @@
         </section>
 
         <!-- Sección de Visión -->
-        <section>
+        <section id="vision">
             <img src="Images/vision-image.jpg" alt="Nuestra Visión" />
             <h2>Nuestra Visión</h2>
             <p>
@@ -167,35 +179,27 @@
                 hacia un futuro más verde y sostenible mediante el uso de tecnología de vanguardia.
             </p>
         </section>
-
-        <!-- Sección de Quiénes Somos -->
-        <section>
-            <img src="Images/team-image.jpg" alt="Quiénes Somos" />
-            <h2>Quiénes Somos</h2>
-            <p>
-                Somos una empresa tecnológica comprometida con el desarrollo de soluciones innovadoras para la industria de energías renovables.
-                Con un equipo multidisciplinario de ingenieros, desarrolladores y expertos en tecnología, trabajamos día a día
-                para ofrecer software que potencia la eficiencia y sostenibilidad en cada proyecto.
-            </p>
-        </section>
+    
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
+        <div class="footer-content">
+            <div>
+                <h4>EnerTech</h4>
+                <p>Innovación en Energías Renovables</p>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <p>Teléfono: +54 11 1234-5678</p>
+                <p>Email: contacto@enertech.com</p>
+            </div>
+            <div>
+                <h4>Dirección</h4>
+                <p>Av. Siempre Viva 742, Buenos Aires, Argentina</p>
+            </div>
+        </div>
         &copy; 2024 EnerTech | Energías Renovables - Todos los derechos reservados.
     </footer>
-
-    <script>
-        // Animación cuando se desplaza la página
-        window.addEventListener('scroll', function () {
-            var content = document.getElementById('mainContent');
-            var contentPosition = content.getBoundingClientRect().top;
-            var screenPosition = window.innerHeight / 1.3;
-
-            if (contentPosition < screenPosition) {
-                content.classList.add('visible');
-            }
-        });
-    </script>
 
 </asp:Content>

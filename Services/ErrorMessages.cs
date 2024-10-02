@@ -33,6 +33,7 @@ namespace Services
         public const string ERR023 = "[ERR023] No se pudo asignar un punto de venta al comprobante.";
         public const string ERR024 = "[ERR024] El comprobante no se pudo numerar.";
         public const string ERR025 = "[ERR025] No se pudo autorizar la Venta en AFIP.";
+        public const string ERR026 = "[ERR026] La fecha Desde no puede ser mayor a la fecha hasta";
     }
 
 }

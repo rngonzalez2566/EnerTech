@@ -50,8 +50,14 @@ namespace BLL
         {
             try
             {
+                if (string.IsNullOrEmpty(user)) throw new Exception(ErrorMessages.ERR002);
+                if (string.IsNullOrEmpty(password)) throw new Exception(ErrorMessages.ERR002);
+
                 UsuarioBE usuario = usuarioDAL.Login(Encriptador.Encriptar(user));
-                ValidarUsuario(usuario, password);
+
+                if (usuario != null)
+                    ValidarUsuarioLogin(usuario, password);
+
 
                 if (usuario != null)
                 {
@@ -103,6 +109,17 @@ namespace BLL
                 throw new Exception(ErrorMessages.ERR013);
             }
                 
+        }
+
+        private void ValidarUsuarioLogin(UsuarioBE usuario, string password)
+        {
+
+            if (usuario.Contador >= 3)
+            {
+                bitacora.RegistrarBitacora($"{Encriptador.Descencriptar(usuario.Email)} - Usuario Bloqueado", "Medio", usuario);
+                throw new Exception(ErrorMessages.ERR013);
+            }
+
         }
 
         private bool ValidarFormatoPassword(string password)

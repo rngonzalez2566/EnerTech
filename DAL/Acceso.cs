@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Services;
 
 namespace DAL
 {
@@ -120,14 +121,14 @@ namespace DAL
             {
 
                 TR.Rollback();
-                throw new Exception("ocurrio un Error en BD:" + exc.Message);
+                throw new Exception(ErrorMessages.ERR001);
             }
 
             catch (Exception exc2)
             {
 
                 TR.Rollback();
-                throw new Exception("ocurrio un Error :" + exc2.Message);
+                throw new Exception(ErrorMessages.ERR001);
             }
             finally
             {
@@ -166,12 +167,12 @@ namespace DAL
             catch (SqlException exc)
             {
                 transaction.Rollback();
-                throw new Exception("Ocurrió un error en BD: " + exc.Message);
+                throw new Exception(ErrorMessages.ERR001);
             }
             catch (Exception exc2)
             {
                 transaction.Rollback();
-                throw new Exception("Ocurrió un error: " + exc2.Message);
+                throw new Exception(ErrorMessages.ERR001);
             }
             finally
             {

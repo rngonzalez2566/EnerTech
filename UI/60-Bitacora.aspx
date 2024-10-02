@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="60-Bitacora.aspx.cs" Inherits="UI._60_Bitacora" %>
 
 
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -14,7 +13,6 @@
             background-color: #f4f4f4;
         }
 
-        /* Contenedor de la bitácora */
         .bitacora-container {
             max-width: 1200px;
             margin: 50px auto;
@@ -25,7 +23,6 @@
             text-align: center;
         }
 
-        /* Estilos del formulario de filtro */
         .filter-form {
             display: flex;
             justify-content: center;
@@ -35,7 +32,7 @@
         }
 
         .filter-form div {
-            flex: 1 1 250px; /* Asegura que los filtros ocupen el mismo ancho */
+            flex: 1 1 250px;
         }
 
         .filter-form input[type="text"],
@@ -63,7 +60,6 @@
             background-color: #005f56;
         }
 
-        /* Estilos de la tabla */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -84,74 +80,108 @@
         table tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
+        /* Estilos para los botones de paginación */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pagination-buttons input[type="button"] {
+            background-color: #00796b;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .pagination-buttons input[type="button"]:hover {
+            background-color: #005f56;
+        }
+
+        .page-info {
+            font-size: 16px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <div class="bitacora-container">
-        <h1>Bitácora</h1>
-        <!-- Formulario de filtros -->
-        <form id="filterForm" class="filter-form" runat="server">
-            <!-- Filtro por Usuario -->
-            <div>
-                <label for="txtUsuario">Usuario</label>
-                <asp:TextBox ID="txtUsuario" runat="server" Placeholder="Usuario"></asp:TextBox>
+    <form id="mainForm" runat="server">
+        <div class="bitacora-container">
+            <h1>Bitácora</h1>
+
+            <div class="filter-form">
+                <div>
+                    <label for="txtUsuario">Usuario</label>
+                    <asp:TextBox ID="txtUsuario" runat="server" Placeholder="Usuario"></asp:TextBox>
+                </div>
+                <div>
+                    <label for="ddlCriticidad">Criticidad</label>
+                    <asp:DropDownList ID="ddlCriticidad" runat="server">
+                        <asp:ListItem Value="">Seleccionar</asp:ListItem>
+                        <asp:ListItem Value="Baja">Baja</asp:ListItem>
+                        <asp:ListItem Value="Media">Media</asp:ListItem>
+                        <asp:ListItem Value="Alta">Alta</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div>
+                    <label for="txtFechaDesde">Fecha Desde</label>
+                    <asp:TextBox ID="txtFechaDesde" runat="server" TextMode="Date"></asp:TextBox>
+                </div>
+                <div>
+                    <label for="txtFechaHasta">Fecha Hasta</label>
+                    <asp:TextBox ID="txtFechaHasta" runat="server" TextMode="Date"></asp:TextBox>
+                </div>
+                <div style="flex-basis: 100%; text-align: center;">
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
+                </div>
             </div>
 
-            <!-- Filtro por Criticidad -->
-            <div>
-                <label for="ddlCriticidad">Criticidad</label>
-                <asp:DropDownList ID="ddlCriticidad" runat="server">
-                    <asp:ListItem Value="">Seleccionar</asp:ListItem>
-                    <asp:ListItem Value="Baja">Baja</asp:ListItem>
-                    <asp:ListItem Value="Media">Media</asp:ListItem>
-                    <asp:ListItem Value="Alta">Alta</asp:ListItem>
-                </asp:DropDownList>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Criticidad</th>
+                        <th>Detalle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% foreach (var movimiento in Registros) { %>
+                    <tr>
+                        <td><%= movimiento.Fecha.ToString("dd/MM/yyyy HH:mm") %></td>
+                        <td><%= movimiento.usuario.Nombre %></td>
+                        <td><%= movimiento.Criticidad.ToString() %></td>
+                        <td><%= movimiento.Detalle %></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+
+            <!-- Contenedor para la paginación -->
+            <asp:Label runat="server" Text="Label" ForeColor="Red" ID="lblErrorMessage" Visible="False"></asp:Label>
+            <div class="pagination-container">
+                <!-- Información de la página actual y total -->
+                <div class="page-info">
+                    Página <asp:Label ID="lblCurrentPage" runat="server" Text="1"></asp:Label> de <asp:Label ID="lblTotalPages" runat="server" Text="1"></asp:Label>
+                </div>
+
+                <!-- Botones de Paginación -->
+                <div class="pagination-buttons">
+                    <asp:Button ID="btnAnterior" runat="server" Text="Anterior" OnClick="btnAnterior_Click" Visible="false" />
+                    <asp:Button ID="btnSiguiente" runat="server" Text="Siguiente" OnClick="btnSiguiente_Click" Visible="false" />
+                </div>
             </div>
-
-            <!-- Filtro por Fecha Desde -->
-            <div>
-                <label for="txtFechaDesde">Fecha Desde</label>
-                <asp:TextBox ID="txtFechaDesde" runat="server" TextMode="Date"></asp:TextBox>
-            </div>
-
-            <!-- Filtro por Fecha Hasta -->
-            <div>
-                <label for="txtFechaHasta">Fecha Hasta</label>
-                <asp:TextBox ID="txtFechaHasta" runat="server" TextMode="Date"></asp:TextBox>
-            </div>
-
-            <!-- Botón Buscar -->
-            <div style="flex-basis: 100%; text-align: center;">
-                <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="btnBuscar_Click" />
-            </div>
-        </form>
-
-        <!-- Tabla para mostrar los resultados filtrados -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Usuario</th>
-                    <th>Criticidad</th>
-                    <th>Detalle</th>
-                </tr>
-            </thead>
- 
-
-                 <tbody>
-                <% foreach (var movimiento in Registros)
-                    { %>
-                <tr>
-                    <td><%= movimiento.Fecha.ToString("dd/MM/yyyy HH:mm") %></td>
-                    <td><%= movimiento.usuario.Id %></td>
-                    <td><%= movimiento.Criticidad.ToString() %></td>
-                    <td><%= movimiento.Detalle %></td>
-                </tr>
-
-
-                <% } %>
-              </tbody>
-        </table>
-    </div>
+        </div>
+    </form>
 </body>
 </html>

@@ -15,5 +15,6 @@ namespace DAL.Querys
         "OUTPUT inserted.Id VALUES (@email, @Password, @RazonSocial, @Identificacion,0,'Activo', @Nombre, @Apellido, @TipoDoc, @TipoCliente)";
         public const string UnlockUser = "UPDATE Usuario SET Contador = 0 WHERE Id = @user ";
         public const string addBlock = "UPDATE Usuario SET Contador = Contador + 1 WHERE Id = @user ";
+        public const string GetUser_id = "SELECT TOP 1 * FROM Usuario WHERE id = @user";
     }
 }
