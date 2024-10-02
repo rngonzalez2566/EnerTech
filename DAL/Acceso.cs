@@ -182,8 +182,6 @@ namespace DAL
             return outputId;
         }
 
-
-
         public virtual void ExecuteNonQueryNonTransaction()
         {
             Conectar();

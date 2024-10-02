@@ -109,7 +109,8 @@ namespace UI
 
                 if (fechaHasta.HasValue)
                 {
-                    allRecords = allRecords.Where(r => r.Fecha <= fechaHasta.Value).ToList();
+                    var fechaHastaInclusiva = fechaHasta.Value.AddDays(1).Date;
+                    allRecords = allRecords.Where(r => r.Fecha < fechaHastaInclusiva).ToList();
                 }
 
                 int skip = (pageNumber - 1) * PageSize;

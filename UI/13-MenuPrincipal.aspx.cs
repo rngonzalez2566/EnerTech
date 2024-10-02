@@ -122,7 +122,7 @@ namespace UI
                         <a href='#'>Alta Movimiento de Stock</a>
                     </div>
                 </div>
-                <a href='9#'>Catálogo</a>
+                <a href='#'>Catálogo</a>
                 <a href='#'>Ventas</a>
                 <div class='dropdown'>
                     <a href='#'>Negocio</a>
