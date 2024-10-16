@@ -107,6 +107,8 @@
     <Content Include="14-Logout.aspx" />
     <Content Include="21-AltaUsuario.aspx" />
     <Content Include="60-Bitacora.aspx" />
+    <Content Include="70-Productos.aspx" />
+    <Content Include="71-AltaProducto.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -223,6 +225,20 @@
     </Compile>
     <Compile Include="60-Bitacora.aspx.designer.cs">
       <DependentUpon>60-Bitacora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="70-Productos.aspx.cs">
+      <DependentUpon>70-Productos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="70-Productos.aspx.designer.cs">
+      <DependentUpon>70-Productos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="71-AltaProducto.aspx.cs">
+      <DependentUpon>71-AltaProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="71-AltaProducto.aspx.designer.cs">
+      <DependentUpon>71-AltaProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

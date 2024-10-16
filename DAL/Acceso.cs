@@ -57,7 +57,7 @@ namespace DAL
 
             try
             {
-
+                string debugSql = GenerarDebugSql(command);
                 command.ExecuteNonQuery();
                 TR.Commit();
             }
@@ -117,14 +117,14 @@ namespace DAL
                 return ds;
             }
 
-            catch (SqlException exc)
+            catch (SqlException)
             {
 
                 TR.Rollback();
                 throw new Exception(ErrorMessages.ERR001);
             }
 
-            catch (Exception exc2)
+            catch (Exception)
             {
 
                 TR.Rollback();
@@ -161,15 +161,16 @@ namespace DAL
 
             try
             {
+                string debugSql = GenerarDebugSql(command);
                 outputId = (int)command.ExecuteScalar();
                 transaction.Commit();
             }
-            catch (SqlException exc)
+            catch (SqlException)
             {
                 transaction.Rollback();
                 throw new Exception(ErrorMessages.ERR001);
             }
-            catch (Exception exc2)
+            catch (Exception)
             {
                 transaction.Rollback();
                 throw new Exception(ErrorMessages.ERR001);
@@ -212,6 +213,26 @@ namespace DAL
             {
                 Desconectar();
             }
+        }
+
+        private string GenerarDebugSql(SqlCommand command)
+        {
+            string query = command.CommandText;
+
+            foreach (SqlParameter p in command.Parameters)
+            {
+                string value = (p.Value == null || p.Value == DBNull.Value) ? "NULL" : p.Value.ToString();
+
+                // Aquí puedes ajustar el formato dependiendo del tipo de datos
+                if (p.SqlDbType == SqlDbType.VarChar || p.SqlDbType == SqlDbType.NVarChar || p.SqlDbType == SqlDbType.Char)
+                {
+                    value = $"'{value}'";  // Poner comillas simples para cadenas
+                }
+
+                query = query.Replace(p.ParameterName, value);  // Reemplaza el nombre del parámetro con su valor
+            }
+
+            return query;
         }
     }
 }
