@@ -29,6 +29,21 @@ namespace BLL
             }      
         }
 
+        public List<ProductoBE> GetCatalogo()
+        {
+            try
+            {
+                List<ProductoBE> productos = productoDAL.GetCatalogo();
+
+                return productos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+
         public ProductoBE GetProductoCodigo(string codigo)
         {
             try

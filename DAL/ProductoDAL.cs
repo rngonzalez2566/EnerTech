@@ -78,6 +78,27 @@ namespace DAL
             }
         }
 
+        public List<ProductoBE> GetCatalogo()
+        {
+
+            try
+            {
+                xCommandText = Querys.ProductoQuerys.GetCatalogo;
+                DataSet ds = ExecuteReader();
+
+                List<BE.ProductoBE> productos = new List<BE.ProductoBE>();
+                if (ds.Tables[0].Rows.Count > 0)
+                    productos = Tools.ProductoTools.FillListProducto(ds);
+
+                return productos;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
         public int RegistrarProducto(ProductoBE producto)
         {
             try
@@ -92,9 +113,10 @@ namespace DAL
                 xParameters.Parameters.AddWithValue("@imagen", producto.Imagen);
                 xParameters.Parameters.AddWithValue("@catalogo", false);
                 xParameters.Parameters.AddWithValue("@cantidad", producto.Cantidad);
-              
+                xParameters.Parameters.AddWithValue("@iva", producto.codigoIVA.Codigo);
 
-         
+
+
 
                 return ExecuteNonEscalar();
             }

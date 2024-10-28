@@ -59,12 +59,15 @@
     <Compile Include="Querys\MarcaQuerys.cs" />
     <Compile Include="Querys\ProductoQuerys.cs" />
     <Compile Include="Querys\UsuarioQuerys.cs" />
+    <Compile Include="Querys\VentaQuerys.cs" />
     <Compile Include="Tools\BitacoraTools.cs" />
     <Compile Include="Tools\CarritoTools.cs" />
     <Compile Include="Tools\CategoriaTools.cs" />
+    <Compile Include="Tools\Detalle_VentaTools.cs" />
     <Compile Include="Tools\MarcaTools.cs" />
     <Compile Include="Tools\ProductoTools.cs" />
     <Compile Include="Tools\UsuarioTools.cs" />
+    <Compile Include="Tools\VentaTools.cs" />
     <Compile Include="UsuarioDAL.cs" />
   </ItemGroup>
   <ItemGroup>

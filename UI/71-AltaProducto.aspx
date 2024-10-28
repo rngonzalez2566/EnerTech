@@ -118,6 +118,12 @@
             </div>
 
             <div class="form-group">
+                <label for="ddlIVA">IVA:</label>
+                <asp:DropDownList ID="ddlIVA" runat="server" CssClass="form-control"></asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlIVA" InitialValue="" ErrorMessage="Debe seleccionar el IVA" CssClass="error-message" Display="Dynamic" />
+            </div>
+
+            <div class="form-group">
                 <label for="txtCantidad">Cantidad:</label>
                 <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvCantidad" runat="server" ControlToValidate="txtCantidad" ErrorMessage="La cantidad es obligatoria" CssClass="error-message" Display="Dynamic" />

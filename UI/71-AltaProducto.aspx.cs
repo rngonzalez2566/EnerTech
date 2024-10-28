@@ -1,4 +1,5 @@
 ﻿using BE;
+using BE.AFIP;
 using BLL;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace UI
 
                 listMarca = _serviceMarca.GetMarcas();
                 listCategoria = _serviceCategoria.GetCategorias();
+                List<CodigoIVA> listIVA = CodigoIVA.ObtenerListaIVA();
 
                 // Cargar las marcas en el DropDownList de Marca
                 ddlMarca.DataSource = listMarca;
@@ -43,6 +45,21 @@ namespace UI
 
                 // Agregar un ítem por defecto para seleccionar una opción
                 ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", ""));
+
+                ddlCategoria.DataSource = listCategoria;
+                ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
+                ddlCategoria.DataValueField = "Id";     // Valor que se enviará
+                ddlCategoria.DataBind();
+
+
+                ddlIVA.DataSource = listIVA;
+                ddlIVA.DataTextField = "Porcentaje";
+                ddlIVA.DataValueField = "Codigo";
+                ddlIVA.DataBind();
+
+
+                ddlIVA.Items.Insert(0, new ListItem("Seleccione una Tasa de IVA", ""));
+
             }
         }
 
@@ -56,6 +73,7 @@ namespace UI
                 string categoria = ddlCategoria.SelectedValue;
                 string marca = ddlMarca.SelectedValue;
                 int cantidad = int.Parse(txtCantidad.Text);
+                int codIva = Convert.ToInt32(ddlIVA.SelectedValue);
 
                 // Manejar la subida de la imagen
                 string rutaImagen = string.Empty;
@@ -75,7 +93,8 @@ namespace UI
                     Categoria = new CategoriaBE { Id = int.Parse(categoria), Nombre = ddlCategoria.SelectedItem.Text },
                     Marca = new MarcaBE { Id = int.Parse(marca), Nombre = ddlMarca.SelectedItem.Text },
                     Cantidad = cantidad,
-                    Imagen = rutaImagen
+                    Imagen = rutaImagen,
+                    codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva)
                 };
 
                 // Código para guardar el producto en la base de datos o lógica adicional

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE.AFIP;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,7 @@ namespace BE
         public bool Catalogo { get; set; }
 
         public Decimal Precio { get; set; }
+
+        public CodigoIVA codigoIVA { get; set; }
     }
 }

@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AFIP\caeas.cs" />
+    <Compile Include="AFIP\CodigoIVA.cs" />
     <Compile Include="AFIP\PuntoDeVenta.cs" />
     <Compile Include="AFIP\TipoPV.cs" />
     <Compile Include="AFIP\tokenAFIP.cs" />
     <Compile Include="BitacoraBE.cs" />
     <Compile Include="CarritoBE.cs" />
     <Compile Include="CategoriaBE.cs" />
+    <Compile Include="Detalle_VentaBE.cs" />
     <Compile Include="MarcaBE.cs" />
     <Compile Include="Negocio.cs" />
     <Compile Include="ProductoBE.cs" />

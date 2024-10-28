@@ -48,7 +48,7 @@ namespace UI
         private void CargarCatalogo()
         {
             // Obtener los productos del catálogo desde la base de datos o servicio
-            List<ProductoBE> productos = _productoService.GetProductos();
+            List<ProductoBE> productos = _productoService.GetCatalogo();
 
             // Configurar el Repeater con los productos
             rptCatalogo.DataSource = productos;

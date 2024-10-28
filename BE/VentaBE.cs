@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using BE.AFIP;
 namespace BE
 {
     public class VentaBE
@@ -12,7 +12,7 @@ namespace BE
         public DateTime Fecha { get; set; }
         public string Detalle { get; set; }
 
-        public int CodigoAutorizacion { get; set; }
+        public long CodigoAutorizacion { get; set; }
 
         public DateTime FechaVtoCae { get; set; }
         public int PuntoDeVenta { get; set; }
@@ -24,5 +24,9 @@ namespace BE
         public float Total {  get; set; }
         public float IVA { get; set; }
 
-    }
+        public float TotalGravado { get; set; }
+
+        public TipoPV  TipoAutorizacion { get; set; }
+
+}
 }

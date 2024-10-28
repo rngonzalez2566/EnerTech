@@ -1,4 +1,5 @@
 ﻿using BE;
+using BE.AFIP;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +18,7 @@ namespace DAL.Tools
             CategoriaDAL categoria = new CategoriaDAL();
             producto.Marca = new MarcaBE();
             producto.Categoria = new CategoriaBE();
+           
 
 
             if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
@@ -45,6 +47,10 @@ namespace DAL.Tools
 
             if (dr.Table.Columns.Contains("Precio") && !Convert.IsDBNull(dr["Precio"]))
                 producto.Precio = Convert.ToDecimal(dr["Precio"]);
+
+
+            if (dr.Table.Columns.Contains("codigo_iva") && !Convert.IsDBNull(dr["codigo_iva"]))
+                producto.codigoIVA = CodigoIVA.ObtenerTipoIVA(Convert.ToInt32(dr["codigo_iva"]));
 
             return producto;
         }
