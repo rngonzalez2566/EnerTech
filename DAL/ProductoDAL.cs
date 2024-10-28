@@ -35,8 +35,28 @@ namespace DAL
             }
         }
 
+        public ProductoBE GetProductoID(int id)
+        {
 
-      
+            try
+            {
+                xCommandText = Querys.ProductoQuerys.GetProduct_ID;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@id", id);
+                DataSet ds = ExecuteReader();
+
+
+                BE.ProductoBE Producto = ds.Tables[0].Rows.Count <= 0 ? null : Tools.ProductoTools.FillObjectProducto(ds.Tables[0].Rows[0]);
+
+                return Producto;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
         public List<ProductoBE> GetProductos()
         {
 
@@ -110,5 +130,7 @@ namespace DAL
                 throw new Exception(ErrorMessages.ERR001);
             }
         }
+
+
     }
 }

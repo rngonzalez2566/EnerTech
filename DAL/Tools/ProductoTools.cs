@@ -43,7 +43,8 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("id_categoria") && !Convert.IsDBNull(dr["id_categoria"]))
                 producto.Categoria = categoria.GetCategoriaID(Convert.ToInt32(dr["id_categoria"]));
 
-
+            if (dr.Table.Columns.Contains("Precio") && !Convert.IsDBNull(dr["Precio"]))
+                producto.Precio = Convert.ToDecimal(dr["Precio"]);
 
             return producto;
         }

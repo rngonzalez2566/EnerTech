@@ -103,12 +103,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="11-Login.aspx" />
+    <Content Include="120-Carrito.aspx" />
+    <Content Include="121-Compras.aspx" />
     <Content Include="13-MenuPrincipal.aspx" />
     <Content Include="14-Logout.aspx" />
     <Content Include="21-AltaUsuario.aspx" />
     <Content Include="60-Bitacora.aspx" />
     <Content Include="70-Productos.aspx" />
     <Content Include="71-AltaProducto.aspx" />
+    <Content Include="90-Catalogo.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -198,6 +201,20 @@
     <Compile Include="11-Login.aspx.designer.cs">
       <DependentUpon>11-Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="120-Carrito.aspx.cs">
+      <DependentUpon>120-Carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="120-Carrito.aspx.designer.cs">
+      <DependentUpon>120-Carrito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="121-Compras.aspx.cs">
+      <DependentUpon>121-Compras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="121-Compras.aspx.designer.cs">
+      <DependentUpon>121-Compras.aspx</DependentUpon>
+    </Compile>
     <Compile Include="13-MenuPrincipal.aspx.cs">
       <DependentUpon>13-MenuPrincipal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -239,6 +256,13 @@
     </Compile>
     <Compile Include="71-AltaProducto.aspx.designer.cs">
       <DependentUpon>71-AltaProducto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="90-Catalogo.aspx.cs">
+      <DependentUpon>90-Catalogo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="90-Catalogo.aspx.designer.cs">
+      <DependentUpon>90-Catalogo.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />

@@ -25,7 +25,7 @@ namespace UI
         private void CargarProductos()
         {
 
-            List<ProductoBE> productos = _productoService.GetProductos();
+          productos = _productoService.GetProductos();
 
       
             gvProductos.DataSource = productos;

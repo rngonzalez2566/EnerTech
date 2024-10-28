@@ -46,12 +46,14 @@
     <Compile Include="AFIP\TipoPV.cs" />
     <Compile Include="AFIP\tokenAFIP.cs" />
     <Compile Include="BitacoraBE.cs" />
+    <Compile Include="CarritoBE.cs" />
     <Compile Include="CategoriaBE.cs" />
     <Compile Include="MarcaBE.cs" />
     <Compile Include="Negocio.cs" />
     <Compile Include="ProductoBE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioBE.cs" />
+    <Compile Include="VentaBE.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

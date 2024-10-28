@@ -13,5 +13,7 @@ namespace DAL.Querys
         public const string addProduct = "INSERT INTO Producto(Codigo,Descripcion,id_marca,id_categoria,Imagen,Catalogo,Cantidad) " +
                                             "OUTPUT inserted.Id VALUES (@codigo, @descripcion,@marca,@categoria,@imagen,@catalogo,@cantidad)";
         public const string Publicar_Catalogo = "UPDATE Producto SET Catalogo = @catalogo WHERE codigo = @code ";
+
+        public const string GetProduct_ID = "SELECT  * FROM Producto where id =@id";
     }
 }

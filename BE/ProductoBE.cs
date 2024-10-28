@@ -17,5 +17,7 @@ namespace BE
         public int Cantidad { get; set; }
 
         public bool Catalogo { get; set; }
+
+        public Decimal Precio { get; set; }
     }
 }
