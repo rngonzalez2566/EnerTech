@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 namespace BE.AFIP
 {
-  
+
 
     public class TipoPV
     {
@@ -16,8 +16,8 @@ namespace BE.AFIP
         // Lista estática de tipos de IVA predefinidos
         public static readonly List<TipoPV> TiposPV = new List<TipoPV>
         {
-            new TipoPV("CAE"),      
-            new TipoPV("CAEA"),     
+            new TipoPV("CAE"),
+            new TipoPV("CAEA"),
 
         };
 
@@ -32,3 +32,4 @@ namespace BE.AFIP
             return TiposPV;
         }
     }
+}

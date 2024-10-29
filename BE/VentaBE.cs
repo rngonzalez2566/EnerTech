@@ -21,12 +21,16 @@ namespace BE
         public UsuarioBE usuario { get; set; }
         public string TipoComprobante {  get; set; }
 
-        public float Total {  get; set; }
-        public float IVA { get; set; }
+        public decimal Total {  get; set; }
+        public decimal IVA { get; set; }
 
-        public float TotalGravado { get; set; }
+        public decimal TotalGravado { get; set; }
 
         public TipoPV  TipoAutorizacion { get; set; }
 
-}
+        public List<Detalle_VentaBE> Items { get; set; }
+
+        public List<RelatedTaxesBE> RelatedTaxes { get; set; }
+
+    }
 }

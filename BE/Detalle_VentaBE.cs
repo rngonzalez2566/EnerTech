@@ -14,9 +14,9 @@ namespace BE
         public string Descripcion { get; set; }
         public string Codigo { get; set; }
         public int Cantidad { get; set; }
-        public float PrecioUnitario { get; set; }
-        public float Total { get; set; }
-        public float IVA { get; set; }
+        public decimal PrecioUnitario { get; set; }
+        public decimal Total { get; set; }
+        public decimal IVA { get; set; }
         public VentaBE venta { get; set; }
         public CodigoIVA codigoIVA { get; set; }
 

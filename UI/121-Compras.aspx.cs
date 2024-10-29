@@ -1,7 +1,9 @@
 ﻿using BE;
+using BE.AFIP;
 using BLL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -16,6 +18,7 @@ namespace UI
         UsuarioBLL _usuarioService = new UsuarioBLL();
         public UsuarioBE usuario { get; set; }
         SessionManager _sessionManager = new SessionManager();
+        VentaBLL _serviceVenta = new VentaBLL();
         protected void Page_Load(object sender, EventArgs e)
         {
             usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
@@ -51,6 +54,100 @@ namespace UI
         {
             // Lógica para procesar el pago y finalizar la compra
             // Redirigir o mostrar mensaje de confirmación
+
+            try
+            {
+                VentaBE venta = new VentaBE();
+
+                
+                decimal Base = 0;
+                decimal IVA = 0;
+
+                var taxGroups = carrito
+               .GroupBy(item => item.producto.codigoIVA.Codigo)
+               .Select(g =>
+               {
+                   var codigoIVA = CodigoIVA.ObtenerTipoIVA(g.Key);
+                   decimal tasaIVA = codigoIVA.Porcentaje / 100;
+                   decimal baseImponible = Math.Round(g.Sum(item => (item.producto.Precio * item.Cantidad) / (1 + tasaIVA)), 2);
+                   decimal totalIVA = Math.Round(g.Sum(item => (item.producto.Precio * item.Cantidad)) - baseImponible, 2);
+                   Base += baseImponible;
+                   IVA += totalIVA;
+
+                   return new RelatedTaxesBE
+                   {
+                       codigoIVA = codigoIVA.Codigo,
+                       TasaIVA = codigoIVA.Porcentaje,
+                       BaseImponible = baseImponible,
+                       TotalIVA = totalIVA
+                   };
+               })
+               .ToList();
+
+               
+                venta.RelatedTaxes = taxGroups;
+                venta.Fecha = DateTime.Now;
+                venta.Detalle = "Venta";
+                venta.usuario = usuario;
+                venta.TotalGravado = Math.Round(Base,2);
+                venta.IVA = Math.Round(IVA, 2);
+                venta.Total = carrito.Sum(p => p.producto.Precio * p.Cantidad);
+
+                List<Detalle_VentaBE> listDetalle = new List<Detalle_VentaBE>();
+                foreach (var item in carrito)
+                {
+                    decimal baseImponible = Math.Round((item.producto.Precio * item.Cantidad) / (1 + (item.producto.codigoIVA.Porcentaje/100)), 2);
+                    decimal totalIVA = Math.Round((item.producto.Precio * item.Cantidad) - baseImponible, 2);
+                    Detalle_VentaBE detalle = new BE.Detalle_VentaBE
+                    {
+
+                        Producto = item.producto,
+                        Descripcion = item.producto.Descripcion,
+                        Codigo = item.producto.Codigo,  
+                        Cantidad = item.Cantidad,
+                        PrecioUnitario = item.producto.Precio,
+                        Total = item.Cantidad * item.producto.Precio,
+                        IVA = totalIVA,
+                        codigoIVA = item.producto.codigoIVA
+                    };
+                    listDetalle.Add(detalle);
+                }
+
+                venta.Items = listDetalle;
+
+
+
+                _serviceVenta.RegistrarVenta(venta);
+                Response.Redirect("90-Catalogo.aspx");
+            }
+            catch (Exception ex)
+            {
+               
+            }
         }
+
+        //public List<RelatedTaxesBE> CalcularRelatedTaxes(List<CarritoBE> carrito)
+        //{
+        //    var taxGroups = carrito
+        //        .GroupBy(item => item.producto.codigoIVA.Codigo)
+        //        .Select(g =>
+        //        {
+        //            var codigoIVA = CodigoIVA.ObtenerTipoIVA(g.Key);
+        //            decimal tasaIVA = codigoIVA.Porcentaje / 100;
+        //            decimal baseImponible = Math.Round(g.Sum(item => (item.producto.Precio * item.Cantidad) / (1 + tasaIVA)), 2);
+        //            decimal totalIVA = Math.Round(g.Sum(item => (item.producto.Precio * item.Cantidad)) - baseImponible, 2);
+
+        //            return new RelatedTaxesBE
+        //            {
+        //                codigoIVA = codigoIVA.Codigo,
+        //                TasaIVA = codigoIVA.Porcentaje,
+        //                BaseImponible = baseImponible,
+        //                TotalIVA = totalIVA
+        //            };
+        //        })
+        //        .ToList();
+        //    return taxGroups;
+        //    //RelatedTax = taxGroups;
+        //}
     }
 }

@@ -32,13 +32,13 @@ namespace DAL.Tools
                 detalleVenta.Cantidad = Convert.ToInt32(dr["Cantidad"]);
 
             if (dr.Table.Columns.Contains("PrecioUnitario") && !Convert.IsDBNull(dr["PrecioUnitario"]))
-                detalleVenta.PrecioUnitario = Convert.ToSingle(dr["PrecioUnitario"]);
+                detalleVenta.PrecioUnitario = Convert.ToDecimal(dr["PrecioUnitario"]);
 
             if (dr.Table.Columns.Contains("Total") && !Convert.IsDBNull(dr["Total"]))
-                detalleVenta.Total = Convert.ToSingle(dr["Total"]);
+                detalleVenta.Total = Convert.ToDecimal(dr["Total"]);
 
             if (dr.Table.Columns.Contains("IVA") && !Convert.IsDBNull(dr["IVA"]))
-                detalleVenta.IVA = Convert.ToSingle(dr["IVA"]);
+                detalleVenta.IVA = Convert.ToDecimal(dr["IVA"]);
 
             if (dr.Table.Columns.Contains("CodigoIVA") && !Convert.IsDBNull(dr["CodigoIVA"]))
                 detalleVenta.codigoIVA = CodigoIVA.ObtenerTipoIVA(Convert.ToInt32(dr["CodigoIVA"]));

@@ -44,13 +44,13 @@ namespace DAL.Tools
                 venta.TipoComprobante = Convert.ToString(dr["TipoComprobante"]);
 
             if (dr.Table.Columns.Contains("Total") && !Convert.IsDBNull(dr["Total"]))
-                venta.Total = Convert.ToSingle(dr["Total"]);
+                venta.Total = Convert.ToDecimal(dr["Total"]);
 
             if (dr.Table.Columns.Contains("IVA") && !Convert.IsDBNull(dr["IVA"]))
-                venta.IVA = Convert.ToSingle(dr["IVA"]);
+                venta.IVA = Convert.ToDecimal(dr["IVA"]);
 
             if (dr.Table.Columns.Contains("TotalGravado") && !Convert.IsDBNull(dr["TotalGravado"]))
-                venta.TotalGravado = Convert.ToSingle(dr["TotalGravado"]);
+                venta.TotalGravado = Convert.ToDecimal(dr["TotalGravado"]);
 
             if (dr.Table.Columns.Contains("TipoAutorizacion") && !Convert.IsDBNull(dr["TipoAutorizacion"]))
                 venta.TipoAutorizacion = TipoPV.ObtenerTipoPV(Convert.ToString(dr["TipoAutorizacion"]));

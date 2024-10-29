@@ -69,6 +69,7 @@
     <Compile Include="Tools\UsuarioTools.cs" />
     <Compile Include="Tools\VentaTools.cs" />
     <Compile Include="UsuarioDAL.cs" />
+    <Compile Include="VentaDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\BE.csproj">
