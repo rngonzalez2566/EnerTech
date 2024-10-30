@@ -1,12 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="13-MenuPrincipal.aspx.cs" Inherits="UI._13_MenuPrincipal" %>
-<%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NavBar.ascx.cs" Inherits="UI.NavBar" %>
 
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Menú Principal</title>
        <style>
         body {
             margin: 0;
@@ -197,23 +190,11 @@
             profileMenu.classList.toggle("show");
         }
     </script>
-</head>
-<body>
+
+
     
-    <uc:Navbar ID="navigationBar" runat="server" />
+    <nav id="navigationBar"  runat="server">
+   
+    </nav>
 
-    <!-- Contenido principal -->
-    <div class="content">
-        <h1>Menú Principal</h1>
-        <p>Bienvenido al sistema de administración. Selecciona una de las opciones en la barra de navegación para gestionar el sistema.</p>
-    </div>
 
-    <!-- Información del usuario centrada -->
-    <div class="user-info">
-        <h2>Hola, <%: usuario.Email %> </h2>
-       <div class="user-image">
-            <asp:Image ID="imgUser" runat="server" Width="200px" Height="200px" />
-        </div>
-    </div>
-</body>
-</html>

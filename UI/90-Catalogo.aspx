@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Catálogo de Productos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="90-Catalogo.aspx.cs" Inherits="UI._90_Catalogo" %>
+<%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -99,7 +100,9 @@
         background-color: #004d40; /* Verde más oscuro para efecto hover */
     }
     </style>
-
+    
+  <uc:Navbar ID="navigationBar" runat="server" />
+    
     <div class="main-container">
         
      

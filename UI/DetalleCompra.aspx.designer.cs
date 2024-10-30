@@ -11,70 +11,52 @@ namespace UI
 {
 
 
-    public partial class _90_Catalogo
+    public partial class DetalleCompra
     {
 
         /// <summary>
-        /// navigationBar control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UI.NavBar navigationBar;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// ddlMarca control.
+        /// LiteralTitulo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMarca;
+        protected global::System.Web.UI.WebControls.Literal LiteralTitulo;
 
         /// <summary>
-        /// ddlCategoria control.
+        /// LiteralFecha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
+        protected global::System.Web.UI.WebControls.Literal LiteralFecha;
 
         /// <summary>
-        /// txtPrecioMin control.
+        /// LiteralTotal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrecioMin;
+        protected global::System.Web.UI.WebControls.Literal LiteralTotal;
 
         /// <summary>
-        /// txtPrecioMax control.
+        /// ProductosRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPrecioMax;
-
-        /// <summary>
-        /// btnAplicarFiltroPrecio control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAplicarFiltroPrecio;
-
-        /// <summary>
-        /// rptCatalogo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCatalogo;
+        protected global::System.Web.UI.WebControls.Repeater ProductosRepeater;
     }
 }

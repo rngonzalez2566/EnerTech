@@ -21,9 +21,13 @@ namespace UI
         VentaBLL _serviceVenta = new VentaBLL();
         protected void Page_Load(object sender, EventArgs e)
         {
-            usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
-            _sessionManager.Set("Usuario", usuario);
+            //usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
+            //_sessionManager.Set("Usuario", usuario);
             usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+            if (usuario == null)
+            {
+                Response.Redirect("Default.aspx");
+            }
             if (!IsPostBack)
             {
                 CargarCarrito();

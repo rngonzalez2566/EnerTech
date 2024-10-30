@@ -11,7 +11,7 @@ namespace UI
 {
 
 
-    public partial class _13_MenuPrincipal
+    public partial class NavBar
     {
 
         /// <summary>
@@ -21,15 +21,6 @@ namespace UI
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UI.NavBar navigationBar;
-
-        /// <summary>
-        /// imgUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgUser;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navigationBar;
     }
 }

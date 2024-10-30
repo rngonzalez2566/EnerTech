@@ -105,6 +105,7 @@
     <Content Include="11-Login.aspx" />
     <Content Include="120-Carrito.aspx" />
     <Content Include="121-Compras.aspx" />
+    <Content Include="122-MisCompras.aspx" />
     <Content Include="13-MenuPrincipal.aspx" />
     <Content Include="14-Logout.aspx" />
     <Content Include="21-AltaUsuario.aspx" />
@@ -130,8 +131,10 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="DetalleCompra.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="NavBar.ascx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -215,6 +218,13 @@
     <Compile Include="121-Compras.aspx.designer.cs">
       <DependentUpon>121-Compras.aspx</DependentUpon>
     </Compile>
+    <Compile Include="122-MisCompras.aspx.cs">
+      <DependentUpon>122-MisCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="122-MisCompras.aspx.designer.cs">
+      <DependentUpon>122-MisCompras.aspx</DependentUpon>
+    </Compile>
     <Compile Include="13-MenuPrincipal.aspx.cs">
       <DependentUpon>13-MenuPrincipal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -273,8 +283,22 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DetalleCompra.aspx.cs">
+      <DependentUpon>DetalleCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetalleCompra.aspx.designer.cs">
+      <DependentUpon>DetalleCompra.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="NavBar.ascx.cs">
+      <DependentUpon>NavBar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NavBar.ascx.designer.cs">
+      <DependentUpon>NavBar.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">

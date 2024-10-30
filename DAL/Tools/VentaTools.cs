@@ -15,6 +15,7 @@ namespace DAL.Tools
         {
             VentaBE venta = new VentaBE();
             UsuarioDAL usuarioDAL = new UsuarioDAL();
+            VentaDAL ventaDAL = new VentaDAL();
             venta.usuario = new UsuarioBE();
 
 
@@ -57,6 +58,8 @@ namespace DAL.Tools
 
             if (dr.Table.Columns.Contains("id_usuario") && !Convert.IsDBNull(dr["id_usuario"]))
                 venta.usuario = usuarioDAL.GetUsuarioID(Convert.ToInt32(dr["id_usuario"]));
+
+            venta.Items = ventaDAL.GetDetalleVenta(venta.Id);
 
             return venta;
         }

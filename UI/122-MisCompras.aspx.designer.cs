@@ -11,25 +11,25 @@ namespace UI
 {
 
 
-    public partial class _13_MenuPrincipal
+    public partial class _122_MisCompras
     {
 
         /// <summary>
-        /// navigationBar control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UI.NavBar navigationBar;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// imgUser control.
+        /// ComprasRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgUser;
+        protected global::System.Web.UI.WebControls.Repeater ComprasRepeater;
     }
 }

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Productos" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="70-Productos.aspx.cs" Inherits="UI._70_Productos" %>
+<%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -114,14 +115,7 @@
         }
 </script>
 
-    <nav>
-        <a href="Home.aspx">Inicio</a>
-        <a href="About.aspx">Quiénes Somos</a>
-        <a href="Services.aspx">Servicios</a>
-        <a href="70-Productos.aspx">Productos</a>
-        <a href="Contact.aspx">Contacto</a>
-        <a href="11-Login.aspx" class="btn btn-login">Iniciar Sesión</a>
-    </nav>
+  <uc:Navbar ID="navigationBar" runat="server" />
 
     <div class="content">
 

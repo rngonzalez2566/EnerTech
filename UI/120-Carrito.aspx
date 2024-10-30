@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Carrito de Compras" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="120-Carrito.aspx.cs" Inherits="UI._120_Carrito" %>
+<%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -91,6 +92,7 @@
             background-color: #004d40;
         }
     </style>
+     <uc:Navbar ID="navigationBar" runat="server" />
 
     <div class="cart-container">
         <h1 class="cart-header">Carrito de Compras</h1>

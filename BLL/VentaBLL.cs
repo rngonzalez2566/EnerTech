@@ -32,6 +32,7 @@ namespace BLL
                         ventalDAL.AltaTaxes(itemtax, _id);
                     }
 
+                    ventalDAL.BorrarCarrito(venta);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
 
                     scope.Complete();
@@ -44,6 +45,20 @@ namespace BLL
             {
                 throw new Exception(ErrorMessages.ERR001);
             }
+        }
+
+        public List<VentaBE> GetVentaUser(int user)
+        {
+            List<VentaBE> ventas = ventalDAL.GetVentaUser(user);
+
+            return ventas;
+        }
+
+        public List<Detalle_VentaBE> GetDetalleVenta(int venta)
+        {
+            List<Detalle_VentaBE> ventas = ventalDAL.GetDetalleVenta(venta);
+
+            return ventas;
         }
     }
 }

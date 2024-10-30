@@ -15,5 +15,7 @@ namespace DAL.Querys
 
         public const string addRelated_Taxes = "INSERT INTO RelatedTaxes(codigoIVA,TasaIVA,BaseImponible,TotalIVA,id_venta)" +
                                                 "OUTPUT inserted.Id VALUES(@cod,@tasa,@base,@iva,@venta)";
+        public const string Get_Venta_User = "Select * From venta where id_usuario = @user order by fecha desc";
+        public const string Get_Detalle_Venta = "Select * From Detalle_Venta where id_venta = @venta";
     }
 }
