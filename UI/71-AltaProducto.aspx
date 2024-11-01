@@ -130,6 +130,12 @@
             </div>
 
             <div class="form-group">
+                <label for="txtPrecio">Precio:</label>
+                <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPrecio" ErrorMessage="El precio es obligatorio" CssClass="error-message" Display="Dynamic" />
+            </div>
+
+            <div class="form-group">
                 <label for="fuImagen">Imagen del Producto (opcional):</label>
                 <asp:FileUpload ID="fuImagen" runat="server" CssClass="form-control" />
             </div>

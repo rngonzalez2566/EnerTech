@@ -19,7 +19,7 @@ namespace BE
 
         public bool Catalogo { get; set; }
 
-        public Decimal Precio { get; set; }
+        public decimal Precio { get; set; }
 
         public CodigoIVA codigoIVA { get; set; }
     }

@@ -114,6 +114,7 @@ namespace DAL
                 xParameters.Parameters.AddWithValue("@catalogo", false);
                 xParameters.Parameters.AddWithValue("@cantidad", producto.Cantidad);
                 xParameters.Parameters.AddWithValue("@iva", producto.codigoIVA.Codigo);
+                xParameters.Parameters.AddWithValue("@precio", producto.Precio);
 
 
 

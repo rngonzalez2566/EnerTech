@@ -74,6 +74,7 @@ namespace UI
                 string marca = ddlMarca.SelectedValue;
                 int cantidad = int.Parse(txtCantidad.Text);
                 int codIva = Convert.ToInt32(ddlIVA.SelectedValue);
+                decimal precio = decimal.Parse(txtPrecio.Text);
 
                 // Manejar la subida de la imagen
                 string rutaImagen = string.Empty;
@@ -94,7 +95,8 @@ namespace UI
                     Marca = new MarcaBE { Id = int.Parse(marca), Nombre = ddlMarca.SelectedItem.Text },
                     Cantidad = cantidad,
                     Imagen = rutaImagen,
-                    codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva)
+                    codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva),
+                    Precio = precio
                 };
 
                 // Código para guardar el producto en la base de datos o lógica adicional

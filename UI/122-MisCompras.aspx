@@ -28,7 +28,7 @@
                                 <p class="card-text">Fecha: <%# Eval("Fecha", "{0:dd/MM/yyyy}") %></p>
                                 <p class="card-text">Total: $<%# Eval("Total", "{0:N2}") %></p>
                                 <a href="DetalleCompra.aspx?ventaId=<%# Eval("Id") %>&fecha=<%# Eval("Fecha", "{0:yyyy-MM-dd}") %>&total=<%# Eval("Total", "{0:N2}") %>"
-   class="btn btn-primary btn-block">Ver Detalles</a>
+   class="btn btn-success btn-block">Ver Detalles</a>
                             </div>
                         </div>
                     </div>
