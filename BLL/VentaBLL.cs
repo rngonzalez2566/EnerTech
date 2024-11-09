@@ -60,5 +60,35 @@ namespace BLL
 
             return ventas;
         }
+
+        public List<VentaBE> GetVentas()
+        {
+            List<VentaBE> ventas = ventalDAL.GetVentas();
+
+            return ventas;
+        }
+
+        public VentaBE GetVenta(int idVenta)
+        {
+            VentaBE venta = ventalDAL.GetVenta(idVenta);
+
+            return venta;
+        }
+
+        public void ReprocesarRechazo(int idVenta)
+        {
+          ventalDAL.ReprocesarRechazo(idVenta);
+
+     
+        }
+
+        public List<VentaBE> GetVentasFiltradas(DateTime? fd, DateTime? fh, bool? fact)
+        {
+            List<VentaBE> ventas = ventalDAL.GetVentasFiltradas(fd,fh,fact);
+
+            return ventas;
+        }
+
+
     }
 }

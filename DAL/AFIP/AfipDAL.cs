@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BE;
 using BE.AFIP;
 using Services;
 
@@ -35,5 +36,30 @@ namespace DAL.AFIP
             }
             
         }
+
+        public void addLoginTicketDB(tokenAFIP token)
+        {
+            try
+            {
+                xCommandText = AFIP.Querys.AfipQuerys.addToken;
+
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@cod", 1);
+                xParameters.Parameters.AddWithValue("@sign", token.sign);
+                xParameters.Parameters.AddWithValue("@token", token.token);
+                xParameters.Parameters.AddWithValue("@fe", token.FechaExpiracion);
+                xParameters.Parameters.AddWithValue("@fg", token.FechaGeneracion);
+
+
+                executeNonQuery();
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+
+        }
+
     }
 }

@@ -8,7 +8,7 @@ namespace BE.AFIP
 {
     public class tokenAFIP
     {
-        public int codigo { get; set; }
+        public uint codigo { get; set; }
         public string token { get; set; }
         public string sign { get; set; }
         public DateTime FechaGeneracion { get; set; }

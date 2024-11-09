@@ -16,7 +16,7 @@ namespace DAL.AFIP.Tools
 
 
             if (dr.Table.Columns.Contains("codigo") && !Convert.IsDBNull(dr["codigo"]))
-                token.codigo = Convert.ToInt32(dr["codigo"]);
+                token.codigo = Convert.ToUInt32(dr["codigo"]);
 
             if (dr.Table.Columns.Contains("token") && !Convert.IsDBNull(dr["token"]))
                 token.token = Convert.ToString(dr["token"]);

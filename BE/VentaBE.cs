@@ -13,20 +13,24 @@ namespace BE
         public string Detalle { get; set; }
 
         public long CodigoAutorizacion { get; set; }
-
+        public string Estado { get; set; }
+        public string Observaciones { get; set; }
         public DateTime FechaVtoCae { get; set; }
         public int PuntoDeVenta { get; set; }
         public int NumeroVenta { get; set; }
+        public bool Facturado { get; set; }
 
         public UsuarioBE usuario { get; set; }
         public string TipoComprobante {  get; set; }
 
         public decimal Total {  get; set; }
         public decimal IVA { get; set; }
+        public string QRData { get; set; }
+        
 
         public decimal TotalGravado { get; set; }
 
-        public TipoPV  TipoAutorizacion { get; set; }
+        public string  TipoAutorizacion { get; set; }
 
         public List<Detalle_VentaBE> Items { get; set; }
 

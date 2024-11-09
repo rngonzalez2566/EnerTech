@@ -122,11 +122,13 @@ namespace UI
 
 
                 _serviceVenta.RegistrarVenta(venta);
-                Response.Redirect("90-Catalogo.aspx");
+                Response.Redirect("90-Catalogo.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                //Response.Redirect("90-Catalogo.aspx");
             }
             catch (Exception ex)
             {
-               
+                throw new Exception("Error : " + ex.Message);
             }
         }
 

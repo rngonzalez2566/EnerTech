@@ -20,6 +20,8 @@ namespace UI
         CarritoBLL _carritoService = new CarritoBLL();
         protected void Page_Load(object sender, EventArgs e)
         {
+            usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
+            _sessionManager.Set("Usuario", usuario);
             usuario = _sessionManager.Get<UsuarioBE>("Usuario");
             if (!IsPostBack)
             {
