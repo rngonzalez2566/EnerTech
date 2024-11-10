@@ -1,14 +1,18 @@
 ﻿using BE;
 using BLL;
 using BLL.AFIP;
+
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
 using UI.WebServices;
+
 
 
 namespace UI
@@ -22,9 +26,9 @@ namespace UI
         public UsuarioBE usuario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
-            _sessionManager.Set("Usuario", usuario);
-            //usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+            //usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
+            //_sessionManager.Set("Usuario", usuario);
+            usuario = _sessionManager.Get<UsuarioBE>("Usuario");
             if (!IsPostBack)
             {
                 CargarVentas();
@@ -143,16 +147,38 @@ namespace UI
 
                 if (venta != null)
                 {
-                    using (var client = new WebServices.GeneraPdfAfip())
-                    {
-                        byte[] pdfBytes = client.GenerarFacturaPDF(venta);
 
-                        // Enviar el PDF al navegador
-                        Response.ContentType = "application/pdf";
-                        Response.AddHeader("content-disposition", "inline;filename=factura.pdf");
-                        Response.BinaryWrite(pdfBytes);
-                        Response.End();
-                    }
+                    GeneraPdfAfip.BusinessInfo businessInfo = new GeneraPdfAfip.BusinessInfo
+                    {
+                        BusinessName = "ENERTECH",
+                        Address = "Av. Varlos Pellegrini 218",
+                        IVACondition = "Responsable Inscripto",
+                        CUIT = 20358545492,
+                        GrossIncome = "Exento",
+                        InitialActivities = new DateTime(2024, 05, 01),
+                        PathImage = Server.MapPath("~/Images/afip_logo.png") // Ruta del logo
+                    };
+
+                    GeneraPdfAfip.ClientInfo clientInfo = new GeneraPdfAfip.ClientInfo
+                    {
+                        BusinessName = venta.usuario.RazonSocial,
+                        FirstName = venta.usuario.Nombre,
+                        LastName = venta.usuario.Apellido,
+                        Address = "Laprida 231",
+                        IVACondition = "Monotributista",
+                        CUIT = venta.usuario.Identificacion,
+                        SaleCondition = "Tarjeta"
+                    };
+                    // Generar el PDF
+                    byte[] pdfBytes = GeneraPdfAfip.ReceipToPdf(businessInfo, clientInfo, venta);
+
+                    // Configurar la respuesta para mostrar el PDF en el navegador
+                    Response.Clear();
+                    Response.ContentType = "application/pdf";
+                    Response.AppendHeader("Content-Disposition", "inline; filename=Factura.pdf");
+                    Response.BinaryWrite(pdfBytes);
+                    Response.Flush();
+                    Response.End();
                 }
             }
         }
@@ -208,6 +234,51 @@ namespace UI
             }
         }
 
+        protected void btnExportarXML_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<VentaBE> ventas = new List<VentaBE>();
+                foreach (GridViewRow row in gvVentas.Rows)
+                {
+                    VentaBE venta = new VentaBE
+                    {
+                        Fecha = DateTime.Parse(row.Cells[0].Text),
+                        usuario = usuario,
+                        Total = decimal.Parse(row.Cells[2].Text.Replace("$", "")),
+                        PuntoDeVenta = int.Parse(row.Cells[3].Text),
+                        NumeroVenta = int.Parse(row.Cells[4].Text),
+                        CodigoAutorizacion = long.Parse(row.Cells[5].Text),
+                        Estado = row.Cells[6].Text,
+                        Observaciones = row.Cells[7].Text
+                    };
+                    ventas.Add(venta);
+                }
+
+                // Llamar al Web Service para obtener el XML
+                GeneraXmlVentas service = new GeneraXmlVentas();
+                string xmlData = service.GenerarXmlVentas(ventas);
+
+                // Descargar el XML como un archivo
+                byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(xmlData);
+
+                Response.Clear();
+                Response.ContentType = "application/xml";
+                Response.AddHeader("Content-Disposition", "attachment; filename=ventas.xml");
+                Response.BinaryWrite(byteArray);
+                Response.Flush();
+                Response.Close(); // Cerrar la respuesta de forma segura
+            }
+            catch (Exception ex)
+            {
+                Response.Clear();
+                Response.ContentType = "text/html";
+                Response.Write("<Error>" + ex.Message + "</Error>");
+                Response.Flush();
+                Response.Close(); // Asegurar que la respuesta se cierre correctamente en caso de error
+            }
+        }
+    }
+
 
     }
-}

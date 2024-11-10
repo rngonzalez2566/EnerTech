@@ -34,7 +34,7 @@ namespace UI
                     //usuario.Email = Encriptador.Descencriptar(usuario.Email);
 
 
-                    switch (Encriptador.Descencriptar(usuario.Email))
+                    switch (usuario.Email)
                     {
                         case "webmaster@gmail.com":
                             SetWebmasterNavigation();
@@ -75,8 +75,7 @@ namespace UI
         <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarWebmaster' aria-controls='navbarWebmaster' aria-expanded='false'>
             <span class='navbar-toggler-icon'></span>
         </button>
-        <div class='collapse navbar-collapse justify-content-between' id='navbarWebmaster'>
-            <!-- Menú centrado -->
+        <div class='collapse navbar-collapse' id='navbarWebmaster'>
             <ul class='navbar-nav mx-auto'>
                 <li class='nav-item dropdown'>
                     <a class='nav-link dropdown-toggle' href='#' data-bs-toggle='dropdown'>Usuarios</a>
@@ -97,24 +96,17 @@ namespace UI
                 <li class='nav-item'><a class='nav-link' href='#'>Backup</a></li>
                 <li class='nav-item'><a class='nav-link' href='60-Bitacora.aspx'>Bitácora</a></li>
             </ul>
-
-            <!-- Icono de perfil alineado a la derecha -->
-            <div class='d-flex align-items-center'>
-                <div class='dropdown profile-icon'>
-                    <a href='#' class='d-flex align-items-center' data-bs-toggle='dropdown'>
-                        <img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile' class='rounded-circle' style='width: 40px; height: 40px;'>
-                    </a>
-                    <ul class='dropdown-menu dropdown-menu-end'>
-                        <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
-                        <li><a class='dropdown-item' href='14-Logout.aspx'>Cerrar Sesión</a></li>
-                    </ul>
-                </div>
+            <div class='dropdown profile-icon'>
+                <a href='#' data-bs-toggle='dropdown'><img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile'></a>
+                <ul class='dropdown-menu dropdown-menu-end'>
+                    <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
+                    <li><a class='dropdown-item btn-logout' href='14-Logout.aspx'>Cerrar Sesión</a></li>
+                </ul>
             </div>
         </div>
     </div>
 </nav>";
         }
-
 
         private void SetUACNavigation()
         {
@@ -125,8 +117,7 @@ namespace UI
         <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarUAC' aria-controls='navbarUAC' aria-expanded='false'>
             <span class='navbar-toggler-icon'></span>
         </button>
-        <div class='collapse navbar-collapse justify-content-between' id='navbarUAC'>
-            <!-- Menú centrado -->
+        <div class='collapse navbar-collapse' id='navbarUAC'>
             <ul class='navbar-nav mx-auto'>
                 <li class='nav-item dropdown'>
                     <a class='nav-link dropdown-toggle' href='#' data-bs-toggle='dropdown'>Productos</a>
@@ -140,18 +131,12 @@ namespace UI
                 <li class='nav-item'><a class='nav-link' href='120-Carrito.aspx'>Carrito</a></li>
                 <li class='nav-item'><a class='nav-link' href='100-Ventas.aspx'>Ventas</a></li>
             </ul>
-            
-            <!-- Icono de perfil alineado a la derecha -->
-            <div class='d-flex align-items-center'>
-                <div class='dropdown profile-icon'>
-                    <a href='#' class='d-flex align-items-center' data-bs-toggle='dropdown'>
-                        <img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile' class='rounded-circle' style='width: 40px; height: 40px;'>
-                    </a>
-                    <ul class='dropdown-menu dropdown-menu-end'>
-                        <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
-                        <li><a class='dropdown-item' href='14-Logout.aspx'>Cerrar Sesión</a></li>
-                    </ul>
-                </div>
+            <div class='dropdown profile-icon'>
+                <a href='#' data-bs-toggle='dropdown'><img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile'></a>
+                <ul class='dropdown-menu dropdown-menu-end'>
+                    <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
+                    <li><a class='dropdown-item btn-logout' href='14-Logout.aspx'>Cerrar Sesión</a></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -159,39 +144,33 @@ namespace UI
         }
 
 
+
         private void SetClientNavigation()
-        {
-            navigationBar.InnerHtml = @"
+{
+    navigationBar.InnerHtml = @"
 <nav class='navbar navbar-expand-lg navbar-dark bg-warning'>
     <div class='container-fluid'>
         <a class='navbar-brand' href='Home.aspx'>EnerTech</a>
         <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarClient' aria-controls='navbarClient' aria-expanded='false'>
             <span class='navbar-toggler-icon'></span>
         </button>
-        <div class='collapse navbar-collapse justify-content-between' id='navbarClient'>
-            <!-- Menú centrado -->
+        <div class='collapse navbar-collapse' id='navbarClient'>
             <ul class='navbar-nav mx-auto'>
-                <li class='nav-item'><a class='nav-link' href='90-Catalogo'>Catálogo</a></li>
+                <li class='nav-item'><a class='nav-link' href='90-Catalogo.aspx'>Catálogo</a></li>
                 <li class='nav-item'><a class='nav-link' href='120-Carrito.aspx'>Carrito</a></li>
                 <li class='nav-item'><a class='nav-link' href='122-MisCompras.aspx'>Mis Compras</a></li>
             </ul>
-
-            <!-- Icono de perfil alineado a la derecha -->
-            <div class='d-flex align-items-center'>
-                <div class='dropdown profile-icon'>
-                    <a href='#' class='d-flex align-items-center' data-bs-toggle='dropdown'>
-                        <img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile' class='rounded-circle' style='width: 40px; height: 40px;'>
-                    </a>
-                    <ul class='dropdown-menu dropdown-menu-end'>
-                        <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
-                        <li><a class='dropdown-item' href='14-Logout.aspx'>Cerrar Sesión</a></li>
-                    </ul>
-                </div>
+            <div class='dropdown profile-icon'>
+                <a href='#' data-bs-toggle='dropdown'><img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile'></a>
+                <ul class='dropdown-menu dropdown-menu-end'>
+                    <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
+                    <li><a class='dropdown-item btn-logout' href='14-Logout.aspx'>Cerrar Sesión</a></li>
+                </ul>
             </div>
         </div>
     </div>
 </nav>";
-        }
+}
 
 
         private string GetProfileMenu()

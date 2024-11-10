@@ -1,107 +1,113 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="11-Login.aspx.cs" Inherits="UI._11_Login" %>
 
-
-
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="es">
 <head runat="server">
-    <title>Iniciar Sesión - Software Factory</title>
+    <title>Iniciar Sesión - EnerTech</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(to right, #00796b, #48a999);
             height: 100vh;
+            background: linear-gradient(45deg, #00796b, #00c4a7);
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         .login-container {
-            background-color: white;
+            background-color: #ffffff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-            width: 350px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
         .login-container h2 {
             color: #00796b;
-            font-size: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
-
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-
-        .login-container input[type="submit"] {
-            background-color: #00796b;
-            color: white;
-            padding: 15px;
+        .form-control {
+            background-color: #f8f9fa;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
         }
-
-        .login-container input[type="submit"]:hover {
+        .form-control:focus {
+            box-shadow: 0 4px 12px rgba(0, 121, 107, 0.2);
+        }
+        .btn-primary {
+            background-color: #00796b;
+            border-color: #00796b;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .btn-primary:hover {
             background-color: #005f56;
+            transform: translateY(-3px);
         }
-
         .register-link {
-            display: block;
-            margin-top: 20px;
-            text-decoration: none;
             color: #00796b;
-            font-size: 14px;
         }
-
         .register-link:hover {
+            color: #005f56;
             text-decoration: underline;
         }
-
-        .login-container img {
-            width: 100px;
+        .logo {
+            width: 80px;
+            height: 80px;
             margin-bottom: 20px;
         }
-
         footer {
             position: absolute;
-            bottom: 10px;
+            bottom: 20px;
             width: 100%;
             text-align: center;
-            font-size: 12px;
-            color: white;
+            color: #ffffff;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="login-container">
-            <!-- Incluir el logotipo de la empresa -->
-            <img src="Images/logo.png" alt="Logo Software Factory" />
-            <h2>Bienvenido</h2>
-            <asp:TextBox ID="txtEmail" runat="server" Placeholder="Email" TextMode="Email"></asp:TextBox><br />
-            <asp:TextBox ID="txtPassword" runat="server" Placeholder="Contraseña" TextMode="Password"></asp:TextBox><br />
-            <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" OnClick="btnLogin_Click" />
-            <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
-            <a href="21-AltaUsuario.aspx" class="register-link">¿No tienes cuenta? Regístrate</a>
+        <div class="d-flex flex-column align-items-center justify-content-center vh-100">
+            <div class="login-container">
+                <!-- Logotipo -->
+                <img src="Images/logo.png" alt="Logo EnerTech" class="logo">
+                
+                <h2>Iniciar Sesión</h2>
+                
+                <!-- Campos del formulario -->
+                <div class="mb-3">
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Email" TextMode="Email"></asp:TextBox>
+                </div>
+                <div class="mb-3">
+                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" Placeholder="Contraseña" TextMode="Password"></asp:TextBox>
+                </div>
+                
+                <!-- Botón de inicio de sesión -->
+                <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="btn btn-primary w-100 mb-3" OnClick="btnLogin_Click" />
+                
+                <!-- Mensaje de error -->
+                <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="d-block mb-3"></asp:Label>
+                
+                <!-- Enlace para registrarse -->
+                <a href="21-AltaUsuario.aspx" class="register-link">¿No tienes cuenta? Regístrate</a>
+            </div>
         </div>
     </form>
+    
     <footer>
         &copy; 2024 EnerTech | Energías Renovables
     </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

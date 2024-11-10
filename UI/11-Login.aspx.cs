@@ -34,7 +34,8 @@ namespace UI
                if (usuario != null)
                {
                     _sessionManager.Set("Usuario", usuario);
-                    Response.Redirect("13-MenuPrincipal.aspx");
+                    Response.Redirect("13-MenuPrincipal.aspx", false);
+                    
                 }
                else
                {

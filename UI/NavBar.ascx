@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Página Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
             background-color: #f0f4f7;
@@ -17,6 +18,58 @@
         .container {
             margin-top: 20px;
         }
+
+         .navbar {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        font-size: 24px;
+        color: #c5e1a5 !important;
+    }
+
+    .navbar-nav .nav-link {
+        color: white !important;
+        font-size: 18px;
+        transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #aed581 !important;
+    }
+
+    .profile-icon img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: transform 0.2s ease;
+    }
+
+    .profile-icon img:hover {
+        transform: scale(1.1);
+    }
+
+    .dropdown-menu {
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+        background-color: #e0f2f1;
+        color: #00796b !important;
+    }
+
+    .btn-logout {
+        background-color: #e57373;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-logout:hover {
+        background-color: #d32f2f;
+        color: white;
+    }
     </style>
 </head>
 <body>

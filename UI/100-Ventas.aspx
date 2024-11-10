@@ -121,6 +121,9 @@
                 <div class="col-md-3 d-flex align-items-end">
                     <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary w-100" OnClick="btnFiltrar_Click" />
                 </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <asp:Button ID="btnExportarXML" runat="server" Text="Exportar a XML" CssClass="btn btn-secondary w-100" OnClick="btnExportarXML_Click" />
+                </div>
             </div>
 
             <!-- Tabla de Ventas -->
