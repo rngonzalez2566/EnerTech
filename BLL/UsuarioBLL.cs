@@ -18,6 +18,7 @@ namespace BLL
     {
         UsuarioDAL usuarioDAL = new UsuarioDAL();   
         BitacoraBLL bitacora = new BitacoraBLL();
+        PermisoBLL _permisoService = new PermisoBLL();
         public int RegistrarUsuario(UsuarioBE usuario, string password)
         {
             ValidarUsuario(usuario, password);
@@ -90,6 +91,44 @@ namespace BLL
             }
             
 
+        }
+
+        public List<UsuarioBE> GetUsuarios()
+        {
+            try
+            {
+               
+               List<UsuarioBE>  usuarios = usuarioDAL.GetUsuarios();
+                foreach (UsuarioBE usuario in usuarios)
+                {
+                    _permisoService.GetComponenteUsuario(usuario);
+                }
+                    
+                return usuarios;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+
+        public UsuarioBE GetUsuarioID(int user)
+        {
+            try
+            {
+
+               UsuarioBE usuario = usuarioDAL.GetUsuarioID(user);
+                _permisoService.GetComponenteUsuario(usuario);
+                return usuario;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
         }
 
         private void ValidarUsuario(UsuarioBE usuario, string password)

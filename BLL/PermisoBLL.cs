@@ -88,9 +88,9 @@ namespace BLL
             }
         }
 
-        public IList<Componente> TraerFamiliaPatentes(int familiaId)
+        public List<Componente> TraerFamiliaPatentes(int familiaId)
         {
-            IList<Componente> componentes = _permisoService.TraerFamiliaPatentes(familiaId);
+            List<Componente> componentes = _permisoService.TraerFamiliaPatentes(familiaId);
             return componentes;
         }
 
@@ -106,15 +106,15 @@ namespace BLL
             return comp;
         }
 
-        public IList<Familia> GetFamilias()
+        public List<Familia> GetFamilias()
         {
-            IList<Familia> familias = _permisoService.GetFamilias();
+            List<Familia> familias = _permisoService.GetFamilias();
             return familias;
         }
 
-        public IList<Patente> GetPatentes()
+        public List<Patente> GetPatentes()
         {
-            IList<Patente> patentes = _permisoService.GetPatentes();
+            List<Patente> patentes = _permisoService.GetPatentes();
             return patentes;
         }
 
@@ -123,9 +123,9 @@ namespace BLL
             return Enum.GetValues(typeof(Permiso));
         }
 
-        public IList<Familia> GetFamiliasValidacion(int familiaId)
+        public List<Familia> GetFamiliasValidacion(int familiaId)
         {
-            IList<Familia> familias = _permisoService.GetFamiliasValidacion(familiaId);
+            List<Familia> familias = _permisoService.GetFamiliasValidacion(familiaId);
             return familias;
         }
 

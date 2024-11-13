@@ -55,12 +55,12 @@ namespace DAL
             }
         }
 
-        public IList<Familia> GetFamilias()
+        public List<Familia> GetFamilias()
         {
             xCommandText = Querys.PermisoQuerys.Get_Familias;
             xParameters.Parameters.Clear();
             DataSet ds = ExecuteReader();
-            IList<Familia> familias = new List<Familia>();
+            List<Familia> familias = new List<Familia>();
 
             if (ds.Tables[0].Rows.Count > 0)
                 familias = PermisoTools.FillListFamilia(ds);
@@ -68,13 +68,13 @@ namespace DAL
             return familias;
         }
 
-        public IList<Patente> GetPatentes()
+        public List<Patente> GetPatentes()
         {
             xCommandText = Querys.PermisoQuerys.Get_Patentes;
             xParameters.Parameters.Clear();
             DataSet ds = ExecuteReader();
 
-            IList<Patente> patentes = new List<Patente>();
+            List<Patente> patentes = new List<Patente>();
 
             if (ds.Tables[0].Rows.Count > 0)
                 patentes = PermisoTools.FillListPatente(ds);
@@ -82,7 +82,7 @@ namespace DAL
             return patentes;
         }
 
-        public IList<Componente> TraerFamiliaPatentes(int familiaId)
+        public List<Componente> TraerFamiliaPatentes(int familiaId)
         {
             xCommandText = Querys.PermisoQuerys.Get_Familia_Patente;
             xParameters.Parameters.Clear();
@@ -206,14 +206,14 @@ namespace DAL
     
         }
 
-        public IList<Familia> GetFamiliasValidacion(int familiaId)
+        public List<Familia> GetFamiliasValidacion(int familiaId)
         {
 
             xCommandText = Querys.PermisoQuerys.Get_validacion_familia;
             xParameters.Parameters.Clear();
             xParameters.Parameters.AddWithValue("@hijo", familiaId);
             DataSet ds = ExecuteReader();
-            IList<Familia> familias = new List<Familia>();
+            List<Familia> familias = new List<Familia>();
 
          
             if (ds.Tables[0].Rows.Count > 0)

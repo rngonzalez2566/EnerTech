@@ -219,6 +219,11 @@
     <Content Include="13-MenuPrincipal.aspx" />
     <Content Include="14-Logout.aspx" />
     <Content Include="21-AltaUsuario.aspx" />
+    <Content Include="31-AsignarPermiso.aspx" />
+    <Content Include="32-AsignarPermisoPatente.aspx" />
+    <Content Include="40-Familias.aspx" />
+    <Content Include="41-CrearFamilias.aspx" />
+    <Content Include="42-ModificarFamilias.aspx" />
     <Content Include="60-Bitacora.aspx" />
     <Content Include="70-Productos.aspx" />
     <Content Include="71-AltaProducto.aspx" />
@@ -368,6 +373,41 @@
     </Compile>
     <Compile Include="21-AltaUsuario.aspx.designer.cs">
       <DependentUpon>21-AltaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="31-AsignarPermiso.aspx.cs">
+      <DependentUpon>31-AsignarPermiso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="31-AsignarPermiso.aspx.designer.cs">
+      <DependentUpon>31-AsignarPermiso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="32-AsignarPermisoPatente.aspx.cs">
+      <DependentUpon>32-AsignarPermisoPatente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="32-AsignarPermisoPatente.aspx.designer.cs">
+      <DependentUpon>32-AsignarPermisoPatente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="40-Familias.aspx.cs">
+      <DependentUpon>40-Familias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="40-Familias.aspx.designer.cs">
+      <DependentUpon>40-Familias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="41-CrearFamilias.aspx.cs">
+      <DependentUpon>41-CrearFamilias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="41-CrearFamilias.aspx.designer.cs">
+      <DependentUpon>41-CrearFamilias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="42-ModificarFamilias.aspx.cs">
+      <DependentUpon>42-ModificarFamilias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="42-ModificarFamilias.aspx.designer.cs">
+      <DependentUpon>42-ModificarFamilias.aspx</DependentUpon>
     </Compile>
     <Compile Include="60-Bitacora.aspx.cs">
       <DependentUpon>60-Bitacora.aspx</DependentUpon>
