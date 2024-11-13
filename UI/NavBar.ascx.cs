@@ -17,7 +17,7 @@ namespace UI
         UsuarioBLL _usuarioService = new UsuarioBLL();
         CarritoBLL _carritoService = new CarritoBLL();
         protected System.Web.UI.HtmlControls.HtmlGenericControl navigationBar;
-        
+
         public void Page_Load(object sender, EventArgs e)
         {
             try
@@ -115,7 +115,7 @@ namespace UI
 
 
             navigationBar.InnerHtml = $@"
-<asp:UpdatePanel ID='UpdatePanelCarritoUAC' runat='server' UpdateMode='Conditional'>
+<asp:UpdatePanel ID='UpdatePanelCarritoUAC' runat='server' UpdateMode='Always'>
     <ContentTemplate>
         <nav class='navbar navbar-expand-lg navbar-dark bg-success'>
             <div class='container-fluid'>
@@ -135,14 +135,14 @@ namespace UI
                         <li class='nav-item'><a class='nav-link' href='90-Catalogo.aspx'>Catálogo</a></li>
 
                         <!-- Enlace al Carrito con contador de artículos -->
-                        <li class='nav-item position-relative'>
-                            <a class='nav-link' href='120-Carrito.aspx'>
-                                Carrito 
-                                <span class='badge bg-warning text-dark position-absolute top-0 start-100 translate-middle rounded-pill'>
-                                    <asp:Label ID='lblCarritoCantidadUAC' runat='server' Text='{cantidadCarrito}'></asp:Label>
-                                </span>
-                            </a>
-                        </li>
+                     <li class='nav-item position-relative'>
+    <a class='nav-link d-flex align-items-center' href='120-Carrito.aspx'>
+        Carrito
+        <span class='badge bg-warning text-dark position-absolute top-0 start-100 translate-middle rounded-circle' style='transform: translate(-50%, -30%); min-width: 24px; min-height: 24px;'>
+            {cantidadCarrito}
+        </span>
+    </a>
+</li>
 
                         <li class='nav-item'><a class='nav-link' href='100-Ventas.aspx'>Ventas</a></li>
                     </ul>
@@ -162,9 +162,9 @@ namespace UI
 
 
             navigationBar.InnerHtml = $@"
-<asp:UpdatePanel ID='UpdatePanelCarritoClient' runat='server' UpdateMode='Conditional'>
+<asp:UpdatePanel ID='UpdatePanelCarritoClient' runat='server' UpdateMode='Always'>
     <ContentTemplate>
-        <nav class='navbar navbar-expand-lg navbar-dark bg-warning'>
+           <nav class='navbar navbar-expand-lg navbar-dark bg-success'>
             <div class='container-fluid'>
                 <a class='navbar-brand' href='Home.aspx'>EnerTech</a>
                 <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarClient' aria-controls='navbarClient' aria-expanded='false'>
@@ -175,14 +175,14 @@ namespace UI
                         <li class='nav-item'><a class='nav-link' href='90-Catalogo.aspx'>Catálogo</a></li>
 
                         <!-- Enlace al Carrito con contador de artículos -->
-                        <li class='nav-item position-relative'>
-                            <a class='nav-link' href='120-Carrito.aspx'>
-                                Carrito 
-                                <span class='badge bg-warning text-dark position-absolute top-0 start-100 translate-middle rounded-pill'>
-                                    <asp:Label ID='lblCarritoCantidadClient' runat='server' Text='{cantidadCarrito}'></asp:Label>
-                                </span>
-                            </a>
-                        </li>
+                                       <li class='nav-item position-relative'>
+    <a class='nav-link d-flex align-items-center' href='120-Carrito.aspx'>
+        Carrito
+        <span class='badge bg-warning text-dark position-absolute top-0 start-100 translate-middle rounded-circle' style='transform: translate(-50%, -30%); min-width: 24px; min-height: 24px;'>
+            {cantidadCarrito}
+        </span>
+    </a>
+</li>
 
                         <li class='nav-item'><a class='nav-link' href='122-MisCompras.aspx'>Mis Compras</a></li>
                     </ul>
@@ -193,6 +193,8 @@ namespace UI
     </ContentTemplate>
 </asp:UpdatePanel>";
         }
+
+        
 
 
 
@@ -215,8 +217,11 @@ namespace UI
             navigationBar.InnerHtml = "<a href='Default.aspx' class='btn btn-primary'>Inicio</a>";
         }
 
-        
+
 
 
     }
+
+
+    
 }

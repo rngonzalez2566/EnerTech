@@ -16,5 +16,6 @@ namespace DAL.Querys
         public const string Publicar_Catalogo = "UPDATE Producto SET Catalogo = @catalogo WHERE codigo = @code ";
 
         public const string GetProduct_ID = "SELECT  * FROM Producto where id =@id";
+        public const string update_producto = "UPDATE Producto SET Descripcion = @descripcion,id_marca = @marca ,id_categoria =@categoria ,Imagen =@imagen,Cantidad = @cantidad,codigo_iva = @iva,precio =@precio WHERE codigo = @codigo";
     }
 }

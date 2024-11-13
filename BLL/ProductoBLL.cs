@@ -81,6 +81,28 @@ namespace BLL
             }
         }
 
+        public void EditarProducto(ProductoBE producto)
+        {
+
+            try
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    productoDAL.EditarProducto(producto);
+                    //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
+
+                    scope.Complete();
+
+                    
+                }
+
+            }
+            catch
+            {
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
         public void PublicarCatalogo(List<ProductoBE> productos)
         {
 

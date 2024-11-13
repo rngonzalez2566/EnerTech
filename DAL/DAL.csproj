@@ -72,6 +72,7 @@
     <Compile Include="CategoriaDAL.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="MarcaDAL.cs" />
+    <Compile Include="PermisoDAL.cs" />
     <Compile Include="ProductoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Querys\BitacoraQuerys.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Querys\CategoriaQuerys.cs" />
     <Compile Include="Querys\Class1.cs" />
     <Compile Include="Querys\MarcaQuerys.cs" />
+    <Compile Include="Querys\PermisoQuerys.cs" />
     <Compile Include="Querys\ProductoQuerys.cs" />
     <Compile Include="Querys\UsuarioQuerys.cs" />
     <Compile Include="Querys\VentaQuerys.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Tools\CategoriaTools.cs" />
     <Compile Include="Tools\Detalle_VentaTools.cs" />
     <Compile Include="Tools\MarcaTools.cs" />
+    <Compile Include="Tools\PermisoTools.cs" />
     <Compile Include="Tools\ProductoTools.cs" />
     <Compile Include="Tools\TaxesTools.cs" />
     <Compile Include="Tools\UsuarioTools.cs" />

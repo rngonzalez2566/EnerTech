@@ -60,10 +60,16 @@ namespace UI
             // Lógica para eliminar un producto
         }
 
+       
+
         // Botón para modificar un producto
         protected void btnModificarProducto_Click(object sender, EventArgs e)
         {
-            // Lógica para modificar un producto
+            Button btnEditar = (Button)sender;
+            string codigo = btnEditar.CommandArgument;
+
+            // Redirigir a la página de modificación con el código del producto como parámetro en la URL
+            Response.Redirect($"73-ModificacionProducto.aspx?codigo={codigo}");
         }
         protected void SelectAll_Click(object sender, EventArgs e)
         {

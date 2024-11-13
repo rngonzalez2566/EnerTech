@@ -222,6 +222,7 @@
     <Content Include="60-Bitacora.aspx" />
     <Content Include="70-Productos.aspx" />
     <Content Include="71-AltaProducto.aspx" />
+    <Content Include="73-ModificacionProducto.aspx" />
     <Content Include="90-Catalogo.aspx" />
     <Content Include="A-PruebaAFIP.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -389,6 +390,13 @@
     <Compile Include="71-AltaProducto.aspx.designer.cs">
       <DependentUpon>71-AltaProducto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="73-ModificacionProducto.aspx.cs">
+      <DependentUpon>73-ModificacionProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="73-ModificacionProducto.aspx.designer.cs">
+      <DependentUpon>73-ModificacionProducto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="90-Catalogo.aspx.cs">
       <DependentUpon>90-Catalogo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -473,6 +481,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Certificados\" />
     <Folder Include="DB\" />
     <Folder Include="Images\" />
     <Folder Include="NewFolder1\" />

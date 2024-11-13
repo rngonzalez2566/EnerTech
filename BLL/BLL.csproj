@@ -78,6 +78,7 @@
     <Compile Include="CarritoBLL.cs" />
     <Compile Include="CategoriaBLL.cs" />
     <Compile Include="MarcaBLL.cs" />
+    <Compile Include="PermisoBLL.cs" />
     <Compile Include="ProductoBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionManager.cs" />

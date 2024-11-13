@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BE.Composite;
+using BE.Enums;
+using BE.Factory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +23,31 @@ namespace BE
         public string Apellido { get; set; }
         public string TipoDocumento { get; set; }
         public string TipoCliente { get; set; }
+
+        List<Componente> _permisos = new List<Componente>();
+        public List<Componente> Permisos
+        {
+            get
+            {
+                return _permisos;
+            }
+        }
+        public void EliminarPermisosPorId(List<int> ids)
+        {
+            _permisos.RemoveAll(p => ids.Contains(p.Id));
+        }
+
+        public void AsignarPermiso(Permiso tipoPermiso)
+        {
+            Componente permiso = PermisoFactory.CrearPermiso(tipoPermiso);
+            _permisos.Add(permiso);
+        }
+
+        public void EliminarPermiso(Componente permiso)
+        {
+            _permisos.Remove(permiso);
+        }
+
 
 
     }

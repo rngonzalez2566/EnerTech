@@ -70,16 +70,27 @@
         background-color: #d32f2f;
         color: white;
     }
- 
-    .badge {
-        font-size: 0.9rem;
-        padding: 5px;
-        min-width: 20px;
-        min-height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+ .badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem;
+    font-size: 0.85rem;
+    min-width: 24px;
+    min-height: 24px;
+    border-radius: 50%;
+    line-height: 1;
+}
+
+.nav-item .badge {
+    background-color: #ffc107; /* Amarillo */
+    color: #212529; /* Texto oscuro para contraste */
+}
+
+.nav-item .badge::after {
+    content: attr(data-count);
+    position: relative;
+}
 
     </style>
 </head>

@@ -128,6 +128,33 @@ namespace DAL
             }
         }
 
+        public void EditarProducto(ProductoBE producto)
+        {
+            try
+            {
+                xCommandText = Querys.ProductoQuerys.update_producto;
+
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@codigo", producto.Codigo);
+                xParameters.Parameters.AddWithValue("@descripcion", producto.Descripcion);
+                xParameters.Parameters.AddWithValue("@marca", producto.Marca.Id);
+                xParameters.Parameters.AddWithValue("@categoria", producto.Categoria.Id);
+                xParameters.Parameters.AddWithValue("@imagen", producto.Imagen);
+                xParameters.Parameters.AddWithValue("@cantidad", producto.Cantidad);
+                xParameters.Parameters.AddWithValue("@iva", producto.codigoIVA.Codigo);
+                xParameters.Parameters.AddWithValue("@precio", producto.Precio);
+               
+
+
+                executeNonQuery();
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
         public void PublicarCatalogo(List<ProductoBE> productos)
         {
             try

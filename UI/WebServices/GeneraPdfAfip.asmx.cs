@@ -711,16 +711,19 @@ namespace UI.WebServices
                 PdfPTable tbQRCode = new PdfPTable(1);
                 tbQRCode.DefaultCell.Border = 0;
                 var qrImage = GenerateQRCode(Venta.QRData);
-                qrImage.ScaleToFit(150, 150);
-                PdfPCell cell = new PdfPCell(qrImage)
+                if(qrImage != null)
                 {
-                    HorizontalAlignment = Element.ALIGN_LEFT,
-                    Border = 0,
-                    PaddingBottom = 10 // Ajusta este valor si necesitas más espacio debajo del QR
-                };
-                tbQRCode.AddCell(cell);
-
+                    qrImage.ScaleToFit(150, 150);
+                }
+                PdfPCell cell = new PdfPCell(qrImage)
+                    {
+                        HorizontalAlignment = Element.ALIGN_LEFT,
+                        Border = 0,
+                        PaddingBottom = 10 // Ajusta este valor si necesitas más espacio debajo del QR
+                    };
+                    tbQRCode.AddCell(cell);
                 
+      
                 #endregion
                 #region CAE
                 //CAE
@@ -885,6 +888,7 @@ namespace UI.WebServices
 
         public static iTextSharp.text.Image GenerateQRCode(string qrData)
         {
+            if(qrData == null) return null;
             using (var qrGenerator = new QRCodeGenerator())
             {
                 var qrCodeData = qrGenerator.CreateQrCode(qrData, QRCodeGenerator.ECCLevel.Q);

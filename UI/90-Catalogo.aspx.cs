@@ -99,15 +99,17 @@ namespace UI
             _carritoService.setCarrito(carritoItem);
 
             // Actualizar el NavBar directamente
-            var navBarControl = (NavBar)this.FindControl("navigationBar");
-            if (navBarControl != null)
-            {
-                navBarControl.Page_Load(null, null); // Actualizar la cantidad en el carrito
-            }
-
+            //var navBarControl = (NavBar)this.FindControl("navigationBar");
+            //if (navBarControl != null)
+            //{
+            //    navBarControl.Page_Load(null, null); // Actualizar la cantidad en el carrito
+            //}
+            //UpdatePanelCatalogo.Update();
+            Response.Redirect(Request.RawUrl);
             // Mostrar el toast sin refrescar la página completa
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showToast", "showCartToast();", true);
-            UpdatePanelCatalogo.Update();
+            
+           
 
         }
 
