@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="32-AsignarPermisoPatente.aspx.cs" Inherits="UI._32_AsignarPermisoPatente" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="34-DesasignarPermisoPatente.aspx.cs" Inherits="UI._34_DesasignarPermisoPatente" %>
 <%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
-    <title>Asignar Familias</title>
+    <title>Desasignar Familias</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
@@ -15,12 +15,15 @@
             color: white;
         }
         .submit-btn {
-            background-color: #28a745;
+            background-color: #dc3545;
             color: white;
         }
         .table-responsive {
             max-height: 300px;
             overflow-y: auto;
+        }
+        .form-label {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -29,12 +32,16 @@
 <body>
     <div class="container my-5">
         <!-- Título de la página -->
-        <h2 class="text-center mb-5"><i class="bi bi-people-fill"></i> Asignación de Familias a Usuario</h2>
+        <h2 class="text-center mb-5"><i class="bi bi-people-fill"></i> Desasignar Familias a Usuario</h2>
 
-        <!-- Formulario de Asignación -->
+        <!-- Formulario de eliminación de familias -->
         <form id="form1" runat="server" class="mb-5">
             
-          
+            <!-- Filtro de Usuarios -->
+            <div class="mb-4">
+                <label for="filtroUsuario" class="form-label"><i class="bi bi-search"></i> Filtrar Usuario</label>
+                <input type="text" id="filtroUsuario" class="form-control" placeholder="Escribe para buscar..." oninput="filtrarUsuarios()" />
+            </div>
 
             <!-- Seleccionar Usuario -->
             <div class="mb-4">
@@ -42,7 +49,7 @@
                 <select id="selectUsuario" name="usuarioSeleccionado" class="form-select" onchange="this.form.submit()">
                     <option value="">Selecciona un usuario</option>
                     <% foreach (var usuario in Usuarios) { %>
-                        <option value="<%= usuario.Id %>" <%= usuario.Id == UsurioSeleccionadoId ? "selected" : "" %>>
+                        <option value="<%= usuario.Id %>" <%= usuario.Id == UsuarioSeleccionadoId ? "selected" : "" %>>
                             <%= usuario.RazonSocial %>
                         </option>
                     <% } %>
@@ -50,35 +57,9 @@
             </div>
 
             <!-- Familias Asignadas -->
-            <div class="card shadow mb-4">
-                <div class="card-header card-header-custom">
-                    <h5><i class="bi bi-check-circle"></i> Familias Asignadas</h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead>
-                            <tr>
-                                <th>Nombre de Familia</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% foreach (var familia in FamiliasAsignadas) { %>
-                                <tr>
-                                    <td><%= familia.Nombre %></td>
-                                    <td><%= familia.Permiso %></td>
-                                    <input type="hidden" class="id-familia-asignada" value="<%= familia.Id %>">
-                                </tr>
-                            <% } %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Familias Disponibles -->
             <div class="card shadow mb-5">
                 <div class="card-header card-header-custom">
-                    <h5><i class="bi bi-plus-circle"></i> Familias Disponibles</h5>
+                    <h5><i class="bi bi-check-circle"></i> Familias Asignadas</h5>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
@@ -90,9 +71,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% foreach (var familia in FamiliasDisponibles) { %>
+                            <% foreach (var familia in FamiliasAsignadas) { %>
                                 <tr>
-                                    <td><input type="checkbox" class="form-check-input select-familia" value="<%= familia.Id %>"></td>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input select-familia" value="<%= familia.Id %>">
+                                    </td>
                                     <td><%= familia.Nombre %></td>
                                     <td><%= familia.Permiso %></td>
                                 </tr>
@@ -103,10 +86,9 @@
             </div>
 
             <input type="hidden" id="familiasSeleccionadas" name="familiasSeleccionadas" />
-            <input type="hidden" id="familiasAsignadas" name="familiasAsignadas" />
 
-            <!-- Botón Guardar -->
-            <asp:Button ID="btnGuardar" runat="server" Text="Asignar Familias" CssClass="btn submit-btn btn-success" OnClientClick="return prepararEnvio();" OnClick="btnGuardar_Click" />
+            <!-- Botón de eliminación -->
+            <asp:Button ID="btnEliminar" runat="server" Text="Desasignar Familias" CssClass="btn submit-btn btn-danger" OnClientClick="return prepararEnvio();" OnClick="btnEliminar_Click" />
         </form>
     </div>
 
@@ -115,19 +97,19 @@
 
     <script>
         function prepararEnvio() {
-            const familiasSeleccionadasIds = [];
+            const familiasIds = [];
             document.querySelectorAll('.select-familia:checked').forEach(input => {
-                familiasSeleccionadasIds.push(input.value);
+                familiasIds.push(input.value);
             });
 
-            document.getElementById('familiasSeleccionadas').value = familiasSeleccionadasIds.join(',');
+            document.getElementById('familiasSeleccionadas').value = familiasIds.join(',');
 
-            const familiasAsignadasIds = [];
-            document.querySelectorAll('.id-familia-asignada').forEach(input => {
-                familiasAsignadasIds.push(input.value);
-            });
-
-            document.getElementById('familiasAsignadas').value = familiasAsignadasIds.join(',');
+            // Validar que al menos una familia esté seleccionada
+            if (familiasIds.length === 0) {
+                alert("Por favor, selecciona al menos una familia para desasignar.");
+                return false;
+            }
+            
             return true;
         }
 

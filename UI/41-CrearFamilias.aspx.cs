@@ -15,17 +15,12 @@ namespace UI
         public List<Patente> Patentes { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var clienteLogueado = _sessionManager.Get<Cliente>("Usuario");
-            //var idioma = _sessionManager.Get<IIdioma>("Idioma");
-
-            //if (clienteLogueado == null || !PermisoCheck.VerificarPermiso(clienteLogueado.Permisos, Entities.Enums.Permiso.AltaFamilia))
-            //    Response.Redirect("Default.aspx");
-
+           
             try
             {
                 Patentes = _permisoService.GetPatentes();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -49,7 +44,7 @@ namespace UI
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

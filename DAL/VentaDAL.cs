@@ -331,7 +331,65 @@ namespace DAL
             }
           
         }
-       
+
+        public List<VentaBE> VentasPorMes()
+        {
+            try
+            {
+
+
+                xCommandText = Querys.VentaQuerys.Get_Ventas_PorMes;
+
+                xParameters.Parameters.Clear();
+                DataSet ds = ExecuteReader();
+
+                List<VentaBE> ventas = new List<VentaBE>();
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    ventas = Tools.VentaTools.FillListVentas(ds);
+                }
+
+
+                return ventas;
+
+
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
+        public List<VentaBE> VentasPorCategoria()
+        {
+            try
+            {
+
+
+                xCommandText = Querys.VentaQuerys.Get_Ventas_PorCategoria;
+
+                xParameters.Parameters.Clear();
+                DataSet ds = ExecuteReader();
+
+                List<VentaBE> ventas = new List<VentaBE>();
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    ventas = Tools.VentaTools.FillListVentas(ds);
+                }
+
+
+                return ventas;
+
+
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
 
     }
 }

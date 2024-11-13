@@ -46,6 +46,7 @@
     <Compile Include="AFIP\PuntoDeVenta.cs" />
     <Compile Include="AFIP\TipoPV.cs" />
     <Compile Include="AFIP\tokenAFIP.cs" />
+    <Compile Include="BackupBE.cs" />
     <Compile Include="BitacoraBE.cs" />
     <Compile Include="CarritoBE.cs" />
     <Compile Include="CategoriaBE.cs" />

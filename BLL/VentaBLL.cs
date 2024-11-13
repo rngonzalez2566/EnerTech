@@ -54,6 +54,19 @@ namespace BLL
             return ventas;
         }
 
+        public List<VentaBE> VentasPorCategoria()
+        {
+            List<VentaBE> ventas = ventalDAL.VentasPorCategoria();
+
+            return ventas;
+        }
+
+        public List<VentaBE> VentasPorMes()
+        {
+            List<VentaBE> ventas = ventalDAL.VentasPorMes();
+
+            return ventas;
+        }
         public List<Detalle_VentaBE> GetDetalleVenta(int venta)
         {
             List<Detalle_VentaBE> ventas = ventalDAL.GetDetalleVenta(venta);

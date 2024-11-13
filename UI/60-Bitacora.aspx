@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="60-Bitacora.aspx.cs" Inherits="UI._60_Bitacora" %>
-
+<%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -114,7 +114,9 @@
         }
     </style>
 </head>
+        <uc:Navbar ID="navigationBar" runat="server" />
 <body>
+ 
     <form id="mainForm" runat="server">
         <div class="bitacora-container">
             <h1>Bitácora</h1>

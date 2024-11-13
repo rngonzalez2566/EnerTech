@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="31-AsignarPermiso.aspx.cs" Inherits="UI._31_AsignarPermiso" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="33-DesasignarPermiso.aspx.cs" Inherits="UI._33_DesasignarPermiso" %>
 <%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
-    <title>Asignar Permisos</title>
+    <title>Desasignar Patentes</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
@@ -15,12 +15,15 @@
             color: white;
         }
         .submit-btn {
-            background-color: #28a745;
+            background-color: #dc3545;
             color: white;
         }
         .table-responsive {
             max-height: 300px;
             overflow-y: auto;
+        }
+        .form-label {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -29,55 +32,29 @@
 <body>
     <div class="container my-5">
         <!-- Título de la página -->
-        <h2 class="text-center mb-5"><i class="bi bi-shield-lock"></i> Asignación de Permisos</h2>
+        <h2 class="text-center mb-5"><i class="bi bi-shield-x"></i> Desasignar Patentes a Usuario</h2>
 
-        <!-- Formulario de Asignación -->
+        <!-- Formulario de eliminación de patentes -->
         <form id="form1" runat="server" class="mb-5">
             
-         
+
             <!-- Seleccionar Usuario -->
             <div class="mb-4">
                 <label for="selectUsuario" class="form-label"><i class="bi bi-person"></i> Seleccionar Usuario</label>
                 <select id="selectUsuario" name="usuarioSeleccionado" class="form-select" onchange="this.form.submit()">
                     <option value="">Selecciona un usuario</option>
                     <% foreach (var usuario in Usuarios) { %>
-                        <option value="<%= usuario.Id %>" <%= usuario.Id == UsurioSeleccionadoId ? "selected" : "" %>>
+                        <option value="<%= usuario.Id %>" <%= usuario.Id == UsuarioSeleccionadoId ? "selected" : "" %>>
                             <%= usuario.RazonSocial %>
                         </option>
                     <% } %>
                 </select>
             </div>
 
-            <!-- Patentes Asignadas -->
-            <div class="card shadow mb-4">
-                <div class="card-header card-header-custom">
-                    <h5><i class="bi bi-check-circle"></i> Patentes Asignadas</h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle">
-                        <thead>
-                            <tr>
-                                <th>Nombre de Patente</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% foreach (var patente in PatentesAsignadas) { %>
-                                <tr>
-                                    <td><%= patente.Nombre %></td>
-                                    <td><%= patente.Permiso %></td>
-                                    <input type="hidden" class="id-patente-asignada" value="<%= patente.Id %>">
-                                </tr>
-                            <% } %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Patentes Disponibles -->
+            <!-- Tabla de Patentes Asignadas -->
             <div class="card shadow mb-5">
                 <div class="card-header card-header-custom">
-                    <h5><i class="bi bi-plus-circle"></i> Patentes Disponibles</h5>
+                    <h5><i class="bi bi-check-circle"></i> Patentes Asignadas</h5>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
@@ -89,9 +66,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% foreach (var patente in PatentesDisponibles) { %>
+                            <% foreach (var patente in PatentesAsignadas) { %>
                                 <tr>
-                                    <td><input type="checkbox" class="form-check-input select-patente" value="<%= patente.Id %>"></td>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input select-patente" value="<%= patente.Id %>">
+                                    </td>
                                     <td><%= patente.Nombre %></td>
                                     <td><%= patente.Permiso %></td>
                                 </tr>
@@ -102,10 +81,9 @@
             </div>
 
             <input type="hidden" id="patentesSeleccionadas" name="patentesSeleccionadas" />
-            <input type="hidden" id="patentesAsignadas" name="patentesAsignadas" />
 
-            <!-- Botón Guardar -->
-            <asp:Button ID="btnGuardar" runat="server" Text="Asignar Patentes" CssClass="btn submit-btn btn-success" OnClientClick="return prepararEnvio();" OnClick="btnGuardar_Click" />
+            <!-- Botón de eliminación -->
+            <asp:Button ID="btnEliminar" runat="server" Text="Desasignar Patentes" CssClass="btn submit-btn btn-danger" OnClientClick="return prepararEnvio();" OnClick="btnEliminar_Click" />
         </form>
     </div>
 
@@ -114,19 +92,19 @@
 
     <script>
         function prepararEnvio() {
-            const patentesSeleccionadasIds = [];
+            const patentesIds = [];
             document.querySelectorAll('.select-patente:checked').forEach(input => {
-                patentesSeleccionadasIds.push(input.value);
+                patentesIds.push(input.value);
             });
 
-            document.getElementById('patentesSeleccionadas').value = patentesSeleccionadasIds.join(',');
-
-            const patentesAsignadasIds = [];
-            document.querySelectorAll('.id-patente-asignada').forEach(input => {
-                patentesAsignadasIds.push(input.value);
-            });
-
-            document.getElementById('patentesAsignadas').value = patentesAsignadasIds.join(',');
+            document.getElementById('patentesSeleccionadas').value = patentesIds.join(',');
+            
+            // Validar que al menos una patente esté seleccionada
+            if (patentesIds.length === 0) {
+                alert("Por favor, selecciona al menos una patente para desasignar.");
+                return false;
+            }
+            
             return true;
         }
 

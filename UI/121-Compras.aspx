@@ -147,7 +147,7 @@
         <div class="cart-container">
             <div class="cart-header">
                 <span>Carrito de Compras</span>
-                <span><a href="Catalogo.aspx">Continuar Comprando</a></span>
+                <span><a href="90-Catalogo.aspx">Continuar Comprando</a></span>
             </div>
 
             <asp:Repeater ID="rptCarrito" runat="server">

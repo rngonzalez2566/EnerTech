@@ -26,9 +26,9 @@ namespace UI
             {
                 Familias = _permisoService.GetFamilias();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //AlertHelper.MostrarModal(this, $"{ex.Message}.");
+                
             }
         }
     }

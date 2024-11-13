@@ -67,7 +67,7 @@ namespace BLL
 
                         usuarioDAL.DesbloquearUsuario(usuario.Id);
                         bitacora.RegistrarBitacora($"{user} - Inicio sesion correctamente", "Baja", usuario);
-
+                        _permisoService.GetComponenteUsuario(usuario);
                         return usuario;
                     }
                     else

@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="AFIP\FacturacionAFIP.cs" />
     <Compile Include="AFIP\tokenAFIP.cs" />
+    <Compile Include="BackupBLL.cs" />
     <Compile Include="BitacoraBLL.cs" />
     <Compile Include="CarritoBLL.cs" />
     <Compile Include="CategoriaBLL.cs" />

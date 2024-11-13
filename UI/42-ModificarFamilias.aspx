@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="42-ModificarFamilias.aspx.cs" Inherits="UI._42_ModificarFamilias" %>
-
+<%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,8 @@
         }
     </style>
 </head>
-
+      <!-- Incluir el Navbar -->
+ <uc:Navbar ID="navigationBar" runat="server" />
 <body>
     <div class="container my-5">
         <!-- Título de la página -->
@@ -72,7 +73,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="button" class="btn btn-primary mt-3" onclick="agregarPatente()">Agregar Patente</button>
+                <button type="button" class="btn btn-primary mt-3 btn-success" onclick="agregarPatente()">Agregar Patente</button>
             </div>
 
             <!-- Tabla de Patentes Asignadas -->

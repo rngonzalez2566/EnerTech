@@ -27,5 +27,12 @@ namespace DAL.Querys
 
         public const string filtro_fechas = "SELECT * FROM venta WHERE(@fd IS NULL OR fecha >= @fd) AND(@fh IS NULL OR fecha <= @fh) " +
                                             "AND (@fac IS NULL OR facturado = @fac) ORDER BY fecha DESC";
+        public const string Get_Ventas_PorMes = "SELECT  MONTH(Fecha) Detalle, SUM(Total) AS Total FROM venta GROUP BY  MONTH(Fecha)";
+        public const string Get_Ventas_PorCategoria = @"SELECT C.Nombre Detalle, sum(v.Total) total
+FROM Venta V
+INNER JOIN Detalle_Venta D ON D.id_venta = V.Id
+INNER JOIN Producto P ON P.ID = D.id_producto
+INNER JOIN Categoria C ON C.Id = P.id_categoria
+GROUP BY C.Nombre";
     }
 }

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="41-CrearFamilias.aspx.cs" Inherits="UI._41_CrearFamilias" %>
-
+<%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 
 <!DOCTYPE html>
@@ -21,7 +21,8 @@
         }
     </style>
 </head>
-
+      <!-- Incluir el Navbar -->
+ <uc:Navbar ID="navigationBar" runat="server" />
 <body>
     <div class="container my-5">
         <!-- Título de la página -->

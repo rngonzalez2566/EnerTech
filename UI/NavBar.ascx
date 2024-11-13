@@ -93,12 +93,13 @@
 }
 
     </style>
-</head>
-<body>
-
-  <!-- Navbar personalizado -->
+</head
+      <!-- Navbar personalizado -->
 <div id="navigationBar" runat="server">
 </div>
+
+<body>
+
 
    <%-- <div class="container">
         <h1 class="text-center mt-5">Bienvenido a EnerTech</h1>

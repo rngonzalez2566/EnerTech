@@ -221,9 +221,12 @@
     <Content Include="21-AltaUsuario.aspx" />
     <Content Include="31-AsignarPermiso.aspx" />
     <Content Include="32-AsignarPermisoPatente.aspx" />
+    <Content Include="33-DesasignarPermiso.aspx" />
+    <Content Include="34-DesasignarPermisoPatente.aspx" />
     <Content Include="40-Familias.aspx" />
     <Content Include="41-CrearFamilias.aspx" />
     <Content Include="42-ModificarFamilias.aspx" />
+    <Content Include="50-Backup.aspx" />
     <Content Include="60-Bitacora.aspx" />
     <Content Include="70-Productos.aspx" />
     <Content Include="71-AltaProducto.aspx" />
@@ -388,6 +391,20 @@
     <Compile Include="32-AsignarPermisoPatente.aspx.designer.cs">
       <DependentUpon>32-AsignarPermisoPatente.aspx</DependentUpon>
     </Compile>
+    <Compile Include="33-DesasignarPermiso.aspx.cs">
+      <DependentUpon>33-DesasignarPermiso.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="33-DesasignarPermiso.aspx.designer.cs">
+      <DependentUpon>33-DesasignarPermiso.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="34-DesasignarPermisoPatente.aspx.cs">
+      <DependentUpon>34-DesasignarPermisoPatente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="34-DesasignarPermisoPatente.aspx.designer.cs">
+      <DependentUpon>34-DesasignarPermisoPatente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="40-Familias.aspx.cs">
       <DependentUpon>40-Familias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -408,6 +425,13 @@
     </Compile>
     <Compile Include="42-ModificarFamilias.aspx.designer.cs">
       <DependentUpon>42-ModificarFamilias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="50-Backup.aspx.cs">
+      <DependentUpon>50-Backup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="50-Backup.aspx.designer.cs">
+      <DependentUpon>50-Backup.aspx</DependentUpon>
     </Compile>
     <Compile Include="60-Bitacora.aspx.cs">
       <DependentUpon>60-Bitacora.aspx</DependentUpon>

@@ -19,28 +19,21 @@ namespace UI
         private int _familiaId { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var clienteLogueado = _sessionManager.Get<Cliente>("Usuario");
-
-            //if (clienteLogueado == null || !PermisoCheck.VerificarPermiso(clienteLogueado.Permisos, Entities.Enums.Permiso.ModificarFamilia))
-            //    Response.Redirect("Default.aspx");
-
-            //var idioma = _sessionManager.Get<IIdioma>("Idioma");
+            
 
             try
             {
                 _familiaId = int.Parse(Request.QueryString["id"]);
                 CargarFamiliasPatentes();
             }
-            catch (Exception ex)
-            {
-                //AlertHelper.MostrarModal(this, $"{ex.Message}.");
-                //Response.Redirect("Default.aspx");
+            catch (Exception)
+            {  
             }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            //var idioma = _sessionManager.Get<IIdioma>("Idioma");
+           
 
             try
             {
@@ -54,16 +47,16 @@ namespace UI
                     GuardarFamilia(nombreFamilia, patentesIds);
                     CargarFamiliasPatentes();
 
-                    //AlertHelper.MostrarModal(this, $"{_traduccionService.ObtenerMensaje(idioma, "MSJ_29")} {nombreFamilia}");
+                    
                 }
                 else
                 {
-                    //AlertHelper.MostrarModal(this, $"{_traduccionService.ObtenerMensaje(idioma, "MSJ_30")} {nombreFamilia}");
+                   
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //AlertHelper.MostrarModal(this, $"{ex.Message}.");
+               
             }
         }
 

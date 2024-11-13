@@ -11,7 +11,7 @@ namespace UI
 {
 
 
-    public partial class _60_Bitacora
+    public partial class _50_Backup
     {
 
         /// <summary>
@@ -24,102 +24,75 @@ namespace UI
         protected global::UI.NavBar navigationBar;
 
         /// <summary>
-        /// mainForm control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm mainForm;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// txtUsuario control.
+        /// txtRutaBackup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtRutaBackup;
 
         /// <summary>
-        /// ddlCriticidad control.
+        /// btnGenerarBackup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCriticidad;
+        protected global::System.Web.UI.WebControls.Button btnGenerarBackup;
 
         /// <summary>
-        /// txtFechaDesde control.
+        /// fileUploadRestore control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaDesde;
+        protected global::System.Web.UI.WebControls.FileUpload fileUploadRestore;
 
         /// <summary>
-        /// txtFechaHasta control.
+        /// btnRestaurarBD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFechaHasta;
+        protected global::System.Web.UI.WebControls.Button btnRestaurarBD;
 
         /// <summary>
-        /// btnBuscar control.
+        /// estadoDVLiteral control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        protected global::System.Web.UI.WebControls.Literal estadoDVLiteral;
 
         /// <summary>
-        /// lblErrorMessage control.
+        /// btnRecalcularDV control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+        protected global::System.Web.UI.WebControls.Button btnRecalcularDV;
 
         /// <summary>
-        /// lblCurrentPage control.
+        /// genericModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCurrentPage;
-
-        /// <summary>
-        /// lblTotalPages control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalPages;
-
-        /// <summary>
-        /// btnAnterior control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAnterior;
-
-        /// <summary>
-        /// btnSiguiente control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSiguiente;
+        protected global::UI.GenericModal genericModal;
     }
 }

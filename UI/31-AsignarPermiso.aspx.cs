@@ -52,7 +52,7 @@ namespace UI
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Response.Redirect("Default.aspx");
             }
@@ -92,7 +92,7 @@ namespace UI
                
             }
            
-            catch (Exception ex)
+            catch (Exception)
             {
                
             }
