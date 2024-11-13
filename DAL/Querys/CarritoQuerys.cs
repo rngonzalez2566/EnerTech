@@ -14,5 +14,6 @@ namespace DAL.Querys
         public const string update_Carrito = "UPDATE CARRITO SET CANTIDAD = @cantidad where id_usuario = @user and id_producto = @prod";
         public const string delete_Carrito = "DELETE FROM CARRITO where id_usuario = @user";
         public const string delete_Product_Carrito = "DELETE FROM CARRITO where id_usuario = @user and id_producto = @prod";
+        public const string GetCantidad_Carrito = "select ISNULL(sum(cantidad),0) cantidad from Carrito where id_usuario = @user";
     }
 }

@@ -81,33 +81,34 @@ namespace UI
 
         protected void btnAgregarCarrito_Click(object sender, EventArgs e)
         {
-            //usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
-            //_sessionManager.Set("Usuario", usuario);
-            //usuario = _sessionManager.Get<UsuarioBE>("Usuario");
-
             if (usuario == null)
             {
                 Response.Redirect("Default.aspx");
             }
 
-            // Obtener el código del producto desde el CommandArgument del botón
             Button btnAgregarCarrito = (Button)sender;
             int productoId = Convert.ToInt32(btnAgregarCarrito.CommandArgument);
 
-            // Crear el objeto CarritoBE con los detalles necesarios
             CarritoBE carritoItem = new CarritoBE
             {
-                usuario = new UsuarioBE { Id = usuario.Id }, 
-                producto = new ProductoBE { Id = productoId }, 
-                Cantidad = 1 
+                usuario = new UsuarioBE { Id = usuario.Id },
+                producto = new ProductoBE { Id = productoId },
+                Cantidad = 1
             };
 
-            // Llamar a setCarrito para agregar o actualizar el producto en el carrito
             _carritoService.setCarrito(carritoItem);
 
-            // Opcional: Mostrar mensaje de confirmación
-            //lblMessage.Text = "Producto agregado al carrito.";
-            //lblMessage.CssClass = "success-message";
+            // Actualizar el NavBar directamente
+            var navBarControl = (NavBar)this.FindControl("navigationBar");
+            if (navBarControl != null)
+            {
+                navBarControl.Page_Load(null, null); // Actualizar la cantidad en el carrito
+            }
+
+            // Mostrar el toast sin refrescar la página completa
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showToast", "showCartToast();", true);
+            UpdatePanelCatalogo.Update();
+
         }
 
     }

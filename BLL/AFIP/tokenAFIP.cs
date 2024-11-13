@@ -39,7 +39,7 @@ namespace BLL.AFIP
 
 
         public string TicketCacheFolderPath { get; set; } = "";
-        private readonly string certPath = @"C:\Users\Rodrigo\Desktop\SAP\Proyect\EnerTech\BLL\AFIP\Certificados\afip.p12"; // Ruta completa del archivo .pfx de tu certificado
+        private readonly string certPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Certificados", "afip.p12"); // Ruta completa del archivo .pfx de tu certificado
         private readonly string certPassword = "afip123"; // Contraseña del certificado
         private readonly string service = "wsfe"; // Nombre del servicio, por ejemplo, "wsfe" para facturación electrónica
 

@@ -1,6 +1,6 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="UI._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#"  AutoEventWireup="true"  Inherits="UI._Default" %>
 
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+
 
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +59,7 @@ html {
         header {
             position: relative;
             height: 60vh;
-            background: url('Images/banner-renewable-energy.jpg') no-repeat center center/cover;
+            background: url('Images/banner-renewable-energy.jpg') no-repeat center center;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -154,7 +154,7 @@ html {
         /* Estilos del encabezado animado */
         .animated-header {
             height: 60vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner-renewable-energy.jpg') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('Images/banner-renewable-energy.jpg') no-repeat center center;
             position: relative;
             overflow: hidden;
         }
@@ -333,6 +333,6 @@ html {
                 });
             });
 </script>
-</asp:Content>
+
 
 

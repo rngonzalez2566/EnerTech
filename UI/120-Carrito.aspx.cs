@@ -34,69 +34,72 @@ namespace UI
 
         private void CargarCarrito()
         {
-            // Obtén el carrito de la sesión
+            // Obtener el carrito actualizado desde la base de datos
             carrito = _carritoService.GetCarrito(usuario.Id);
 
-            // Enlaza el carrito al Repeater
+            // Enlazar el carrito al Repeater
             rptCarrito.DataSource = carrito;
             rptCarrito.DataBind();
         }
 
+
         protected void btnIncrease_Click(object sender, EventArgs e)
         {
-            // Aumentar la cantidad de un producto en el carrito
             Button btnIncrease = (Button)sender;
             int codigo = Convert.ToInt32(btnIncrease.CommandArgument);
-
             ActualizarCantidad(codigo, 1);
+            Response.Redirect(Request.RawUrl);
         }
         protected void btnDecrease_Click(object sender, EventArgs e)
         {
-            // Disminuir la cantidad de un producto en el carrito
             Button btnDecrease = (Button)sender;
             int codigo = Convert.ToInt32(btnDecrease.CommandArgument);
-
             ActualizarCantidad(codigo, -1);
+            Response.Redirect(Request.RawUrl);
         }
 
         private void ActualizarCantidad(int codigo, int cambio)
         {
-
+            // Obtén el producto en el carrito
             var carritoBE = carrito.FirstOrDefault(p => p.producto.Id == codigo);
-            //CarritoBE carritoBE = new CarritoBE();
-            //carritoBE.usuario = usuario;
-            //carritoBE.producto = new ProductoBE();
-            //carritoBE.producto.Id = codigo;
-            carritoBE.Cantidad += cambio;
 
-            if (carritoBE.Cantidad <= 0)
+            if (carritoBE != null)
             {
-               _carritoService.BorrarCarritoProducto(usuario.Id, codigo);
-            }
-            else
-            {
-               _carritoService.ActualizarCarrito(carritoBE);
+                carritoBE.Cantidad += cambio;
+
+                if (carritoBE.Cantidad <= 0)
+                {
+                    // Si la cantidad es 0 o menor, elimina el producto del carrito
+                    _carritoService.BorrarCarritoProducto(usuario.Id, codigo);
+                }
+                else
+                {
+                    // Actualiza la cantidad en la base de datos
+                    _carritoService.ActualizarCarrito(carritoBE);
+                }
             }
 
+            // Recargar el carrito desde la base de datos después de actualizar
             CargarCarrito();
             CalcularSubtotal();
         }
 
-           
-            
-        
+
+
+
 
         protected void btnRemove_Click(object sender, EventArgs e)
         {
-            // Eliminar un producto del carrito
             LinkButton btnRemove = (LinkButton)sender;
-           int codigo = Convert.ToInt32(btnRemove.CommandArgument);
+            int codigo = Convert.ToInt32(btnRemove.CommandArgument);
 
-            _carritoService.BorrarCarritoProducto(usuario.Id,codigo);
+            // Eliminar el producto del carrito
+            _carritoService.BorrarCarritoProducto(usuario.Id, codigo);
 
-       
+            // Recargar el carrito y el subtotal
             CargarCarrito();
             CalcularSubtotal();
+            Response.Redirect(Request.RawUrl);
         }
 
         private void CalcularSubtotal()

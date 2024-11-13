@@ -15,12 +15,14 @@ namespace UI
         public UsuarioBE usuario { get; set; }
         SessionManager _sessionManager = new SessionManager();
         UsuarioBLL _usuarioService = new UsuarioBLL();
+        CarritoBLL _carritoService = new CarritoBLL();
         protected System.Web.UI.HtmlControls.HtmlGenericControl navigationBar;
         
-        protected void Page_Load(object sender, EventArgs e)
+        public void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                int cantidadCarrito = 0;
                 //usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
                 //_sessionManager.Set("Usuario", usuario);
                 usuario = _sessionManager.Get<UsuarioBE>("Usuario");
@@ -32,7 +34,7 @@ namespace UI
                 else
                 {
                     //usuario.Email = Encriptador.Descencriptar(usuario.Email);
-
+                    cantidadCarrito = _carritoService.GetCantidadCarrito(usuario.Id);
 
                     switch (usuario.Email)
                     {
@@ -41,11 +43,11 @@ namespace UI
                             break;
 
                         case "UAC@gmail.com":
-                            SetUACNavigation();
+                            SetUACNavigation(cantidadCarrito);
                             break;
 
                         case "Cliente@gmail.com":
-                            SetClientNavigation();
+                            SetClientNavigation(cantidadCarrito);
                             break;
 
                         default:
@@ -108,69 +110,90 @@ namespace UI
 </nav>";
         }
 
-        private void SetUACNavigation()
+        private void SetUACNavigation(int cantidadCarrito)
         {
-            navigationBar.InnerHtml = @"
-<nav class='navbar navbar-expand-lg navbar-dark bg-success'>
-    <div class='container-fluid'>
-        <a class='navbar-brand' href='Home.aspx'>EnerTech</a>
-        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarUAC' aria-controls='navbarUAC' aria-expanded='false'>
-            <span class='navbar-toggler-icon'></span>
-        </button>
-        <div class='collapse navbar-collapse' id='navbarUAC'>
-            <ul class='navbar-nav mx-auto'>
-                <li class='nav-item dropdown'>
-                    <a class='nav-link dropdown-toggle' href='#' data-bs-toggle='dropdown'>Productos</a>
-                    <ul class='dropdown-menu'>
-                        <li><a class='dropdown-item' href='71-AltaProducto.aspx'>Alta Producto</a></li>
-                        <li><a class='dropdown-item' href='#'>Baja Producto</a></li>
-                        <li><a class='dropdown-item' href='#'>Modificación Producto</a></li>
+
+
+            navigationBar.InnerHtml = $@"
+<asp:UpdatePanel ID='UpdatePanelCarritoUAC' runat='server' UpdateMode='Conditional'>
+    <ContentTemplate>
+        <nav class='navbar navbar-expand-lg navbar-dark bg-success'>
+            <div class='container-fluid'>
+                <a class='navbar-brand' href='Home.aspx'>EnerTech</a>
+                <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarUAC' aria-controls='navbarUAC' aria-expanded='false'>
+                    <span class='navbar-toggler-icon'></span>
+                </button>
+                <div class='collapse navbar-collapse' id='navbarUAC'>
+                    <ul class='navbar-nav mx-auto'>
+                        <li class='nav-item dropdown'>
+                            <a class='nav-link dropdown-toggle' href='#' data-bs-toggle='dropdown'>Productos</a>
+                            <ul class='dropdown-menu'>
+                                <li><a class='dropdown-item' href='70-Productos.aspx'>Ver Productos</a></li>
+                                <li><a class='dropdown-item' href='71-AltaProducto.aspx'>Alta Producto</a></li>
+                            </ul>
+                        </li>
+                        <li class='nav-item'><a class='nav-link' href='90-Catalogo.aspx'>Catálogo</a></li>
+
+                        <!-- Enlace al Carrito con contador de artículos -->
+                        <li class='nav-item position-relative'>
+                            <a class='nav-link' href='120-Carrito.aspx'>
+                                Carrito 
+                                <span class='badge bg-warning text-dark position-absolute top-0 start-100 translate-middle rounded-pill'>
+                                    <asp:Label ID='lblCarritoCantidadUAC' runat='server' Text='{cantidadCarrito}'></asp:Label>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class='nav-item'><a class='nav-link' href='100-Ventas.aspx'>Ventas</a></li>
                     </ul>
-                </li>
-                <li class='nav-item'><a class='nav-link' href='90-Catalogo.aspx'>Catálogo</a></li>
-                <li class='nav-item'><a class='nav-link' href='120-Carrito.aspx'>Carrito</a></li>
-                <li class='nav-item'><a class='nav-link' href='100-Ventas.aspx'>Ventas</a></li>
-            </ul>
-            <div class='dropdown profile-icon'>
-                <a href='#' data-bs-toggle='dropdown'><img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile'></a>
-                <ul class='dropdown-menu dropdown-menu-end'>
-                    <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
-                    <li><a class='dropdown-item btn-logout' href='14-Logout.aspx'>Cerrar Sesión</a></li>
-                </ul>
+                    {GetProfileMenu()}
+                </div>
             </div>
-        </div>
-    </div>
-</nav>";
+        </nav>
+    </ContentTemplate>
+</asp:UpdatePanel>";
         }
 
 
 
-        private void SetClientNavigation()
-{
-    navigationBar.InnerHtml = @"
-<nav class='navbar navbar-expand-lg navbar-dark bg-warning'>
-    <div class='container-fluid'>
-        <a class='navbar-brand' href='Home.aspx'>EnerTech</a>
-        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarClient' aria-controls='navbarClient' aria-expanded='false'>
-            <span class='navbar-toggler-icon'></span>
-        </button>
-        <div class='collapse navbar-collapse' id='navbarClient'>
-            <ul class='navbar-nav mx-auto'>
-                <li class='nav-item'><a class='nav-link' href='90-Catalogo.aspx'>Catálogo</a></li>
-                <li class='nav-item'><a class='nav-link' href='120-Carrito.aspx'>Carrito</a></li>
-                <li class='nav-item'><a class='nav-link' href='122-MisCompras.aspx'>Mis Compras</a></li>
-            </ul>
-            <div class='dropdown profile-icon'>
-                <a href='#' data-bs-toggle='dropdown'><img src='https://cdn-icons-png.flaticon.com/512/149/149071.png' alt='Profile'></a>
-                <ul class='dropdown-menu dropdown-menu-end'>
-                    <li><a class='dropdown-item' href='#'>Ver Perfil</a></li>
-                    <li><a class='dropdown-item btn-logout' href='14-Logout.aspx'>Cerrar Sesión</a></li>
-                </ul>
+
+        private void SetClientNavigation(int cantidadCarrito)
+        {
+
+
+            navigationBar.InnerHtml = $@"
+<asp:UpdatePanel ID='UpdatePanelCarritoClient' runat='server' UpdateMode='Conditional'>
+    <ContentTemplate>
+        <nav class='navbar navbar-expand-lg navbar-dark bg-warning'>
+            <div class='container-fluid'>
+                <a class='navbar-brand' href='Home.aspx'>EnerTech</a>
+                <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarClient' aria-controls='navbarClient' aria-expanded='false'>
+                    <span class='navbar-toggler-icon'></span>
+                </button>
+                <div class='collapse navbar-collapse' id='navbarClient'>
+                    <ul class='navbar-nav mx-auto'>
+                        <li class='nav-item'><a class='nav-link' href='90-Catalogo.aspx'>Catálogo</a></li>
+
+                        <!-- Enlace al Carrito con contador de artículos -->
+                        <li class='nav-item position-relative'>
+                            <a class='nav-link' href='120-Carrito.aspx'>
+                                Carrito 
+                                <span class='badge bg-warning text-dark position-absolute top-0 start-100 translate-middle rounded-pill'>
+                                    <asp:Label ID='lblCarritoCantidadClient' runat='server' Text='{cantidadCarrito}'></asp:Label>
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class='nav-item'><a class='nav-link' href='122-MisCompras.aspx'>Mis Compras</a></li>
+                    </ul>
+                    {GetProfileMenu()}
+                </div>
             </div>
-        </div>
-    </div>
-</nav>";
-}
+        </nav>
+    </ContentTemplate>
+</asp:UpdatePanel>";
+        }
+
 
 
         private string GetProfileMenu()
@@ -191,6 +214,8 @@ namespace UI
         {
             navigationBar.InnerHtml = "<a href='Default.aspx' class='btn btn-primary'>Inicio</a>";
         }
+
+        
 
 
     }

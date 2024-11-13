@@ -32,6 +32,21 @@ namespace BLL
             }
         }
 
+        public int GetCantidadCarrito(int user)
+        {
+            try
+            {
+                int cantidad = carritoDAL.GetCantidadCarrito(user);
+
+                return cantidad;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+
         public CarritoBE GetCarritoUserProduct(int user, int prod)
         {
 

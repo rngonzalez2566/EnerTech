@@ -98,7 +98,7 @@ namespace UI.WebServices
                 //open the document for writing 
                 iTextSharp.text.Image imageLogo = iTextSharp.text.Image.GetInstance(busineesInfo.PathImage);
                 //System.Drawing.Image img = Afip.Barcode.GenerateITFImage("12345678945687", 800, 100, 2); //cod barra
-                iTextSharp.text.Image CodBarra;
+                //iTextSharp.text.Image CodBarra;
                 //using (MemoryStream memory = new MemoryStream())
                 //{
                 //    img.Save(memory, System.Drawing.Imaging.ImageFormat.Png);

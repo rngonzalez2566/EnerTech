@@ -244,6 +244,7 @@
     <Content Include="Default.aspx" />
     <Content Include="DetalleCompra.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="GenericModal.ascx" />
     <Content Include="Global.asax" />
     <Content Include="NavBar.ascx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -418,6 +419,13 @@
     <Compile Include="DetalleCompra.aspx.designer.cs">
       <DependentUpon>DetalleCompra.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GenericModal.ascx.cs">
+      <DependentUpon>GenericModal.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GenericModal.ascx.designer.cs">
+      <DependentUpon>GenericModal.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -467,6 +475,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
     <Folder Include="Images\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

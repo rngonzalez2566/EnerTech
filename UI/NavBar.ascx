@@ -70,6 +70,17 @@
         background-color: #d32f2f;
         color: white;
     }
+ 
+    .badge {
+        font-size: 0.9rem;
+        padding: 5px;
+        min-width: 20px;
+        min-height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     </style>
 </head>
 <body>

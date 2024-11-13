@@ -11,7 +11,7 @@ namespace UI
 {
 
 
-    public partial class NavBar
+    public partial class GenericModal
     {
     }
 }

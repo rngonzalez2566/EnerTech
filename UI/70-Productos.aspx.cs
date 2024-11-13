@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace UI
 {
@@ -105,11 +106,12 @@ namespace UI
 
 
             _productoService.PublicarCatalogo(listaProductos);
-    
-            lblMessage.Visible = true;
-            lblMessage.ForeColor = System.Drawing.Color.Red;
-            lblMessage.Text = "Catálogo publicado con éxito.";
-            lblMessage.CssClass = "success-message";
+            ScriptManager.RegisterStartupScript(this, GetType(), "showModal", "showMessageModal('El catálogo ha sido publicado con éxito.');", true);
+
+            //lblMessage.Visible = true;
+            //lblMessage.ForeColor = System.Drawing.Color.Red;
+            //lblMessage.Text = "Catálogo publicado con éxito.";
+            //lblMessage.CssClass = "success-message";
         }
     }
  }
