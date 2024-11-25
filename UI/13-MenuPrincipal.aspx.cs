@@ -12,7 +12,7 @@ using Services;
 
 namespace UI
 {
-    public partial class _13_MenuPrincipal :  BasePage
+    public partial class _13_MenuPrincipal : BasePage
     {
         public UsuarioBE usuario { get; set; }
         SessionManager _sessionManager = new SessionManager();

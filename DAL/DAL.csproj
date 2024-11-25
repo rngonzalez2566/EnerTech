@@ -77,6 +77,7 @@
     <Compile Include="CarritoDAL.cs" />
     <Compile Include="CategoriaDAL.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="DigitoVerificadorDAL.cs" />
     <Compile Include="MarcaDAL.cs" />
     <Compile Include="PermisoDAL.cs" />
     <Compile Include="ProductoDAL.cs" />

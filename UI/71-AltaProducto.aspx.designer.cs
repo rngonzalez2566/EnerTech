@@ -15,6 +15,15 @@ namespace UI
     {
 
         /// <summary>
+        /// Control navigationBar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::UI.NavBar navigationBar;
+
+        /// <summary>
         /// Control PanelAltaProducto.
         /// </summary>
         /// <remarks>
@@ -105,13 +114,13 @@ namespace UI
         protected global::System.Web.UI.WebControls.DropDownList ddlIVA;
 
         /// <summary>
-        /// Control RequiredFieldValidator1.
+        /// Control rfvIVA.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvIVA;
 
         /// <summary>
         /// Control txtCantidad.
@@ -141,13 +150,13 @@ namespace UI
         protected global::System.Web.UI.WebControls.TextBox txtPrecio;
 
         /// <summary>
-        /// Control RequiredFieldValidator2.
+        /// Control rfvPrecio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPrecio;
 
         /// <summary>
         /// Control fuImagen.

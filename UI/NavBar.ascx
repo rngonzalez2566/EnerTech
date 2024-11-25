@@ -1,13 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NavBar.ascx.cs" Inherits="UI.NavBar" %>
 
-
+    
 <!DOCTYPE html>
-<html lang="es">
-<head>
     <meta charset="UTF-8">
-    <title>Página Principal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
             background-color: #f0f4f7;
@@ -21,6 +18,7 @@
 
          .navbar {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
     }
 
     .navbar-brand {
@@ -93,21 +91,14 @@
 }
 
     </style>
-</head
+
       <!-- Navbar personalizado -->
-<div id="navigationBar" runat="server">
+
+ <div id="navigationBar" runat="server">
+    <!-- El contenido del navbar se generará dinámicamente desde NavBar.ascx.cs -->
 </div>
 
-<body>
 
 
-   <%-- <div class="container">
-        <h1 class="text-center mt-5">Bienvenido a EnerTech</h1>
-        <p class="text-center">Seleccione una opción del menú para comenzar.</p>
-    </div>--%>
+    
 
-    <!-- Bootstrap JS para los dropdowns -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>

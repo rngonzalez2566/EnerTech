@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <title>Mis Compras</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         .card-status {
             font-weight: bold;
@@ -79,7 +79,6 @@
     </form>
 
     <!-- Bootstrap 5 JS and Icons -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 </body>
 </html>
