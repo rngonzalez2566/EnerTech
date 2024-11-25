@@ -9,16 +9,19 @@ using System.Web.UI;
 
 namespace UI
 {
-    public partial class _70_Productos : System.Web.UI.Page
+    public partial class _70_Productos : System.Web.UI.Page, IIdiomaObserver
     {
         private static List<ProductoBE> productos;
         protected global::System.Web.UI.WebControls.GridView gvProductos;
         ProductoBLL _productoService = new ProductoBLL();
+        private IdiomaManager _idiomaManager = IdiomaManager.Instance;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                _idiomaManager.RegistrarObservador(this);
                 CargarProductos();
+                AplicarTraducciones();
             }
         }
 
@@ -119,5 +122,56 @@ namespace UI
             //lblMessage.Text = "Catálogo publicado con éxito.";
             //lblMessage.CssClass = "success-message";
         }
+
+        private void AplicarTraducciones()
+        {
+            IdiomaManager idiomaManager = IdiomaManager.Instance;
+
+            foreach (Control control in Page.Controls)
+            {
+                AplicarTraduccionesRecursivo(control, idiomaManager);
+            }
+        }
+
+        private void AplicarTraduccionesRecursivo(Control control, IdiomaManager idiomaManager)
+        {
+            if (control is WebControl webControl)
+            {
+                // Busca el atributo data-translate
+                string claveTraduccion = webControl.Attributes["data-translate"];
+                if (!string.IsNullOrEmpty(claveTraduccion))
+                {
+                    if (webControl is IButtonControl buttonControl)
+                    {
+                        // Botones
+                        buttonControl.Text = idiomaManager.GetTraduccion(claveTraduccion);
+                    }
+                    else if (webControl is TextBox textBox)
+                    {
+                        // Placeholders
+                        textBox.Attributes["placeholder"] = idiomaManager.GetTraduccion(claveTraduccion);
+                    }
+                }
+            }
+
+            // Iterar sobre los hijos del control
+            foreach (Control childControl in control.Controls)
+            {
+                AplicarTraduccionesRecursivo(childControl, idiomaManager);
+            }
+        }
+
+        public void UpdateIdioma(string idioma)
+        {
+            AplicarTraducciones();
+        }
+
+        protected override void OnUnload(EventArgs e)
+        {
+            _idiomaManager.EliminarObservador(this);
+            base.OnUnload(e);
+        }
+
+
     }
  }

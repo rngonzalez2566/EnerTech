@@ -65,8 +65,15 @@
     <Compile Include="ProductoBE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatedTaxesBE.cs" />
+    <Compile Include="Traduccion.cs" />
     <Compile Include="UsuarioBE.cs" />
     <Compile Include="VentaBE.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interface\Interface.csproj">
+      <Project>{3123ebc4-abd7-4712-91af-f56cde121039}</Project>
+      <Name>Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

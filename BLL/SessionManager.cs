@@ -31,5 +31,18 @@ namespace BLL
         {
             Session.Abandon();
         }
+
+        private const string IdiomaKey = "Idioma";
+
+        public string GetIdioma()
+        {
+            return Get<string>(IdiomaKey) ?? "es"; // Por defecto, "es" (español)
+        }
+
+        public void SetIdioma(string idioma)
+        {
+            Set(IdiomaKey, idioma);
+        }
+
     }
 }

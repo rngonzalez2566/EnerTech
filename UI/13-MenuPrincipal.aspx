@@ -54,10 +54,9 @@
 
     <!-- Contenido principal centrado -->
     <div class="container content">
-        <h1 class="floating">¡Bienvenido a EnerTech!</h1>
-        <p>Explora las opciones en el menú de navegación para gestionar el sistema.</p>
-        <!-- Mostrar el email del usuario logueado -->
-        <asp:Label ID="lblUsuarioEmail" runat="server" CssClass="user-email"></asp:Label>
+          <h1 id="h1Bienvenido" runat="server" class="floating" data-translate="h1_mp">¡Bienvenido a EnerTech!</h1>
+        <p id="pExploraOpciones" runat="server" data-translate="p_mp">Explora las opciones en el menú de navegación para gestionar el sistema.</p>
+        <asp:Label ID="lblUsuarioEmail" runat="server" data-translate="lblUsuarioEmail"></asp:Label>
     </div>
 </body>
 </html>

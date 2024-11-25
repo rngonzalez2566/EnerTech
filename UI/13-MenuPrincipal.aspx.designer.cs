@@ -24,6 +24,24 @@ namespace UI
         protected global::UI.NavBar navigationBar;
 
         /// <summary>
+        /// h1Bienvenido control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h1Bienvenido;
+
+        /// <summary>
+        /// pExploraOpciones control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl pExploraOpciones;
+
+        /// <summary>
         /// lblUsuarioEmail control.
         /// </summary>
         /// <remarks>

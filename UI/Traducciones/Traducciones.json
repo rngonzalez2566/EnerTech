@@ -1,0 +1,24 @@
+{
+  "es": {
+    "GestionProductos": "Gestión de Productos",
+    "BuscarProductos": "Buscar productos...",
+    "Buscar": "Buscar",
+    "AgregarProducto": "Agregar Nuevo Producto",
+    "PublicarCatalogo": "Publicar Catálogo",
+    "lblUsuarioEmail": "Hola, {0} ",
+    "h1_mp": "¡Bienvenido a EnerTech!",
+    "p_mp": "Explora las opciones en el menú de navegación para gestionar el sistema.",
+    "link_productos": "Productos"
+  },
+  "en": {
+    "GestionProductos": "Product Management",
+    "BuscarProductos": "Search products...",
+    "Buscar": "Search",
+    "AgregarProducto": "Add New Product",
+    "PublicarCatalogo": "Publish Catalog",
+    "lblUsuarioEmail": "Hello, {0} ",
+    "h1_mp": "Welcome to EnerTech!",
+    "p_mp": "Explore the menu options to manage the system.",
+    "link_productos": "Products"
+  }
+}
