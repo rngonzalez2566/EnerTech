@@ -123,6 +123,7 @@ namespace DAL
                 xParameters.Parameters.AddWithValue("@Apellido", usuario.Apellido);
                 xParameters.Parameters.AddWithValue("@TipoDoc", usuario.TipoDocumento);
                 xParameters.Parameters.AddWithValue("@TipoCliente", usuario.TipoCliente);
+                xParameters.Parameters.AddWithValue("@dvh", usuario.DVH);
 
                 return ExecuteNonEscalar();
             }

@@ -19,6 +19,8 @@ namespace BLL
         UsuarioDAL usuarioDAL = new UsuarioDAL();   
         BitacoraBLL bitacora = new BitacoraBLL();
         PermisoBLL _permisoService = new PermisoBLL();
+        DigitoVerificador dv = new DigitoVerificador();
+        DigitoVerificadorDAL dvDAL = new DigitoVerificadorDAL();
         public int RegistrarUsuario(UsuarioBE usuario, string password)
         {
             ValidarUsuario(usuario, password);
@@ -31,10 +33,11 @@ namespace BLL
                     usuario.Apellido = Encriptador.Encriptar(usuario.Apellido);
                     usuario.Password = Encriptador.Hash(usuario.Password);
                     usuario.Contador = 0;
+                    usuario.DVH = dv.CalcularDV(usuario);
 
                     int _id = usuarioDAL.RegistrarUsuario(usuario);
                     bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente","Media",usuario);
-                    
+                    dvDAL.AltaDVV("Usuario");
                     scope.Complete();
 
                     return _id;

@@ -33,6 +33,7 @@ namespace UI
                     Identificacion = int.Parse(txtIdentificacion.Text),
                     TipoCliente = ddlTipoCliente.Text,
                     TipoDocumento = ddlTipoDocumento.Text,
+                    Estado = "Activo"
 
                 };
 

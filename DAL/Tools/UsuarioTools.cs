@@ -49,7 +49,10 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("Contador") && !Convert.IsDBNull(dr["Contador"]))
                 usuario.Contador = Convert.ToInt32(dr["Contador"]);
 
-           
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                usuario.DVH = Convert.ToInt32(dr["DVH"]);
+
+
 
             return usuario;
         }

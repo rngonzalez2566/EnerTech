@@ -76,8 +76,13 @@ namespace UI
                         }
 
                     }
+                    if (xEntro == false)
+                    {
+                        SetDefaultNavigation();
+                    }
 
                 }
+
 
             }
             catch (Exception ex)
@@ -520,22 +525,77 @@ namespace UI
 
         private void SetDefaultNavigation()
         {
-            navigationBar.Controls.Clear();
+           
+                navigationBar.Controls.Clear();
 
-            var containerDiv = new HtmlGenericControl("div");
-            containerDiv.Attributes["class"] = "container-fluid";
+                // Navbar principal
+                var navbar = new HtmlGenericControl("nav");
+                navbar.Attributes["class"] = "navbar navbar-expand-lg navbar-dark bg-primary";
 
-            var brandLink = new HtmlAnchor
-            {
-                HRef = "Home.aspx",
-                InnerText = IdiomaManager.Instance.GetTraduccion("brand_name") ?? "EnerTech"
-            };
-            brandLink.Attributes["class"] = "navbar-brand";
-            containerDiv.Controls.Add(brandLink);
+                var containerDiv = new HtmlGenericControl("div");
+                containerDiv.Attributes["class"] = "container-fluid";
 
-            containerDiv.Controls.Add(GetProfileMenuControl());
+                // Brand
+                var brandLink = new HtmlAnchor
+                {
+                    HRef = "#",
+                    InnerText = IdiomaManager.Instance.GetTraduccion("brand_name") ?? "EnerTech"
+                };
+                brandLink.Attributes["class"] = "navbar-brand";
+                containerDiv.Controls.Add(brandLink);
 
-            navigationBar.Controls.Add(containerDiv);
+                // Botón de colapso para móviles
+                var toggleButton = new HtmlGenericControl("button");
+                toggleButton.Attributes["class"] = "navbar-toggler";
+                toggleButton.Attributes["type"] = "button";
+                toggleButton.Attributes["data-bs-toggle"] = "collapse";
+                toggleButton.Attributes["data-bs-target"] = "#navbarWebmaster";
+                toggleButton.Attributes["aria-controls"] = "navbarWebmaster";
+                toggleButton.Attributes["aria-expanded"] = "false";
+                toggleButton.Attributes["aria-label"] = "Toggle navigation";
+
+                var togglerIcon = new HtmlGenericControl("span");
+                togglerIcon.Attributes["class"] = "navbar-toggler-icon";
+                toggleButton.Controls.Add(togglerIcon);
+                containerDiv.Controls.Add(toggleButton);
+
+                // Contenedor colapsable
+                var collapseDiv = new HtmlGenericControl("div");
+                collapseDiv.Attributes["class"] = "collapse navbar-collapse";
+                collapseDiv.Attributes["id"] = "navbarWebmaster";
+
+                // Lista centrada (Usuarios, Permisos, Backup, Bitácora)
+                var centerList = new HtmlGenericControl("ul");
+                centerList.Attributes["class"] = "navbar-nav mx-auto";
+     
+                // Backup
+                centerList.Controls.Add(CreateNavLink("50-Backup.aspx", "backup", "Backup"));
+
+                // Bitácora
+                centerList.Controls.Add(CreateNavLink("60-Bitacora.aspx", "bitacora", "Bitácora"));
+
+                // Bitácora
+                centerList.Controls.Add(CreateNavLink("61-DigitosVerificadores.aspx", "Recalcular Digitos", "Recalcular Digitos"));
+
+            collapseDiv.Controls.Add(centerList);
+
+                // Lista derecha (idioma y perfil)
+                var rightList = new HtmlGenericControl("ul");
+                rightList.Attributes["class"] = "navbar-nav ms-auto";
+
+                // Dropdown de idiomas
+                rightList.Controls.Add(GetLanguageDropdown("idiomaDropdown"));
+
+                // Dropdown de perfil de usuario
+                rightList.Controls.Add(GetProfileMenuControl());
+
+                collapseDiv.Controls.Add(rightList);
+
+                containerDiv.Controls.Add(collapseDiv);
+                navbar.Controls.Add(containerDiv);
+
+                navigationBar.Controls.Add(navbar);
+            
         }
 
 

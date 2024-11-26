@@ -11,6 +11,7 @@ namespace DAL
 {
     public class DigitoVerificadorDAL : Acceso
     {
+        UsuarioDAL user = new UsuarioDAL(); 
         public int AltaDVV(string xTabla)
         {
             try
@@ -53,95 +54,81 @@ namespace DAL
             return xDVH;
         }
 
+       
+
         public void RecalcularDigitos()
         {
-            //Services.DigitoVerificador dv = new Services.DigitoVerificador();
-         
-            //try
-            //{
-            //    xCommandText = Querys.DVQuerys.get_Tabla_Digitos;
+            Services.DigitoVerificador dv = new Services.DigitoVerificador();
 
-            //    DataTable dt = new DataTable();
-            //    dt = ExecuteReader();
-            //    string tabla;
-            //    string xQuery;
+            try
+            {
+                xCommandText = Querys.DVQuerys.get_Tabla_Digitos;
 
-            //    if (dt.Rows.Count > 0)
-            //    {
-            //        foreach (DataRow fila in dt.Rows)
-            //        {
-            //            tabla = fila[0].ToString();
-            //            if (tabla == "Usuario")
-            //            {
-            //                xCommandText = String.Format(get_Recalcula_Digitos, tabla);
-            //                DataTable dtU = new DataTable();
-            //                dtU = ExecuteReader();
-            //                if (dtU.Rows.Count > 0)
-            //                {
-            //                    foreach (DataRow fila1 in dtU.Rows)
-            //                    {
+                DataSet ds = new DataSet();
+                ds = ExecuteReader(); // Método para obtener un DataSet en lugar de un DataTable
+                string tabla;
+                string xQuery;
 
-            //                        UsuarioBE usuario = new BE.UsuarioBE();
+                if (ds.Tables[0].Rows.Count > 0) // Acceder a la primera tabla del DataSet
+                {
+                    foreach (DataRow fila in ds.Tables[0].Rows)
+                    {
+                        tabla = fila[0].ToString();
+                        if (tabla == "Usuario")
+                        {
+                            xCommandText = String.Format(Querys.DVQuerys.get_Recalcula_Digitos, tabla);
+                            DataSet dsU = new DataSet();
+                            dsU = ExecuteReader();
+                            if (dsU.Tables[0].Rows.Count > 0)
+                            {
+                                foreach (DataRow fila1 in dsU.Tables[0].Rows)
+                                {
+                                    int xid = 0;
+                                    UsuarioBE usuario = new BE.UsuarioBE();
+                                    xid = int.Parse(fila1[0].ToString());
+                                    usuario = user.GetUsuarioID(xid);
+                                   
+                                    usuario.DVH = dv.CalcularDV(usuario);
 
-            //                        usuario.id_usuario = int.Parse(fila1[0].ToString());
-            //                        usuario.usuario = fila1[1].ToString();
-            //                        usuario.contrasena = fila1[2].ToString();
-            //                        usuario.contador = int.Parse(fila1[3].ToString());
-            //                        usuario.email = fila1[5].ToString();
-            //                        usuario.DVH = dv.CalcularDV(usuario);
+                                    xQuery = "update usuario set DVH = {0} where id_usuario = {1}";
+                                    xCommandText = String.Format(xQuery, usuario.DVH, usuario.id_usuario);
+                                    executeNonQuery();
+                                    AltaDVV("Usuario");
+                                }
+                            }
+                        }
+                        else if (tabla == "Bitacora")
+                        {
+                            xCommandText = String.Format(Querys.DVQuerys.get_Recalcula_Digitos, tabla);
+                            DataSet dsB = new DataSet();
+                            dsB = ExecuteReader();
 
-            //                        xQuery = "update usuario set DVH = {0} where id_usuario = {1}";
-            //                        xCommandText = String.Format(xQuery, usuario.DVH, usuario.id_usuario);
-            //                        executeNonQuery();
-            //                        AltaDVV("Usuario");
-            //                    }
-            //                }
-            //            }
-            //            else
-            //            if (tabla == "Bitacora")
-            //            {
-            //                xCommandText = String.Format(get_Recalcula_Digitos, tabla);
-            //                DataTable dtB = new DataTable();
-            //                dtB = ExecuteReader();
+                            if (dsB.Tables[0].Rows.Count > 0)
+                            {
+                                foreach (DataRow fila2 in dsB.Tables[0].Rows)
+                                {
 
-            //                if (dtB.Rows.Count > 0)
-            //                {
-            //                    foreach (DataRow fila2 in dtB.Rows)
-            //                    {
+                                    BitacoraBE bit = new BitacoraBE();
+                                    UsuarioBE us = new UsuarioBE();
 
-            //                        BE.Bitacora bit = new BE.Bitacora();
-            //                        Usuario us = new Usuario();
+                                    bit.id_bitacora = int.Parse(fila2[0].ToString());
+                                    bit.DVH = dv.CalcularDV(bit);
 
-            //                        bit.id_bitacora = int.Parse(fila2[0].ToString());
-            //                        if (fila2[1].ToString() != "")
-            //                        {
-            //                            bit.Usuario = us.GetUsuarioByID(int.Parse(fila2[1].ToString()));
-            //                        }
+                                    xQuery = "update Bitacora set DVH = {0} where id_bitacora = {1}";
+                                    xCommandText = String.Format(xQuery, bit.DVH, bit.id_bitacora);
+                                    executeNonQuery();
 
-            //                        bit.Descripcion = fila2[2].ToString();
-            //                        bit.Criticidad = fila2[3].ToString();
-            //                        bit.Fecha = DateTime.Parse(fila2[4].ToString());
-            //                        bit.DVH = dv.CalcularDV(bit);
-
-            //                        xQuery = "update Bitacora set DVH = {0} where id_bitacora = {1}";
-            //                        xCommandText = String.Format(xQuery, bit.DVH, bit.id_bitacora);
-            //                        executeNonQuery();
-
-            //                        AltaDVV("Bitacora");
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-
-
-            //}
-            //catch
-            //{
-
-            //    throw new Exception("Error al recalcular digitos verificadores");
-            //}
-
+                                    AltaDVV("Bitacora");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al recalcular digitos verificadores");
+            }
         }
 
         public int existeDVV(string xTabla)

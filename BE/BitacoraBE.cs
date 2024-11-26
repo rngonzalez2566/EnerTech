@@ -13,5 +13,6 @@ namespace BE
         public string Criticidad { get; set; }
         public string Detalle { get; set; }
         public DateTime Fecha { get; set; }
+        public int DVH { get; set; }
     }
 }

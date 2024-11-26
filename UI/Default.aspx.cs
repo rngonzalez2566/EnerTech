@@ -4,14 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BLL;
 
 namespace UI
 {
     public partial class _Default : Page
     {
+    
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //dv.RecalcularDigitos();
+            //dv.VerificarDV();
         }
     }
 }

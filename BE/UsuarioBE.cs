@@ -23,6 +23,7 @@ namespace BE
         public string Apellido { get; set; }
         public string TipoDocumento { get; set; }
         public string TipoCliente { get; set; }
+        public int DVH { get; set; }
 
         List<Componente> _permisos = new List<Componente>();
         public List<Componente> Permisos

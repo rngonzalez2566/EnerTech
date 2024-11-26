@@ -78,6 +78,7 @@
     <Compile Include="BitacoraBLL.cs" />
     <Compile Include="CarritoBLL.cs" />
     <Compile Include="CategoriaBLL.cs" />
+    <Compile Include="DigitoVerificadorBLL.cs" />
     <Compile Include="IdiomaManager.cs" />
     <Compile Include="IIdiomaObserver.cs" />
     <Compile Include="MarcaBLL.cs" />

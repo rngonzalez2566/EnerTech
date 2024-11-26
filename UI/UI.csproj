@@ -228,6 +228,7 @@
     <Content Include="42-ModificarFamilias.aspx" />
     <Content Include="50-Backup.aspx" />
     <Content Include="60-Bitacora.aspx" />
+    <Content Include="61-DigitosVerificadores.aspx" />
     <Content Include="70-Productos.aspx" />
     <Content Include="71-AltaProducto.aspx" />
     <Content Include="73-ModificacionProducto.aspx" />
@@ -441,6 +442,13 @@
     </Compile>
     <Compile Include="60-Bitacora.aspx.designer.cs">
       <DependentUpon>60-Bitacora.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="61-DigitosVerificadores.aspx.cs">
+      <DependentUpon>61-DigitosVerificadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="61-DigitosVerificadores.aspx.designer.cs">
+      <DependentUpon>61-DigitosVerificadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="70-Productos.aspx.cs">
       <DependentUpon>70-Productos.aspx</DependentUpon>
