@@ -43,7 +43,7 @@
                 <select id="selectUsuario" name="usuarioSeleccionado" class="form-select" onchange="this.form.submit()">
                     <option value="">Selecciona un usuario</option>
                     <% foreach (var usuario in Usuarios) { %>
-                        <option value="<%= usuario.Id %>" <%= usuario.Id == UsuarioSeleccionadoId ? "selected" : "" %>>
+                        <option value="<%= usuario.id_usuario %>" <%= usuario.id_usuario == UsuarioSeleccionadoId ? "selected" : "" %>>
                             <%= usuario.RazonSocial %>
                         </option>
                     <% } %>
@@ -68,7 +68,7 @@
                             <% foreach (var patente in PatentesAsignadas) { %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="form-check-input select-patente" value="<%= patente.Id %>">
+                                        <input type="checkbox" class="form-check-input select-patente" value="<%= patente.id_componente %>">
                                     </td>
                                     <td><%= patente.Nombre %></td>
                                     <td><%= patente.Permiso %></td>

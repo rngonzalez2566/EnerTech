@@ -31,7 +31,7 @@ namespace DAL
         {
             xCommandText = Querys.PermisoQuerys.Borrar_Familia;
             xParameters.Parameters.Clear();
-            xParameters.Parameters.AddWithValue("@PadreId", familia.Id);
+            xParameters.Parameters.AddWithValue("@PadreId", familia.id_componente);
 
             executeNonQuery();
 
@@ -40,8 +40,8 @@ namespace DAL
                 xCommandText = Querys.PermisoQuerys.Guardar_FamiliaPatente;
                 xParameters.Parameters.Clear();
 
-                xParameters.Parameters.AddWithValue("@PadreId", familia.Id);
-                xParameters.Parameters.AddWithValue("@HijoId", item.Id);
+                xParameters.Parameters.AddWithValue("@PadreId", familia.id_componente);
+                xParameters.Parameters.AddWithValue("@HijoId", item.id_componente);
                 executeNonQuery();
 
                 xCommandText = Querys.PermisoQuerys.Guardar_Familia;
@@ -49,7 +49,7 @@ namespace DAL
 
     
                 xParameters.Parameters.AddWithValue("@NombreFamilia", familia.Nombre);
-                xParameters.Parameters.AddWithValue("@FamiliaId", familia.Id);
+                xParameters.Parameters.AddWithValue("@FamiliaId", familia.id_componente);
                 executeNonQuery();
 
             }
@@ -111,7 +111,7 @@ namespace DAL
                     if (string.IsNullOrEmpty(permiso)) componente = new Familia();
                     else componente = new Patente();
 
-                    componente.Id = Id;
+                    componente.id_componente = Id;
                     componente.Nombre = nombre;
                     if (!string.IsNullOrEmpty(permiso)) componente.Permiso = (Permiso)Enum.Parse(typeof(Permiso), permiso);
 
@@ -125,14 +125,14 @@ namespace DAL
 
         private Componente GetComponente(int id, IList<Componente> lista)
         {
-            Componente componente = lista != null ? lista.Where(i => i.Id.Equals(id)).FirstOrDefault() : null;
+            Componente componente = lista != null ? lista.Where(i => i.id_componente.Equals(id)).FirstOrDefault() : null;
 
             if (componente == null && lista != null)
             {
                 foreach (var item in lista)
                 {
                     var _lista = GetComponente(id, item.Hijos);
-                    if (_lista != null && _lista.Id == id) return _lista;
+                    if (_lista != null && _lista.id_componente == id) return _lista;
                     else if (_lista != null) return GetComponente(id, _lista.Hijos);
                 }
             }
@@ -143,7 +143,7 @@ namespace DAL
         {
             xCommandText = Querys.PermisoQuerys.Get_Usuario_Permiso;
             xParameters.Parameters.Clear();
-            xParameters.Parameters.AddWithValue("@user", usuario.Id);
+            xParameters.Parameters.AddWithValue("@user", usuario.id_usuario);
             DataSet ds = ExecuteReader();
             DataTable dt = ds.Tables[0];
 
@@ -160,7 +160,7 @@ namespace DAL
                     if (!String.IsNullOrEmpty(permiso))
                     {
                         componente = new Patente();
-                        componente.Id = id;
+                        componente.id_componente = id;
                         componente.Nombre = nombre;
                         componente.Permiso = (Permiso)Enum.Parse(typeof(Permiso), permiso);
                         usuario.Permisos.Add(componente);
@@ -168,7 +168,7 @@ namespace DAL
                     else
                     {
                         componente = new Familia();
-                        componente.Id = id;
+                        componente.id_componente = id;
                         componente.Nombre = nombre;
 
                         var familia = TraerFamiliaPatentes(id);
@@ -187,7 +187,7 @@ namespace DAL
         {
             xCommandText = Querys.PermisoQuerys.Borrar_Permiso_Usuario;
             xParameters.Parameters.Clear();
-            xParameters.Parameters.AddWithValue("@user", usuario.Id);
+            xParameters.Parameters.AddWithValue("@user", usuario.id_usuario);
 
             executeNonQuery();
       
@@ -198,8 +198,8 @@ namespace DAL
 
             xCommandText = Querys.PermisoQuerys.Guardar_Permiso_Usuario;
             xParameters.Parameters.Clear();
-            xParameters.Parameters.AddWithValue("@user", usuario.Id);
-            xParameters.Parameters.AddWithValue("@PatenteId", permiso.Id);
+            xParameters.Parameters.AddWithValue("@user", usuario.id_usuario);
+            xParameters.Parameters.AddWithValue("@PatenteId", permiso.id_componente);
             xParameters.Parameters.AddWithValue("@DVH", DVH);
             executeNonQuery();
 
@@ -246,7 +246,7 @@ namespace DAL
                     if (string.IsNullOrEmpty(permiso)) componente = new Familia();
                     else componente = new Patente();
 
-                    componente.Id = Id;
+                    componente.id_componente = Id;
                     componente.Nombre = nombre;
                     if (!string.IsNullOrEmpty(permiso)) componente.Permiso = (Permiso)Enum.Parse(typeof(Permiso), permiso);
 
@@ -273,7 +273,7 @@ namespace DAL
 
             componenteRaiz.AgregarHijo(familia);
 
-            GetFamiliaArbol(componente.Id, componenteOriginal, familia);
+            GetFamiliaArbol(componente.id_componente, componenteOriginal, familia);
         }
 
         public Componente GetUsuarioArbol(int usuarioId, Componente componenteOriginal, Componente componenteAgregar)
@@ -297,7 +297,7 @@ namespace DAL
                     if (string.IsNullOrEmpty(permiso)) componente = new Familia();
                     else componente = new Patente();
 
-                    componente.Id = Id;
+                    componente.id_componente = Id;
                     componente.Nombre = nombre;
                     if (!string.IsNullOrEmpty(permiso)) componente.Permiso = (Permiso)Enum.Parse(typeof(Permiso), permiso);
 

@@ -48,7 +48,7 @@
                 <select id="selectUsuario" name="usuarioSeleccionado" class="form-select" onchange="this.form.submit()">
                     <option value="">Selecciona un usuario</option>
                     <% foreach (var usuario in Usuarios) { %>
-                        <option value="<%= usuario.Id %>" <%= usuario.Id == UsuarioSeleccionadoId ? "selected" : "" %>>
+                        <option value="<%= usuario.id_usuario %>" <%= usuario.id_usuario == UsuarioSeleccionadoId ? "selected" : "" %>>
                             <%= usuario.RazonSocial %>
                         </option>
                     <% } %>
@@ -73,7 +73,7 @@
                             <% foreach (var familia in FamiliasAsignadas) { %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="form-check-input select-familia" value="<%= familia.Id %>">
+                                        <input type="checkbox" class="form-check-input select-familia" value="<%= familia.id_componente %>">
                                     </td>
                                     <td><%= familia.Nombre %></td>
                                     <td><%= familia.Permiso %></td>

@@ -31,7 +31,7 @@ namespace UI
         
 
             // Llamada al servicio o a la base de datos para obtener las compras del usuario
-            List<VentaBE> compras = _serviceVenta.GetVentaUser(usuario.Id);
+            List<VentaBE> compras = _serviceVenta.GetVentaUser(usuario.id_usuario);
 
             // Enlaza la lista de compras al Repeater
             ComprasRepeater.DataSource = compras;

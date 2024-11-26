@@ -19,8 +19,8 @@ namespace DAL.Tools
             venta.usuario = new UsuarioBE();
 
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                venta.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_venta") && !Convert.IsDBNull(dr["id_venta"]))
+                venta.id_venta = Convert.ToInt32(dr["id_venta"]);
 
             if (dr.Table.Columns.Contains("Fecha") && !Convert.IsDBNull(dr["Fecha"]))
                 venta.Fecha = Convert.ToDateTime(dr["Fecha"]);
@@ -71,8 +71,8 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("id_usuario") && !Convert.IsDBNull(dr["id_usuario"]))
                 venta.usuario = usuarioDAL.GetUsuarioID(Convert.ToInt32(dr["id_usuario"]));
 
-            venta.Items = ventaDAL.GetDetalleVenta(venta.Id);
-            venta.RelatedTaxes = ventaDAL.GetTaxesVenta(venta.Id);
+            venta.Items = ventaDAL.GetDetalleVenta(venta.id_venta);
+            venta.RelatedTaxes = ventaDAL.GetTaxesVenta(venta.id_venta);
 
             return venta;
         }

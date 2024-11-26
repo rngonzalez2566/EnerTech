@@ -8,7 +8,7 @@ namespace BE
 {
     public class CategoriaBE
     {
-        public int Id { get; set; }
+        public int id_categoria { get; set; }
         public string Nombre { get; set; }
     }
 }

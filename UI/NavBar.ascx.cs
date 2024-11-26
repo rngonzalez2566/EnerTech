@@ -47,7 +47,7 @@ namespace UI
                 else
                 {
                     //usuario.Email = Encriptador.Descencriptar(usuario.Email);
-                    cantidadCarrito = _carritoService.GetCantidadCarrito(usuario.Id);
+                    cantidadCarrito = _carritoService.GetCantidadCarrito(usuario.id_usuario);
                     bool xEntro = false;
                     foreach (var permiso in usuario.Permisos)
                     {

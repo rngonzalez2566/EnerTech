@@ -18,7 +18,7 @@ namespace DAL.Tools
             Familia familia = new Familia();
 
             if (dr.Table.Columns.Contains("Id_Permiso") && !Convert.IsDBNull(dr["Id_Permiso"]))
-                familia.Id = Convert.ToInt32(dr["Id_Permiso"]);
+                familia.id_componente = Convert.ToInt32(dr["Id_Permiso"]);
 
 
             if (dr.Table.Columns.Contains("Nombre") && !Convert.IsDBNull(dr["Nombre"]))
@@ -36,7 +36,7 @@ namespace DAL.Tools
             Patente patente = new Patente();
 
             if (dr.Table.Columns.Contains("Id_Permiso") && !Convert.IsDBNull(dr["Id_Permiso"]))
-                patente.Id = Convert.ToInt32(dr["Id_Permiso"]);
+                patente.id_componente = Convert.ToInt32(dr["Id_Permiso"]);
 
 
             if (dr.Table.Columns.Contains("Nombre") && !Convert.IsDBNull(dr["Nombre"]))

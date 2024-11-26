@@ -8,6 +8,7 @@ namespace BE
 {
     public class RelatedTaxesBE
     {
+        public int id_relatedtaxes { get; set; }
         public int codigoIVA { get; set; } // Tasa de IVA (ej. 0% o 21%)
         public decimal TasaIVA { get; set; }
         public decimal BaseImponible { get; set; } // Suma de bases imponibles con esta tasa

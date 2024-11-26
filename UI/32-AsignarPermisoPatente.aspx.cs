@@ -71,7 +71,7 @@ namespace UI
     .ToList();
 
             var todasLasFamilias = _permisoService.GetFamilias();
-            FamiliasDisponibles = todasLasFamilias.Where(f => !FamiliasAsignadas.Any(fa => fa.Id == f.Id)).ToList();
+            FamiliasDisponibles = todasLasFamilias.Where(f => !FamiliasAsignadas.Any(fa => fa.id_componente == f.id_componente)).ToList();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -88,13 +88,13 @@ namespace UI
 
                 var idsFamiliasSeleccionadas = familiasSeleccionadas?.Split(',').Select(int.Parse).ToList() ?? new List<int>();
 
-                var nuevasFamilias = _permisoService.GetFamilias().Where(f => idsFamiliasSeleccionadas.Contains(f.Id)).ToList();
+                var nuevasFamilias = _permisoService.GetFamilias().Where(f => idsFamiliasSeleccionadas.Contains(f.id_componente)).ToList();
 
                 UsuarioSeleccionado.Permisos.AddRange(nuevasFamilias);
 
                 _permisoService.GuardarPermiso(UsuarioSeleccionado);
 
-                CargarFamilias(UsuarioSeleccionado.Id);
+                CargarFamilias(UsuarioSeleccionado.id_usuario);
 
 
             }

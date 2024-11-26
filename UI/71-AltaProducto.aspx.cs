@@ -31,7 +31,7 @@ namespace UI
                 // Cargar las marcas en el DropDownList de Marca
                 ddlMarca.DataSource = listMarca;
                 ddlMarca.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlMarca.DataValueField = "Id";     // Valor que se enviará
+                ddlMarca.DataValueField = "id_marca";     // Valor que se enviará
                 ddlMarca.DataBind();
 
                 // Agregar un ítem por defecto para seleccionar una opción
@@ -40,7 +40,7 @@ namespace UI
                 // Cargar las categorías en el DropDownList de Categoría
                 ddlCategoria.DataSource = listCategoria;
                 ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "Id";     // Valor que se enviará
+                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
                 ddlCategoria.DataBind();
 
                 // Agregar un ítem por defecto para seleccionar una opción
@@ -48,7 +48,7 @@ namespace UI
 
                 ddlCategoria.DataSource = listCategoria;
                 ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "Id";     // Valor que se enviará
+                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
                 ddlCategoria.DataBind();
 
 
@@ -91,8 +91,8 @@ namespace UI
                 {
                     Codigo = codigo,
                     Descripcion = descripcion,
-                    Categoria = new CategoriaBE { Id = int.Parse(categoria), Nombre = ddlCategoria.SelectedItem.Text },
-                    Marca = new MarcaBE { Id = int.Parse(marca), Nombre = ddlMarca.SelectedItem.Text },
+                    Categoria = new CategoriaBE { id_categoria = int.Parse(categoria), Nombre = ddlCategoria.SelectedItem.Text },
+                    Marca = new MarcaBE { id_marca = int.Parse(marca), Nombre = ddlMarca.SelectedItem.Text },
                     Cantidad = cantidad,
                     Imagen = rutaImagen,
                     codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva),

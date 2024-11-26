@@ -91,9 +91,9 @@ namespace DAL
                 xCommandText = Querys.CarritoQuerys.add_Carrito;
 
                 xParameters.Parameters.Clear();
-                xParameters.Parameters.AddWithValue("@user", carrito.usuario.Id);
+                xParameters.Parameters.AddWithValue("@user", carrito.usuario.id_usuario);
                 xParameters.Parameters.AddWithValue("@cantidad", carrito.Cantidad);
-                xParameters.Parameters.AddWithValue("@prod", carrito.producto.Id);
+                xParameters.Parameters.AddWithValue("@prod", carrito.producto.id_producto);
 
                 return ExecuteNonEscalar();
             }
@@ -111,9 +111,9 @@ namespace DAL
                 xCommandText = Querys.CarritoQuerys.update_Carrito;
 
                 xParameters.Parameters.Clear();
-                xParameters.Parameters.AddWithValue("@user", carrito.usuario.Id);
+                xParameters.Parameters.AddWithValue("@user", carrito.usuario.id_usuario);
                 xParameters.Parameters.AddWithValue("@cantidad", carrito.Cantidad);
-                xParameters.Parameters.AddWithValue("@prod", carrito.producto.Id);
+                xParameters.Parameters.AddWithValue("@prod", carrito.producto.id_producto);
 
                 executeNonQuery();
             }

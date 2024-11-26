@@ -20,7 +20,7 @@ namespace DAL
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@fecha", venta.Fecha.ToString("yyyy-MM-dd HH:mm:ss"));
                 xParameters.Parameters.AddWithValue("@detalle", venta.Detalle);
-                xParameters.Parameters.AddWithValue("@user", venta.usuario.Id);
+                xParameters.Parameters.AddWithValue("@user", venta.usuario.id_usuario);
                 xParameters.Parameters.AddWithValue("@total", venta.Total);
                 xParameters.Parameters.AddWithValue("@iva", venta.IVA);
                 xParameters.Parameters.AddWithValue("@gravado", venta.TotalGravado);
@@ -44,7 +44,7 @@ namespace DAL
 
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@venta", idVenta);
-                xParameters.Parameters.AddWithValue("@prod", venta.Producto.Id);
+                xParameters.Parameters.AddWithValue("@prod", venta.Producto.id_producto);
                 xParameters.Parameters.AddWithValue("@cod", venta.Producto.Codigo);
                 xParameters.Parameters.AddWithValue("@descripcion", venta.Producto.Descripcion);
                 xParameters.Parameters.AddWithValue("@cant", venta.Cantidad);
@@ -91,7 +91,7 @@ namespace DAL
                 xCommandText = Querys.CarritoQuerys.delete_Carrito;
 
                 xParameters.Parameters.Clear();
-                xParameters.Parameters.AddWithValue("@user", venta.usuario.Id);
+                xParameters.Parameters.AddWithValue("@user", venta.usuario.id_usuario);
  
 
                  executeNonQuery();
@@ -245,7 +245,7 @@ namespace DAL
                 xParameters.Parameters.AddWithValue("@cod", venta.CodigoAutorizacion);
                 xParameters.Parameters.AddWithValue("@fc", venta.FechaVtoCae.ToString("yyyy-MM-dd HH:mm:ss"));
                 xParameters.Parameters.AddWithValue("@ta", venta.TipoAutorizacion);
-                xParameters.Parameters.AddWithValue("@venta", venta.Id);
+                xParameters.Parameters.AddWithValue("@venta", venta.id_venta);
                 xParameters.Parameters.AddWithValue("@fac", venta.Facturado);
                 xParameters.Parameters.AddWithValue("@tc", venta.TipoComprobante);
                 xParameters.Parameters.AddWithValue("@qr", venta.QRData);
@@ -268,7 +268,7 @@ namespace DAL
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@estado", venta.Estado);
                 xParameters.Parameters.AddWithValue("@obs", venta.Observaciones);
-                xParameters.Parameters.AddWithValue("@venta", venta.Id);
+                xParameters.Parameters.AddWithValue("@venta", venta.id_venta);
 
 
                 executeNonQuery();

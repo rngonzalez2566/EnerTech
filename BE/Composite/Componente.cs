@@ -9,7 +9,7 @@ namespace BE.Composite
 {
     public abstract class Componente
     {
-        public int Id { get; set; }
+        public int id_componente { get; set; }
         public string Nombre { get; set; }
         public abstract IList<Componente> Hijos { get; }
         public abstract void AgregarHijo(Componente componente);

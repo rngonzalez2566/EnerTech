@@ -19,8 +19,8 @@ namespace DAL.Tools
             detalleVenta.Producto = new ProductoBE();
 
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                detalleVenta.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_detalle_venta") && !Convert.IsDBNull(dr["id_detalle_venta"]))
+                detalleVenta.id_detalle_venta = Convert.ToInt32(dr["id_detalle_venta"]);
 
             if (dr.Table.Columns.Contains("Codigo") && !Convert.IsDBNull(dr["Codigo"]))
                 detalleVenta.Codigo = Convert.ToString(dr["Codigo"]);

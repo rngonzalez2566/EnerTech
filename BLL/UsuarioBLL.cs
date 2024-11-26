@@ -65,7 +65,7 @@ namespace BLL
                     if(usuario.Password == Encriptador.Hash(password))
                     {
 
-                        usuarioDAL.DesbloquearUsuario(usuario.Id);
+                        usuarioDAL.DesbloquearUsuario(usuario.id_usuario);
                         bitacora.RegistrarBitacora($"{user} - Inicio sesion correctamente", "Baja", usuario);
                         _permisoService.GetComponenteUsuario(usuario);
                         return usuario;

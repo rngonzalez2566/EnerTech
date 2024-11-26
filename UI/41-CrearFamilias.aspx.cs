@@ -62,7 +62,7 @@ namespace UI
             {
                 var patente = new Patente()
                 {
-                    Id = int.Parse(id),
+                    id_componente = int.Parse(id),
                 };
 
                 familia.AgregarHijo(patente);
@@ -72,7 +72,7 @@ namespace UI
 
             if (familiaId > 0)
             {
-                familia.Id = familiaId;
+                familia.id_componente = familiaId;
                 _permisoService.GuardarFamiliaCreada(familia);
             }
         }

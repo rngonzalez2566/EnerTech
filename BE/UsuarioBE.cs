@@ -12,7 +12,7 @@ namespace BE
     public class UsuarioBE
     {
 
-        public int Id { get; set; }
+        public int id_usuario { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string RazonSocial { get; set; }
@@ -34,7 +34,7 @@ namespace BE
         }
         public void EliminarPermisosPorId(List<int> ids)
         {
-            _permisos.RemoveAll(p => ids.Contains(p.Id));
+            _permisos.RemoveAll(p => ids.Contains(p.id_componente));
         }
 
         public void AsignarPermiso(Permiso tipoPermiso)

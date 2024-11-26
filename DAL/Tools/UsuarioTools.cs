@@ -15,8 +15,8 @@ namespace DAL.Tools
             UsuarioBE usuario = new UsuarioBE();
          
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                usuario.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_usuario") && !Convert.IsDBNull(dr["id_usuario"]))
+                usuario.id_usuario = Convert.ToInt32(dr["id_usuario"]);
 
             if (dr.Table.Columns.Contains("Email") && !Convert.IsDBNull(dr["Email"]))
                 usuario.Email = Convert.ToString(dr["Email"]);

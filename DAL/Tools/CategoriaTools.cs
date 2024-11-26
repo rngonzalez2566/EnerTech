@@ -15,8 +15,8 @@ namespace DAL.Tools
             CategoriaBE categoria = new CategoriaBE();
 
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                categoria.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_categoria") && !Convert.IsDBNull(dr["id_categoria"]))
+                categoria.id_categoria = Convert.ToInt32(dr["id_categoria"]);
 
             if (dr.Table.Columns.Contains("Nombre") && !Convert.IsDBNull(dr["Nombre"]))
                 categoria.Nombre = Convert.ToString(dr["Nombre"]);

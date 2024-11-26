@@ -8,7 +8,7 @@ namespace BE
 {
     public class Negocio
     {
-        public int Id { get; set; }
+        public int id_negocio { get; set; }
         public string Nombre { get; set; }
         public string RazonSocial { get; set; }
         public int Identificacion { get; set; }

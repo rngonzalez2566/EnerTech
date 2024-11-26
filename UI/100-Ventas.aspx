@@ -144,27 +144,27 @@
                                 <asp:Button ID="btnFacturar" runat="server" Text="Facturar"
                                     CssClass="btn btn-success btn-sm"
                                     OnClick="btnFacturar_Click"
-                                    CommandArgument='<%# Eval("Id") != null ? Eval("Id").ToString() : "" %>'
+                                    CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "" %>' />
 
                                 <!-- Botón Reprocesar -->
                                 <asp:Button ID="btnReprocesar" runat="server" Text="Reprocesar"
                                     CssClass="btn btn-danger btn-sm"
                                     OnClick="btnReprocesar_Click"
-                                    CommandArgument='<%# Eval("Id") != null ? Eval("Id").ToString() : "" %>'
+                                    CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "R" %>' />
 
                                 <!-- Botones PDF y XML -->
                                 <asp:Button ID="btnPDF" runat="server" Text="PDF"
                                     CssClass="btn btn-info btn-sm"
                                     OnClick="btnPDF_Click"
-                                    CommandArgument='<%# Eval("Id") != null ? Eval("Id").ToString() : "" %>'
+                                    CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "A" %>' />
 
                                 <asp:Button ID="btnXML" runat="server" Text="XML"
                                     CssClass="btn btn-secondary btn-sm"
                                     OnClick="btnXML_Click"
-                                    CommandArgument='<%# Eval("Id") != null ? Eval("Id").ToString() : "" %>'
+                                    CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "A" %>' />
                             </ItemTemplate>
                         </asp:TemplateField>

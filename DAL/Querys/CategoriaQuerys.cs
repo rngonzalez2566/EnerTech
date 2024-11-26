@@ -8,7 +8,7 @@ namespace DAL.Querys
 {
     public class CategoriaQuerys
     {
-        public const string GetCategoria = "SELECT  * FROM Categoria where id = @id";
+        public const string GetCategoria = "SELECT  * FROM Categoria where id_categoria = @id";
         public const string GetCategorias = "SELECT  * FROM Categoria";
     }
 }

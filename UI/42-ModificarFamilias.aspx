@@ -63,7 +63,7 @@
                             <tr>
                                 <td>
                                     <input type="checkbox" class="form-check-input select-patente">
-                                    <input type="hidden" class="id-patente" value="<%= patente.Id %>">
+                                    <input type="hidden" class="id-patente" value="<%= patente.id_componente %>">
                                 </td>
                                 <td><%= patente.Nombre %></td>
                                 <td><%= patente.Permiso %></td>
@@ -93,7 +93,7 @@
                             <tr>
                                 <td><%= patente.Nombre %></td>
                                 <td><%= patente.Permiso %></td>
-                                <input type="hidden" class="id-patente" value="<%= patente.Id %>">
+                                <input type="hidden" class="id-patente" value="<%= patente.id_componente %>">
                             </tr>
                             <% } %>
                         </tbody>

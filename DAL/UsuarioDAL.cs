@@ -140,7 +140,7 @@ namespace DAL
                 xCommandText = Querys.UsuarioQuerys.addBlock;
 
                 xParameters.Parameters.Clear();
-                xParameters.Parameters.AddWithValue("@user", usuario.Id);
+                xParameters.Parameters.AddWithValue("@user", usuario.id_usuario);
 
                 executeNonQuery();
             }

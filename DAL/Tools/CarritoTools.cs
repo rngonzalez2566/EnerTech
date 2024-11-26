@@ -20,8 +20,8 @@ namespace DAL.Tools
             carrito.producto = new ProductoBE();
 
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                carrito.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_carrito") && !Convert.IsDBNull(dr["id_carrito"]))
+                carrito.id_carrito = Convert.ToInt32(dr["id_carrito"]);
 
             if (dr.Table.Columns.Contains("Cantidad") && !Convert.IsDBNull(dr["Cantidad"]))
                 carrito.Cantidad = Convert.ToInt32(dr["Cantidad"]);

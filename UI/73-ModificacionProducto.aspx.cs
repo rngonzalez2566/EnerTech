@@ -49,7 +49,7 @@ namespace UI
                 // Cargar las marcas en el DropDownList de Marca
                 ddlMarca.DataSource = listMarca;
                 ddlMarca.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlMarca.DataValueField = "Id";     // Valor que se enviará
+                ddlMarca.DataValueField = "id_marca";     // Valor que se enviará
                 ddlMarca.DataBind();
 
                 // Agregar un ítem por defecto para seleccionar una opción
@@ -58,7 +58,7 @@ namespace UI
                 // Cargar las categorías en el DropDownList de Categoría
                 ddlCategoria.DataSource = listCategoria;
                 ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "Id";     // Valor que se enviará
+                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
                 ddlCategoria.DataBind();
 
                 // Agregar un ítem por defecto para seleccionar una opción
@@ -66,7 +66,7 @@ namespace UI
 
                 ddlCategoria.DataSource = listCategoria;
                 ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "Id";     // Valor que se enviará
+                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
                 ddlCategoria.DataBind();
 
 
@@ -75,8 +75,8 @@ namespace UI
                 ddlIVA.DataValueField = "Codigo";
                 ddlIVA.DataBind();
 
-                ddlCategoria.SelectedValue = producto.Categoria.Id.ToString();
-                ddlMarca.SelectedValue = producto.Marca.Id.ToString();
+                ddlCategoria.SelectedValue = producto.Categoria.id_categoria.ToString();
+                ddlMarca.SelectedValue = producto.Marca.id_marca.ToString();
 
                 if (!string.IsNullOrEmpty(producto.Imagen))
                 {
@@ -112,8 +112,8 @@ namespace UI
             {
                 Codigo = txtCodigo.Text,
                 Descripcion = txtDescripcion.Text,
-                Categoria = new CategoriaBE { Id = int.Parse(ddlCategoria.SelectedValue) },
-                Marca = new MarcaBE { Id = int.Parse(ddlMarca.SelectedValue) },
+                Categoria = new CategoriaBE { id_categoria = int.Parse(ddlCategoria.SelectedValue) },
+                Marca = new MarcaBE { id_marca = int.Parse(ddlMarca.SelectedValue) },
                 codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva),
                 Cantidad = int.Parse(txtCantidad.Text),
                 Precio = decimal.Parse(txtPrecio.Text),

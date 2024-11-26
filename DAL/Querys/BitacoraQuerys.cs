@@ -9,6 +9,6 @@ namespace DAL.Querys
     public class BitacoraQuerys
     {
         public const string GetBitacora = "SELECT  * FROM Bitacora order by Fecha desc";
-        public const string RegisterBitacora = "insert into Bitacora (id_usuario, Criticidad, Detalle, Fecha) OUTPUT inserted.Id values (@user,@crit,@Det,@Fecha)";
+        public const string RegisterBitacora = "insert into Bitacora (id_usuario, Criticidad, Detalle, Fecha) OUTPUT inserted.id_bitacora values (@user,@crit,@Det,@Fecha)";
     }
 }

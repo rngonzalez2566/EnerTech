@@ -62,12 +62,12 @@ namespace BLL
                 {
                     foreach (Componente item in UsuarioBE.Permisos)
                     {
-                        Componente permiso = item.Id > 0 ? item : PermisoFactory.CrearPermiso(item.Permiso, item.Id);
+                        Componente permiso = item.id_componente > 0 ? item : PermisoFactory.CrearPermiso(item.Permiso, item.id_componente);
 
                         UsuarioPermisoBE usuarioPermisosDVH = new UsuarioPermisoBE
                         {
-                            UsuarioId = UsuarioBE.Id,
-                            PermisoId = permiso.Id
+                            UsuarioId = UsuarioBE.id_usuario,
+                            PermisoId = permiso.id_componente
                         };
 
                         //string DVH = DigitoVerificador.GenerarDVH(usuarioPermisosDVH);
@@ -133,7 +133,7 @@ namespace BLL
         {
             bool existeComponente = false;
 
-            if (componente.Id.Equals(Id))
+            if (componente.id_componente.Equals(Id))
                 existeComponente = true;
 
             else
@@ -156,7 +156,7 @@ namespace BLL
         public void GetComponenteFamilia(Familia familia)
         {
             familia.VaciarHijos();
-            foreach (Componente item in TraerFamiliaPatentes(familia.Id))
+            foreach (Componente item in TraerFamiliaPatentes(familia.id_componente))
             {
                 familia.AgregarHijo(item);
             }

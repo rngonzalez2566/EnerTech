@@ -64,7 +64,7 @@ namespace UI
         {
             var familia = new Familia()
             {
-                Id = _familiaId,
+                id_componente = _familiaId,
                 Nombre = nombreFamilia,
             };
 
@@ -72,7 +72,7 @@ namespace UI
             {
                 var patente = new Patente()
                 {
-                    Id = int.Parse(id),
+                    id_componente = int.Parse(id),
                 };
 
                 familia.AgregarHijo(patente);
@@ -83,11 +83,11 @@ namespace UI
 
         private void CargarFamiliasPatentes()
         {
-            Familia = _permisoService.GetFamilias().FirstOrDefault(x => x.Id == _familiaId);
+            Familia = _permisoService.GetFamilias().FirstOrDefault(x => x.id_componente == _familiaId);
             Patentes = _permisoService.TraerFamiliaPatentes(_familiaId);
 
             PatentesExistentes = _permisoService.GetPatentes();
-            PatentesExistentes = PatentesExistentes.Where(p => !Patentes.Any(pa => pa.Id == p.Id)).ToList();
+            PatentesExistentes = PatentesExistentes.Where(p => !Patentes.Any(pa => pa.id_componente == p.id_componente)).ToList();
         }
     }
 }

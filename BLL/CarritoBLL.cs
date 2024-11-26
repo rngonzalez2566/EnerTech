@@ -145,7 +145,7 @@ namespace BLL
         }
         public void setCarrito(CarritoBE carrito)
         {
-            CarritoBE cart = GetCarritoUserProduct(carrito.usuario.Id, carrito.producto.Id);
+            CarritoBE cart = GetCarritoUserProduct(carrito.usuario.id_usuario, carrito.producto.id_producto);
 
             if(cart != null)
             {

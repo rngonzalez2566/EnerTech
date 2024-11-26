@@ -105,12 +105,12 @@
                         </div>
 
                         <div class="cart-quantity">
-                            <asp:Button ID="btnDecrease" runat="server" Text="-" CommandArgument='<%# Eval("Producto.Id") %>' OnClick="btnDecrease_Click" />
+                            <asp:Button ID="btnDecrease" runat="server" Text="-" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnDecrease_Click" />
                             <asp:TextBox ID="txtCantidad" runat="server" CssClass="quantity-input" Text='<%# Eval("Cantidad") %>' Enabled="false" />
-                            <asp:Button ID="btnIncrease" runat="server" Text="+" CommandArgument='<%# Eval("Producto.Id") %>' OnClick="btnIncrease_Click" />
+                            <asp:Button ID="btnIncrease" runat="server" Text="+" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnIncrease_Click" />
                         </div>
 
-                        <asp:LinkButton ID="btnRemove" runat="server" Text="Eliminar" CommandArgument='<%# Eval("Producto.Id") %>' OnClick="btnRemove_Click" CssClass="btn-remove" />
+                        <asp:LinkButton ID="btnRemove" runat="server" Text="Eliminar" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnRemove_Click" CssClass="btn-remove" />
                     </div>
                 </ItemTemplate>
             </asp:Repeater>

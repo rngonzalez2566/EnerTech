@@ -9,7 +9,7 @@ namespace BE
 {
     public class ProductoBE
     {
-        public int Id { get; set; }
+        public int id_producto { get; set; }
         public string Imagen { get; set; }
         public string Codigo { get; set; }
         public string Descripcion { get; set; }

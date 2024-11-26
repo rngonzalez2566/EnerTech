@@ -108,8 +108,8 @@ namespace DAL
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@codigo", producto.Codigo);
                 xParameters.Parameters.AddWithValue("@descripcion", producto.Descripcion);
-                xParameters.Parameters.AddWithValue("@marca", producto.Marca.Id);
-                xParameters.Parameters.AddWithValue("@categoria", producto.Categoria.Id);
+                xParameters.Parameters.AddWithValue("@marca", producto.Marca.id_marca);
+                xParameters.Parameters.AddWithValue("@categoria", producto.Categoria.id_categoria);
                 xParameters.Parameters.AddWithValue("@imagen", producto.Imagen);
                 xParameters.Parameters.AddWithValue("@catalogo", false);
                 xParameters.Parameters.AddWithValue("@cantidad", producto.Cantidad);
@@ -137,8 +137,8 @@ namespace DAL
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@codigo", producto.Codigo);
                 xParameters.Parameters.AddWithValue("@descripcion", producto.Descripcion);
-                xParameters.Parameters.AddWithValue("@marca", producto.Marca.Id);
-                xParameters.Parameters.AddWithValue("@categoria", producto.Categoria.Id);
+                xParameters.Parameters.AddWithValue("@marca", producto.Marca.id_marca);
+                xParameters.Parameters.AddWithValue("@categoria", producto.Categoria.id_categoria);
                 xParameters.Parameters.AddWithValue("@imagen", producto.Imagen);
                 xParameters.Parameters.AddWithValue("@cantidad", producto.Cantidad);
                 xParameters.Parameters.AddWithValue("@iva", producto.codigoIVA.Codigo);

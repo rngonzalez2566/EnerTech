@@ -86,6 +86,7 @@
     <Compile Include="Querys\BitacoraQuerys.cs" />
     <Compile Include="Querys\CarritoQuerys.cs" />
     <Compile Include="Querys\CategoriaQuerys.cs" />
+    <Compile Include="Querys\DVQuerys.cs" />
     <Compile Include="Querys\MarcaQuerys.cs" />
     <Compile Include="Querys\PermisoQuerys.cs" />
     <Compile Include="Querys\ProductoQuerys.cs" />

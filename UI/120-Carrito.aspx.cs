@@ -35,7 +35,7 @@ namespace UI
         private void CargarCarrito()
         {
             // Obtener el carrito actualizado desde la base de datos
-            carrito = _carritoService.GetCarrito(usuario.Id);
+            carrito = _carritoService.GetCarrito(usuario.id_usuario);
 
             // Enlazar el carrito al Repeater
             rptCarrito.DataSource = carrito;
@@ -61,7 +61,7 @@ namespace UI
         private void ActualizarCantidad(int codigo, int cambio)
         {
             // Obtén el producto en el carrito
-            var carritoBE = carrito.FirstOrDefault(p => p.producto.Id == codigo);
+            var carritoBE = carrito.FirstOrDefault(p => p.producto.id_producto == codigo);
 
             if (carritoBE != null)
             {
@@ -70,7 +70,7 @@ namespace UI
                 if (carritoBE.Cantidad <= 0)
                 {
                     // Si la cantidad es 0 o menor, elimina el producto del carrito
-                    _carritoService.BorrarCarritoProducto(usuario.Id, codigo);
+                    _carritoService.BorrarCarritoProducto(usuario.id_usuario, codigo);
                 }
                 else
                 {
@@ -94,7 +94,7 @@ namespace UI
             int codigo = Convert.ToInt32(btnRemove.CommandArgument);
 
             // Eliminar el producto del carrito
-            _carritoService.BorrarCarritoProducto(usuario.Id, codigo);
+            _carritoService.BorrarCarritoProducto(usuario.id_usuario, codigo);
 
             // Recargar el carrito y el subtotal
             CargarCarrito();

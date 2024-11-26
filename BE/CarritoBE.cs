@@ -8,7 +8,7 @@ namespace BE
 {
     public class CarritoBE
     {
-        public int Id { get; set; }
+        public int id_carrito { get; set; }
         public UsuarioBE usuario { get; set; }
 
         public ProductoBE producto { get; set; }

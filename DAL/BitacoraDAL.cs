@@ -18,7 +18,7 @@ namespace DAL
                 xCommandText = Querys.BitacoraQuerys.RegisterBitacora;
 
                 xParameters.Parameters.Clear();
-                xParameters.Parameters.AddWithValue("@user", Bitacora.usuario.Id);
+                xParameters.Parameters.AddWithValue("@user", Bitacora.usuario.id_usuario);
                 xParameters.Parameters.AddWithValue("@crit", Bitacora.Criticidad);
                 xParameters.Parameters.AddWithValue("@Det", Bitacora.Detalle);
                 xParameters.Parameters.AddWithValue("@Fecha", Bitacora.Fecha);

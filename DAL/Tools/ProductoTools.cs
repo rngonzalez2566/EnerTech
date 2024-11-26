@@ -21,8 +21,8 @@ namespace DAL.Tools
            
 
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                producto.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_producto") && !Convert.IsDBNull(dr["id_producto"]))
+                producto.id_producto = Convert.ToInt32(dr["id_producto"]);
 
             if (dr.Table.Columns.Contains("Codigo") && !Convert.IsDBNull(dr["Codigo"]))
                 producto.Codigo = Convert.ToString(dr["Codigo"]);

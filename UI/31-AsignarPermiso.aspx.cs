@@ -64,7 +64,7 @@ namespace UI
             PatentesAsignadas = UsuarioSeleccionado.Permisos.Where(p => !p.Hijos.Any()).ToList();
 
             var todasLasPatentes = _permisoService.GetPatentes();
-            PatentesDisponibles = todasLasPatentes.Where(p => !PatentesAsignadas.Any(pa => pa.Id == p.Id)).ToList();
+            PatentesDisponibles = todasLasPatentes.Where(p => !PatentesAsignadas.Any(pa => pa.id_componente == p.id_componente)).ToList();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -81,13 +81,13 @@ namespace UI
 
                 var idsPatentesSeleccionadas = patentesSeleccionadas?.Split(',').Select(int.Parse).ToList() ?? new List<int>();
 
-                var nuevasPatentes = _permisoService.GetPatentes().Where(p => idsPatentesSeleccionadas.Contains(p.Id)).ToList();
+                var nuevasPatentes = _permisoService.GetPatentes().Where(p => idsPatentesSeleccionadas.Contains(p.id_componente)).ToList();
 
                 UsuarioSeleccionado.Permisos.AddRange(nuevasPatentes);
 
                 _permisoService.GuardarPermiso(UsuarioSeleccionado);
 
-                CargarPatentes(UsuarioSeleccionado.Id);
+                CargarPatentes(UsuarioSeleccionado.id_usuario);
 
                
             }

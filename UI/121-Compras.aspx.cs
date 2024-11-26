@@ -38,7 +38,7 @@ namespace UI
         private void CargarCarrito()
         {
 
-            carrito = _carritoService.GetCarrito(usuario.Id);
+            carrito = _carritoService.GetCarrito(usuario.id_usuario);
 
             // Enlaza el carrito al Repeater
             rptCarrito.DataSource = carrito;

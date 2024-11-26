@@ -15,8 +15,8 @@ namespace DAL.Tools
             MarcaBE marca = new MarcaBE();
 
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                marca.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_marca") && !Convert.IsDBNull(dr["id_marca"]))
+                marca.id_marca = Convert.ToInt32(dr["id_marca"]);
 
             if (dr.Table.Columns.Contains("Nombre") && !Convert.IsDBNull(dr["Nombre"]))
                 marca.Nombre = Convert.ToString(dr["Nombre"]);

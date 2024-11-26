@@ -39,7 +39,7 @@
                         <div class="card shadow-lg border-0 h-100">
                             <div class="card-body d-flex flex-column">
                                 <!-- Información de la compra -->
-                                <h5 class="card-title">Compra #<%# Eval("Id") %></h5>
+                                <h5 class="card-title">Compra #<%# Eval("id_venta") %></h5>
                                 <span class="card-status <%# Eval("Estado").ToString() == "Facturado" ? "status-facturado" : Eval("Estado").ToString() == "En camino" ? "status-shipping" : Eval("Estado").ToString() == "Cancelado" ? "status-canceled" : "status-pending" %>">
                                     <%# Eval("Estado") %>
                                 </span>
@@ -53,7 +53,7 @@
                                 <div class="d-flex justify-content-between mt-auto">
                                     <!-- Botón Ver Detalles (siempre visible) -->
                                     <asp:HyperLink runat="server"
-                                        NavigateUrl='<%# "DetalleCompra.aspx?ventaId=" + Eval("Id") + "&fecha=" + Eval("Fecha", "{0:yyyy-MM-dd}") + "&total=" + Eval("Total", "{0:N2}") %>'
+                                        NavigateUrl='<%# "DetalleCompra.aspx?ventaId=" + Eval("id_venta") + "&fecha=" + Eval("Fecha", "{0:yyyy-MM-dd}") + "&total=" + Eval("Total", "{0:N2}") %>'
                                         CssClass="btn btn-primary btn-sm">
                                         <i class="bi bi-eye"></i> Ver Detalles
                                     </asp:HyperLink>
@@ -61,7 +61,7 @@
                                     <!-- Botón Descargar Factura (solo visible si está facturado) -->
                                     <asp:Button runat="server"
                                         CssClass="btn btn-outline-secondary btn-sm"
-                                        CommandArgument='<%# Eval("Id") %>'
+                                        CommandArgument='<%# Eval("id_venta") %>'
                                         OnClick="btnPDF_Click"
                                         Visible='<%# Eval("Estado").ToString() == "Facturado" %>'
                                         Text="Descargar Factura" />

@@ -41,7 +41,7 @@
                 <select id="selectUsuario" name="usuarioSeleccionado" class="form-select" onchange="this.form.submit()">
                     <option value="">Selecciona un usuario</option>
                     <% foreach (var usuario in Usuarios) { %>
-                        <option value="<%= usuario.Id %>" <%= usuario.Id == UsurioSeleccionadoId ? "selected" : "" %>>
+                        <option value="<%= usuario.id_usuario %>" <%= usuario.id_usuario == UsurioSeleccionadoId ? "selected" : "" %>>
                             <%= usuario.RazonSocial %>
                         </option>
                     <% } %>
@@ -66,7 +66,7 @@
                                 <tr>
                                     <td><%= patente.Nombre %></td>
                                     <td><%= patente.Permiso %></td>
-                                    <input type="hidden" class="id-patente-asignada" value="<%= patente.Id %>">
+                                    <input type="hidden" class="id-patente-asignada" value="<%= patente.id_componente %>">
                                 </tr>
                             <% } %>
                         </tbody>
@@ -91,7 +91,7 @@
                         <tbody>
                             <% foreach (var patente in PatentesDisponibles) { %>
                                 <tr>
-                                    <td><input type="checkbox" class="form-check-input select-patente" value="<%= patente.Id %>"></td>
+                                    <td><input type="checkbox" class="form-check-input select-patente" value="<%= patente.id_componente %>"></td>
                                     <td><%= patente.Nombre %></td>
                                     <td><%= patente.Permiso %></td>
                                 </tr>

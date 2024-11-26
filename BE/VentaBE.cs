@@ -8,7 +8,7 @@ namespace BE
 {
     public class VentaBE
     {
-        public int Id { get; set; }
+        public int id_venta { get; set; }
         public DateTime Fecha { get; set; }
         public string Detalle { get; set; }
 

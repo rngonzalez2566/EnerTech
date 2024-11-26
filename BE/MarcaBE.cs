@@ -8,7 +8,7 @@ namespace BE
 {
     public class MarcaBE
     {
-        public int Id { get; set; }
+        public int id_marca { get; set; }
         public string Nombre { get; set; }
     }
 }

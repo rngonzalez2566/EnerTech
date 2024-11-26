@@ -65,7 +65,7 @@
                                         ID="btnAgregarCarrito"
                                         runat="server"
                                         Text="Agregar al Carrito"
-                                        CommandArgument='<%# Eval("Id") %>'
+                                        CommandArgument='<%# Eval("id_producto") %>'
                                         OnClick="btnAgregarCarrito_Click"
                                         CssClass="btn-add-cart"
                                         Visible='<%# Convert.ToInt32(Eval("Cantidad")) > 0 %>' />

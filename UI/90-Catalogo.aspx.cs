@@ -36,7 +36,7 @@ namespace UI
             List<MarcaBE> marcas = _marcaService.GetMarcas();
             ddlMarca.DataSource = marcas;
             ddlMarca.DataTextField = "Nombre";
-            ddlMarca.DataValueField = "Id";
+            ddlMarca.DataValueField = "id_marca";
             ddlMarca.DataBind();
             ddlMarca.Items.Insert(0, new ListItem("Todas las Marcas", ""));
 
@@ -44,7 +44,7 @@ namespace UI
             List<CategoriaBE> categorias = _categoriaService.GetCategorias();
             ddlCategoria.DataSource = categorias;
             ddlCategoria.DataTextField = "Nombre";
-            ddlCategoria.DataValueField = "Id";
+            ddlCategoria.DataValueField = "id_categoria";
             ddlCategoria.DataBind();
             ddlCategoria.Items.Insert(0, new ListItem("Todas las Categorías", ""));
         }
@@ -68,8 +68,8 @@ namespace UI
 
             // Filtrar productos según los filtros seleccionados
             List<ProductoBE> productos = _productoService.GetProductos()
-                .Where(p => (!marcaId.HasValue || p.Marca.Id == marcaId) &&
-                            (!categoriaId.HasValue || p.Categoria.Id == categoriaId) &&
+                .Where(p => (!marcaId.HasValue || p.Marca.id_marca == marcaId) &&
+                            (!categoriaId.HasValue || p.Categoria.id_categoria == categoriaId) &&
                             (!precioMin.HasValue || p.Precio >= precioMin) &&
                             (!precioMax.HasValue || p.Precio <= precioMax)).ToList();
 
@@ -91,8 +91,8 @@ namespace UI
 
             CarritoBE carritoItem = new CarritoBE
             {
-                usuario = new UsuarioBE { Id = usuario.Id },
-                producto = new ProductoBE { Id = productoId },
+                usuario = new UsuarioBE { id_usuario = usuario.id_usuario },
+                producto = new ProductoBE { id_producto = productoId },
                 Cantidad = 1
             };
 

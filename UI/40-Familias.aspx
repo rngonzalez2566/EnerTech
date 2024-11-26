@@ -45,7 +45,7 @@
                             <tr>
                                 <td>
                                     <input type="radio" name="selectFamilia" class="form-check-input select-familia">
-                                    <input type="hidden" class="id-familia" value="<%= familia.Id %>">
+                                    <input type="hidden" class="id-familia" value="<%= familia.id_componente %>">
                                 </td>
                                 <td><%= familia.Nombre %></td>
                             </tr>

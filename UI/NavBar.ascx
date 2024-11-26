@@ -92,10 +92,7 @@
 
     </style>
 
-      <!-- Navbar personalizado -->
-
  <div id="navigationBar" runat="server">
-    <!-- El contenido del navbar se generará dinámicamente desde NavBar.ascx.cs -->
 </div>
 
 

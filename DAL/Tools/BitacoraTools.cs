@@ -19,8 +19,8 @@ namespace DAL.Tools
             Bitacora.usuario = new UsuarioBE();
 
 
-            if (dr.Table.Columns.Contains("Id") && !Convert.IsDBNull(dr["Id"]))
-                Bitacora.Id = Convert.ToInt32(dr["Id"]);
+            if (dr.Table.Columns.Contains("id_bitacora") && !Convert.IsDBNull(dr["id_bitacora"]))
+                Bitacora.id_bitacora = Convert.ToInt32(dr["id_bitacora"]);
 
             if (dr.Table.Columns.Contains("Criticidad") && !Convert.IsDBNull(dr["Criticidad"]))
                 Bitacora.Criticidad = Convert.ToString(dr["Criticidad"]);
@@ -32,15 +32,15 @@ namespace DAL.Tools
                 Bitacora.Fecha = Convert.ToDateTime(dr["Fecha"]);
 
             if (dr.Table.Columns.Contains("id_usuario") && !Convert.IsDBNull(dr["id_usuario"]))
-                Bitacora.usuario.Id = Convert.ToInt32(dr["id_usuario"]);
+                Bitacora.usuario.id_usuario = Convert.ToInt32(dr["id_usuario"]);
 
-            if (Bitacora.usuario.Id == 0)
+            if (Bitacora.usuario.id_usuario == 0)
             {
                 Bitacora.usuario.Nombre = "Sistema";
             }
             else
             {
-                Bitacora.usuario = user.GetUsuarioID(Bitacora.usuario.Id);
+                Bitacora.usuario = user.GetUsuarioID(Bitacora.usuario.id_usuario);
                 Bitacora.usuario.Nombre = Services.Encriptador.Descencriptar(Bitacora.usuario.Nombre);
             }
            
