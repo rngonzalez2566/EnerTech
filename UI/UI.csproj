@@ -255,6 +255,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleCompra.aspx" />
+    <Content Include="ErrorCodes.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="GenericModal.ascx" />
     <Content Include="Global.asax" />
@@ -514,6 +515,13 @@
     </Compile>
     <Compile Include="DetalleCompra.aspx.designer.cs">
       <DependentUpon>DetalleCompra.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorCodes.aspx.cs">
+      <DependentUpon>ErrorCodes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorCodes.aspx.designer.cs">
+      <DependentUpon>ErrorCodes.aspx</DependentUpon>
     </Compile>
     <Compile Include="GenericModal.ascx.cs">
       <DependentUpon>GenericModal.ascx</DependentUpon>
