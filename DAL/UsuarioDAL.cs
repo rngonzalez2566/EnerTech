@@ -92,13 +92,14 @@ namespace DAL
             }
         }
 
-        public void DesbloquearUsuario(int idUsuario)
+        public void DesbloquearUsuario(int idUsuario, long dv)
         {
             try
             {
                 xCommandText = Querys.UsuarioQuerys.UnlockUser;
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@user", idUsuario);
+                xParameters.Parameters.AddWithValue("@dv", dv);
                 executeNonQuery();
             }
             catch
@@ -142,6 +143,7 @@ namespace DAL
 
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@user", usuario.id_usuario);
+                xParameters.Parameters.AddWithValue("@dv", usuario.DVH);
 
                 executeNonQuery();
             }

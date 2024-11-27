@@ -26,7 +26,7 @@ namespace BE
         public decimal Total {  get; set; }
         public decimal IVA { get; set; }
         public string QRData { get; set; }
-        
+        public int DVH { get; set; }
 
         public decimal TotalGravado { get; set; }
 

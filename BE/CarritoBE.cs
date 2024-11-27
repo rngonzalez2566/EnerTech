@@ -14,6 +14,7 @@ namespace BE
         public ProductoBE producto { get; set; }
 
         public int Cantidad { get; set; }
+        public int DVH { get; set; }
 
     }
 }

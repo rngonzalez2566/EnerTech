@@ -21,6 +21,8 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("Nombre") && !Convert.IsDBNull(dr["Nombre"]))
                 marca.Nombre = Convert.ToString(dr["Nombre"]);
 
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                marca.DVH = Convert.ToInt32(dr["DVH"]);
 
             return marca;
         }

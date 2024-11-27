@@ -33,6 +33,28 @@ namespace DAL
                 throw new Exception(ErrorMessages.ERR001);
             }
         }
+        public List<CarritoBE> GetCarritos()
+        {
+
+            try
+            {
+                xCommandText = Querys.CarritoQuerys.GetCarritos;
+                xParameters.Parameters.Clear();
+           
+                DataSet ds = ExecuteReader();
+
+                List<BE.CarritoBE> carrito = new List<BE.CarritoBE>();
+                if (ds.Tables[0].Rows.Count > 0)
+                    carrito = Tools.CarritoTools.FillListCarrito(ds);
+
+                return carrito;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
 
         public int GetCantidadCarrito(int user)
         {
@@ -58,6 +80,28 @@ namespace DAL
             }
             catch
             {
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
+        public CarritoBE GetCarritoID(int id)
+        {
+
+            try
+            {
+                xCommandText = Querys.CarritoQuerys.GetCarrito_ID;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@id", id);
+                DataSet ds = ExecuteReader();
+
+
+                BE.CarritoBE bit = ds.Tables[0].Rows.Count <= 0 ? null : Tools.CarritoTools.FillObjectCarrito(ds.Tables[0].Rows[0]);
+
+                return bit;
+            }
+            catch
+            {
+
                 throw new Exception(ErrorMessages.ERR001);
             }
         }

@@ -68,17 +68,24 @@ namespace BLL
                     if(usuario.Password == Encriptador.Hash(password))
                     {
 
-                        usuarioDAL.DesbloquearUsuario(usuario.id_usuario);
-                        bitacora.RegistrarBitacora($"{user} - Inicio sesion correctamente", "Baja", usuario);
                         _permisoService.GetComponenteUsuario(usuario);
+                        usuario.Contador = 0;
+                        usuario.DVH = dv.CalcularDV(usuario);                       
+                        usuarioDAL.DesbloquearUsuario(usuario.id_usuario, usuario.DVH);
+                        bitacora.RegistrarBitacora($"{user} - Inicio sesion correctamente", "Baja", usuario);
+                        dvDAL.AltaDVV("Usuario");
                         return usuario;
                     }
                     else
-                    {
+                    {               
+                        usuario.Contador += 1;
+                        usuario.DVH = dv.CalcularDV(usuario);
                         usuarioDAL.SumarContadorbloqueo(usuario);
                         bitacora.RegistrarBitacora($"{user} - Inicio de sesion incorrecto", "Medio", usuario);
+                        dvDAL.AltaDVV("Usuario");
                         throw new Exception(ErrorMessages.ERR012);
                     }
+                    
                 }
                 else
                 {

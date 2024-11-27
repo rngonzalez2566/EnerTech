@@ -23,6 +23,9 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("id_carrito") && !Convert.IsDBNull(dr["id_carrito"]))
                 carrito.id_carrito = Convert.ToInt32(dr["id_carrito"]);
 
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                carrito.DVH = Convert.ToInt32(dr["DVH"]);
+
             if (dr.Table.Columns.Contains("Cantidad") && !Convert.IsDBNull(dr["Cantidad"]))
                 carrito.Cantidad = Convert.ToInt32(dr["Cantidad"]);
 

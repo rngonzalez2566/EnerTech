@@ -14,7 +14,8 @@ namespace BLL
     {
 
         BitacoraDAL BitacoraDAL = new BitacoraDAL();
-
+        Services.DigitoVerificador dv = new Services.DigitoVerificador();
+        DigitoVerificadorDAL dvs = new DigitoVerificadorDAL();
         public int RegistrarBitacora(string detalle, string criticidad, UsuarioBE usuario)
         {
             try
@@ -29,9 +30,11 @@ namespace BLL
                         Detalle = detalle,
                         Criticidad = criticidad,
                         Fecha = DateHandler.Now(),
+                        
                     };
-
+                    bitacora.DVH = dv.CalcularDV(bitacora);
                     id = BitacoraDAL.RegistrarBitacora(bitacora);
+                    dvs.AltaDVV("Bitacora");
                     scope.Complete();
                 }
 

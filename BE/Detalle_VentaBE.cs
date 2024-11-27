@@ -10,6 +10,7 @@ namespace BE
     public class Detalle_VentaBE
     {
         public int id_detalle_venta { get; set; }
+        public int DVH { get; set; }
         public ProductoBE Producto { get; set; }
         public string Descripcion { get; set; }
         public string Codigo { get; set; }

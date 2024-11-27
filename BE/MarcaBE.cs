@@ -10,5 +10,6 @@ namespace BE
     {
         public int id_marca { get; set; }
         public string Nombre { get; set; }
+        public int DVH { get; set; }
     }
 }

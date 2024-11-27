@@ -26,5 +26,20 @@ namespace BLL
 
             }
         }
+
+        public CategoriaBE GetCategoriaID(int xid)
+        {
+            try
+            {
+                CategoriaBE categorias = categoriaDAL.GetCategoriaID(xid);
+
+                return categorias;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
     }
 }

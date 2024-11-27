@@ -13,6 +13,8 @@ namespace BLL
     public class VentaBLL
     {
         VentaDAL ventalDAL =  new VentaDAL();
+       DigitoVerificadorDAL dv = new DigitoVerificadorDAL();
+        Services.DigitoVerificador sdv = new Services.DigitoVerificador();
         public int RegistrarVenta(VentaBE venta)
         {
 
@@ -34,7 +36,8 @@ namespace BLL
 
                     ventalDAL.BorrarCarrito(venta);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosCarrito("Carrito",sdv);
+                    dv.RecalcularDigitosVenta("Venta", sdv);
                     scope.Complete();
 
                     return _id;
@@ -46,6 +49,8 @@ namespace BLL
                 throw new Exception(ErrorMessages.ERR001);
             }
         }
+
+       
 
         public List<VentaBE> GetVentaUser(int user)
         {
@@ -81,6 +86,20 @@ namespace BLL
             return ventas;
         }
 
+        public List<Detalle_VentaBE> GetDetalleVentas()
+        {
+            List<Detalle_VentaBE> ventas = ventalDAL.GetDetalleVentas();
+
+            return ventas;
+        }
+
+        public List<RelatedTaxesBE> GetTaxes()
+        {
+            List<RelatedTaxesBE> ventas = ventalDAL.GetTaxes();
+
+            return ventas;
+        }
+
         public VentaBE GetVenta(int idVenta)
         {
             VentaBE venta = ventalDAL.GetVenta(idVenta);
@@ -91,8 +110,8 @@ namespace BLL
         public void ReprocesarRechazo(int idVenta)
         {
           ventalDAL.ReprocesarRechazo(idVenta);
+          dv.RecalcularDigitosCarrito("Venta", sdv);
 
-     
         }
 
         public List<VentaBE> GetVentasFiltradas(DateTime? fd, DateTime? fh, bool? fact)

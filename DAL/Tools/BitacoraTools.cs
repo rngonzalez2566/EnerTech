@@ -22,6 +22,9 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("id_bitacora") && !Convert.IsDBNull(dr["id_bitacora"]))
                 Bitacora.id_bitacora = Convert.ToInt32(dr["id_bitacora"]);
 
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                Bitacora.DVH = Convert.ToInt32(dr["DVH"]);
+
             if (dr.Table.Columns.Contains("Criticidad") && !Convert.IsDBNull(dr["Criticidad"]))
                 Bitacora.Criticidad = Convert.ToString(dr["Criticidad"]);
 

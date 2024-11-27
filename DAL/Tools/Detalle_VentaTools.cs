@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using BE;
@@ -21,6 +22,9 @@ namespace DAL.Tools
 
             if (dr.Table.Columns.Contains("id_detalle_venta") && !Convert.IsDBNull(dr["id_detalle_venta"]))
                 detalleVenta.id_detalle_venta = Convert.ToInt32(dr["id_detalle_venta"]);
+
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                detalleVenta.DVH = Convert.ToInt32(dr["DVH"]);
 
             if (dr.Table.Columns.Contains("Codigo") && !Convert.IsDBNull(dr["Codigo"]))
                 detalleVenta.Codigo = Convert.ToString(dr["Codigo"]);

@@ -22,5 +22,7 @@ namespace BE
         public decimal Precio { get; set; }
 
         public CodigoIVA codigoIVA { get; set; }
+
+        public int DVH { get; set; }
     }
 }

@@ -34,5 +34,13 @@ INNER JOIN Detalle_Venta D ON D.id_venta = V.Id
 INNER JOIN Producto P ON P.ID = D.id_producto
 INNER JOIN Categoria C ON C.Id = P.id_categoria
 GROUP BY C.Nombre";
+
+        public const string Get_DetalleVentasID = "Select * From Detalle_Venta where id_detalle_venta = @id";
+        public const string Get_TaxesID = "Select * From RelatedTaxes where id_relatedtaxes = @id ";
+        public const string Get_DetalleVentas = "Select * From Detalle_Venta";
+        public const string Get_Taxes = "Select * From RelatedTaxes ";
+
     }
+
+
 }

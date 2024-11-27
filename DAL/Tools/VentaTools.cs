@@ -22,6 +22,9 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("id_venta") && !Convert.IsDBNull(dr["id_venta"]))
                 venta.id_venta = Convert.ToInt32(dr["id_venta"]);
 
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                venta.DVH = Convert.ToInt32(dr["DVH"]);
+
             if (dr.Table.Columns.Contains("Fecha") && !Convert.IsDBNull(dr["Fecha"]))
                 venta.Fecha = Convert.ToDateTime(dr["Fecha"]);
 

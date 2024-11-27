@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DAL.Tools
@@ -21,6 +22,8 @@ namespace DAL.Tools
             if (dr.Table.Columns.Contains("Nombre") && !Convert.IsDBNull(dr["Nombre"]))
                 categoria.Nombre = Convert.ToString(dr["Nombre"]);
 
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                categoria.DVH = Convert.ToInt32(dr["DVH"]);
 
             return categoria;
         }

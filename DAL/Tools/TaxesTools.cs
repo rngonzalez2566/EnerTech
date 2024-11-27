@@ -14,10 +14,16 @@ namespace DAL.Tools
         public static RelatedTaxesBE FillObjectTaxes(DataRow dr)
         {
             RelatedTaxesBE taxes = new RelatedTaxesBE();
-            
+
+
+            if (dr.Table.Columns.Contains("id_relatedtaxes") && !Convert.IsDBNull(dr["id_relatedtaxes"]))
+                taxes.id_relatedtaxes = Convert.ToInt32(dr["id_relatedtaxes"]);
 
             if (dr.Table.Columns.Contains("CodigoIVA") && !Convert.IsDBNull(dr["CodigoIVA"]))
                 taxes.codigoIVA = Convert.ToInt32(dr["CodigoIVA"]);
+
+            if (dr.Table.Columns.Contains("DVH") && !Convert.IsDBNull(dr["DVH"]))
+                taxes.DVH = Convert.ToInt32(dr["DVH"]);
 
 
             if (dr.Table.Columns.Contains("TasaIVA") && !Convert.IsDBNull(dr["TasaIVA"]))

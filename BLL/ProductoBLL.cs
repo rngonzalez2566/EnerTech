@@ -14,6 +14,8 @@ namespace BLL
     {
         ProductoDAL productoDAL = new ProductoDAL();
         BitacoraBLL bitacora = new BitacoraBLL();
+        DigitoVerificadorDAL dv = new DigitoVerificadorDAL();
+        Services.DigitoVerificador sdv = new Services.DigitoVerificador();
         public List<ProductoBE> GetProductos()
         {
             try
@@ -59,6 +61,21 @@ namespace BLL
             }
         }
 
+        public ProductoBE GetProductoID(int codigo)
+        {
+            try
+            {
+                ProductoBE producto = productoDAL.GetProductoID(codigo);
+
+                return producto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+
         public int RegistrarProducto(ProductoBE producto)
         {
            
@@ -68,7 +85,7 @@ namespace BLL
                 {
                     int _id = productoDAL.RegistrarProducto(producto);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosProducto("Producto", sdv);
                     scope.Complete();
 
                     return _id;
@@ -90,7 +107,7 @@ namespace BLL
                 {
                     productoDAL.EditarProducto(producto);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosProducto("Producto", sdv);
                     scope.Complete();
 
                     
@@ -112,7 +129,7 @@ namespace BLL
                 {
                      productoDAL.PublicarCatalogo(productos);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosProducto("Producto", sdv);
                     scope.Complete();
                 }
 

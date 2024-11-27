@@ -22,7 +22,8 @@ namespace DAL
                 xParameters.Parameters.AddWithValue("@crit", Bitacora.Criticidad);
                 xParameters.Parameters.AddWithValue("@Det", Bitacora.Detalle);
                 xParameters.Parameters.AddWithValue("@Fecha", Bitacora.Fecha);
-       
+                xParameters.Parameters.AddWithValue("@dv", Bitacora.DVH);
+
 
                 return ExecuteNonEscalar();
             }
@@ -46,6 +47,29 @@ namespace DAL
                     Bitacora = Tools.BitacoraTools.FillListBitacora(ds);
 
                 return Bitacora;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
+
+        public BitacoraBE GetBitacoraID(int id)
+        {
+
+            try
+            {
+                xCommandText = Querys.BitacoraQuerys.GetBitacora_id;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@bit", id);
+                DataSet ds = ExecuteReader();
+
+
+                BE.BitacoraBE bit = ds.Tables[0].Rows.Count <= 0 ? null : Tools.BitacoraTools.FillObjectBitacora(ds.Tables[0].Rows[0]);
+
+                return bit;
             }
             catch
             {

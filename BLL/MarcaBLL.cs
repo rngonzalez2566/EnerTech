@@ -25,5 +25,20 @@ namespace BLL
 
             }
         }
+
+        public MarcaBE GetMarcaID(int xid)
+        {
+            try
+            {
+                MarcaBE marcas = marcaDAL.GetMarcaID(xid);
+
+                return marcas;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
     }
 }

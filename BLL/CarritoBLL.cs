@@ -15,6 +15,8 @@ namespace BLL
     {
         CarritoDAL carritoDAL = new CarritoDAL();
         BitacoraBLL bitacora = new BitacoraBLL();
+        DigitoVerificadorDAL dv = new DigitoVerificadorDAL();
+        DigitoVerificador sdv = new DigitoVerificador();
 
 
         public List<CarritoBE> GetCarrito(int user)
@@ -22,6 +24,21 @@ namespace BLL
             try
             {
                 List<CarritoBE> carrito = carritoDAL.GetCarrito(user);
+
+                return carrito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+
+        public List<CarritoBE> GetCarritos()
+        {
+            try
+            {
+                List<CarritoBE> carrito = carritoDAL.GetCarritos();
 
                 return carrito;
             }
@@ -71,7 +88,7 @@ namespace BLL
                 {
                     int _id = carritoDAL.RegistrarCarrito(carrito);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosCarrito("Carrito",sdv);
                     scope.Complete();
 
                     return _id;
@@ -92,7 +109,7 @@ namespace BLL
                 {
                     carritoDAL.ActualizarCarrito(carrito);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosCarrito("Carrito", sdv);
                     scope.Complete();
 
                 }
@@ -112,7 +129,7 @@ namespace BLL
                 {
                     carritoDAL.BorrarCarrito(user);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosCarrito("Carrito", sdv);
                     scope.Complete();
 
                 }
@@ -132,7 +149,7 @@ namespace BLL
                 {
                     carritoDAL.BorrarCarritoProducto(user, prod);
                     //bitacora.RegistrarBitacora($"{usuario.Identificacion} - Se registro un nuevo usuario correctamente", "Media", usuario);
-
+                    dv.RecalcularDigitosCarrito("Carrito", sdv);
                     scope.Complete();
 
                 }
@@ -155,6 +172,7 @@ namespace BLL
             {
                 RegistrarCarrito(carrito);
             }
+            dv.RecalcularDigitosCarrito("Carrito", sdv);
         }
     }
 }

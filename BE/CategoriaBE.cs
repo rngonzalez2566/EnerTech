@@ -10,5 +10,7 @@ namespace BE
     {
         public int id_categoria { get; set; }
         public string Nombre { get; set; }
+
+        public int DVH { get; set; }
     }
 }

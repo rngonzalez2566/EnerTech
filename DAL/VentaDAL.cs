@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,7 +76,7 @@ namespace DAL
                 xParameters.Parameters.AddWithValue("@iva", taxes.TotalIVA);
                 xParameters.Parameters.AddWithValue("@venta", venta);
 
-               
+
                 return ExecuteNonEscalar();
             }
             catch
@@ -92,9 +93,9 @@ namespace DAL
 
                 xParameters.Parameters.Clear();
                 xParameters.Parameters.AddWithValue("@user", venta.usuario.id_usuario);
- 
 
-                 executeNonQuery();
+
+                executeNonQuery();
             }
             catch
             {
@@ -108,7 +109,7 @@ namespace DAL
             try
             {
 
-             
+
                 xCommandText = Querys.VentaQuerys.Get_Venta_User;
 
                 xParameters.Parameters.Clear();
@@ -120,11 +121,11 @@ namespace DAL
                 {
                     ventas = Tools.VentaTools.FillListVentas(ds);
                 }
-                   
+
 
                 return ventas;
 
-                
+
             }
             catch
             {
@@ -206,7 +207,7 @@ namespace DAL
 
                 throw new Exception(ErrorMessages.ERR001);
             }
-          
+
         }
 
         public List<VentaBE> GetVentas()
@@ -329,7 +330,7 @@ namespace DAL
 
                 throw new Exception(ErrorMessages.ERR001);
             }
-          
+
         }
 
         public List<VentaBE> VentasPorMes()
@@ -390,6 +391,92 @@ namespace DAL
             }
         }
 
+        public RelatedTaxesBE GetTaxesID(int xid)
+        {
+            try
+            {
+                xCommandText = Querys.VentaQuerys.Get_TaxesID;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@id", xid);
+                DataSet ds = ExecuteReader();
 
+
+                RelatedTaxesBE venta = ds.Tables[0].Rows.Count <= 0 ? null : Tools.TaxesTools.FillObjectTaxes(ds.Tables[0].Rows[0]);
+
+                return venta;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+
+        }
+
+        public Detalle_VentaBE GetDetalleVentasID(int xid)
+        {
+            try
+            {
+                xCommandText = Querys.VentaQuerys.Get_DetalleVentasID;
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@id", xid);
+                DataSet ds = ExecuteReader();
+
+
+                Detalle_VentaBE venta = ds.Tables[0].Rows.Count <= 0 ? null : Tools.Detalle_VentaTools.FillObjectDetalleVenta(ds.Tables[0].Rows[0]);
+
+                return venta;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+
+        }
+
+        public List<Detalle_VentaBE> GetDetalleVentas()
+        {
+            try
+            {
+                xCommandText = Querys.VentaQuerys.Get_DetalleVentas;
+
+                DataSet ds = ExecuteReader();
+
+                List<Detalle_VentaBE> ventas = new List<Detalle_VentaBE>();
+                if (ds.Tables[0].Rows.Count > 0)
+                    ventas = Tools.Detalle_VentaTools.FillListVentas(ds);
+
+                return ventas;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+
+        }
+
+        public List<RelatedTaxesBE> GetTaxes()
+        {
+            try
+            {
+                xCommandText = Querys.VentaQuerys.Get_Taxes;
+
+                DataSet ds = ExecuteReader();
+
+                List<RelatedTaxesBE> ventas = new List<RelatedTaxesBE>();
+                if (ds.Tables[0].Rows.Count > 0)
+                    ventas = Tools.TaxesTools.FillListTaxes(ds);
+
+                return ventas;
+            }
+            catch
+            {
+
+                throw new Exception(ErrorMessages.ERR001);
+            }
+
+        }
     }
 }
