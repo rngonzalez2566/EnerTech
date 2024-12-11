@@ -166,6 +166,12 @@
                                     OnClick="btnXML_Click"
                                     CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "A" %>' />
+
+                                 <asp:Button ID="Button1" runat="server" Text="EMAIL"
+                                    CssClass="btn btn-warning btn-sm"
+                                    OnClick="Button1_Click"
+                                    CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
+                                    Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "A" %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

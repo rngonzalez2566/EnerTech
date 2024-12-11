@@ -361,6 +361,40 @@ namespace UI
             ventasItem.Controls.Add(ventasLink);
             centerList.Controls.Add(ventasItem);
 
+            // Menú de "Negocio" con submenú
+            var negocioItem = new HtmlGenericControl("li");
+            negocioItem.Attributes["class"] = "nav-item dropdown";
+
+            var negocioLink = new HtmlAnchor
+            {
+                HRef = "#",
+                InnerText = IdiomaManager.Instance.GetTraduccion("business") ?? "Negocio"
+            };
+            negocioLink.Attributes["class"] = "nav-link dropdown-toggle";
+            negocioLink.Attributes["id"] = "negocioDropdown";
+            negocioLink.Attributes["role"] = "button";
+            negocioLink.Attributes["data-bs-toggle"] = "dropdown";
+            negocioLink.Attributes["aria-expanded"] = "false";
+            negocioItem.Controls.Add(negocioLink);
+
+            var negocioMenu = new HtmlGenericControl("ul");
+            negocioMenu.Attributes["class"] = "dropdown-menu";
+            negocioMenu.Attributes["aria-labelledby"] = "negocioDropdown";
+
+            var editarDatosItem = new HtmlGenericControl("li");
+            var editarDatosLink = new HtmlAnchor
+            {
+                HRef = "111-EditarDatos.aspx",
+                InnerText = IdiomaManager.Instance.GetTraduccion("edit_data") ?? "Editar Datos"
+            };
+            editarDatosLink.Attributes["class"] = "dropdown-item";
+            editarDatosItem.Controls.Add(editarDatosLink);
+
+            negocioMenu.Controls.Add(editarDatosItem);
+            negocioItem.Controls.Add(negocioMenu);
+
+            centerList.Controls.Add(negocioItem);
+
             collapseDiv.Controls.Add(centerList);
 
             // Lista derecha (idioma y perfil)
@@ -380,6 +414,7 @@ namespace UI
 
             navigationBar.Controls.Add(navbar);
         }
+
 
 
 

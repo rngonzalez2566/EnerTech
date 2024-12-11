@@ -213,6 +213,7 @@
   <ItemGroup>
     <Content Include="100-Ventas.aspx" />
     <Content Include="11-Login.aspx" />
+    <Content Include="111-EditarDatos.aspx" />
     <Content Include="12-RestablecerPassword.aspx" />
     <Content Include="120-Carrito.aspx" />
     <Content Include="121-Compras.aspx" />
@@ -340,6 +341,13 @@
     </Compile>
     <Compile Include="11-Login.aspx.designer.cs">
       <DependentUpon>11-Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="111-EditarDatos.aspx.cs">
+      <DependentUpon>111-EditarDatos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="111-EditarDatos.aspx.designer.cs">
+      <DependentUpon>111-EditarDatos.aspx</DependentUpon>
     </Compile>
     <Compile Include="12-RestablecerPassword.aspx.cs">
       <DependentUpon>12-RestablecerPassword.aspx</DependentUpon>

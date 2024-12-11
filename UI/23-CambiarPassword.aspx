@@ -11,6 +11,9 @@
             background-color: #f7f9fc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
+                display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .form-wrapper {

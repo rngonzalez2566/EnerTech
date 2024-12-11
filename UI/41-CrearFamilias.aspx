@@ -39,59 +39,9 @@
                 </div>
             </div>
 
-            <!-- Tabla de Patentes Existentes -->
-            <div class="card shadow-lg border-0 mb-5">
-                <div class="card-header card-header-custom">
-                    <h5 class="mb-0"><i class="bi bi-shield-check"></i> Patentes Existentes</h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mt-0">
-                        <thead>
-                            <tr>
-                                <th>Seleccionar</th>
-                                <th>Nombre de Patente</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% foreach (var patente in Patentes) { %>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" class="form-check-input select-patente">
-                                    <input type="hidden" class="id-patente" value="<%= patente.id_componente %>">
-                                </td>
-                                <td><%= patente.Nombre %></td>
-                                <td><%= patente.Permiso %></td>
-                            </tr>
-                            <% } %>
-                        </tbody>
-                    </table>
-                </div>
-                <button type="button" class="btn btn-primary mt-3" onclick="agregarPatente()">Agregar Patente</button>
-            </div>
-
-            <!-- Tabla de Patentes Agregadas -->
-            <div class="card shadow-lg border-0 mb-5">
-                <div class="card-header card-header-custom">
-                    <h5 class="mb-0"><i class="bi bi-plus-circle"></i> Patentes Agregadas</h5>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped align-middle mt-0" id="tablaAgregadas">
-                        <thead>
-                            <tr>
-                                <th>Nombre de Patente</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <input type="hidden" id="patentesSeleccionadas" name="patentesSeleccionadas" />
-
+           
             <!-- Botón de Crear -->
-            <asp:Button ID="btnCrear" runat="server" Text="Crear" CssClass="btn submit-btn" OnClientClick="return prepararEnvio();" OnClick="btnCrear_Click" />
+            <asp:Button ID="btnCrear" runat="server" Text="Crear" CssClass="btn submit-btn btn-success" OnClientClick="return prepararEnvio();" OnClick="btnCrear_Click" />
 
         </form>
     </div>

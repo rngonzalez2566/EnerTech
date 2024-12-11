@@ -33,7 +33,9 @@
     "change_password_button": "Cambiar Contraseña",
     "reset_password_title": "Restablecer Contraseña",
     "email": "Correo Electrónico",
-    "reset_password_button": "Enviar"
+    "reset_password_button": "Enviar",
+    "business": "Negocio",
+    "edit_data": "Modificar Negocio"
   },
   "en": {
     "brand_name": "EnerTech",
@@ -69,7 +71,9 @@
     "change_password_button": "Change Password",
     "reset_password_title": "Reset Password",
     "email": "Email Address",
-    "reset_password_button": "Submit"
+    "reset_password_button": "Submit",
+    "business": "Business",
+    "edit_data": "Modify Business"
 
   }
 }

@@ -104,7 +104,7 @@
             <input type="hidden" id="patentesSeleccionadas" name="patentesSeleccionadas" />
 
             <!-- Botón Guardar -->
-            <asp:Button ID="btnCrear" runat="server" Text="Guardar" CssClass="btn submit-btn" OnClientClick="return prepararEnvio();" OnClick="btnGuardar_Click" /> 
+            <asp:Button ID="btnCrear" runat="server" Text="Guardar" CssClass="btn submit-btn btn-success" OnClientClick="return prepararEnvio();" OnClick="btnGuardar_Click" /> 
                 
             
         </form>

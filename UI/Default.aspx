@@ -314,7 +314,7 @@ html {
             </div>
             <div>
                 <h4>Dirección</h4>
-                <p>Av. Siempre Viva 742, Buenos Aires, Argentina</p>
+                <p>Av. Laprida 742, Buenos Aires, Argentina</p>
             </div>
         </div>
         <div class="text-center mt-4">

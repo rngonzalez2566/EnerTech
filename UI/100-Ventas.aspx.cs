@@ -135,6 +135,11 @@ namespace UI
                 Response.Write("<script>alert('Ocurrió un error: " + ex.Message + "');</script>");
             }
         }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            
+        }
         protected void btnPDF_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
