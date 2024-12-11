@@ -78,28 +78,32 @@
     <form id="form1" runat="server">
         <div class="d-flex flex-column align-items-center justify-content-center vh-100">
             <div class="login-container">
-                <!-- Logotipo -->
-                <img src="Images/logo.png" alt="Logo EnerTech" class="logo">
-                
-                <h2>Iniciar Sesión</h2>
-                
-                <!-- Campos del formulario -->
-                <div class="mb-3">
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Email" TextMode="Email"></asp:TextBox>
-                </div>
-                <div class="mb-3">
-                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" Placeholder="Contraseña" TextMode="Password"></asp:TextBox>
-                </div>
-                
-                <!-- Botón de inicio de sesión -->
-                <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="btn btn-primary w-100 mb-3" OnClick="btnLogin_Click" />
-                
-                <!-- Mensaje de error -->
-                <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="d-block mb-3"></asp:Label>
-                
-                <!-- Enlace para registrarse -->
-                <a href="21-AltaUsuario.aspx" class="register-link">¿No tienes cuenta? Regístrate</a>
-            </div>
+    <!-- Logotipo -->
+    <img src="Images/logo.png" alt="Logo EnerTech" class="logo">
+    
+    <h2>Iniciar Sesión</h2>
+    
+    <!-- Campos del formulario -->
+    <div class="mb-3">
+        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Email" TextMode="Email"></asp:TextBox>
+    </div>
+    <div class="mb-3">
+        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" Placeholder="Contraseña" TextMode="Password"></asp:TextBox>
+    </div>
+    
+    <!-- Botón de inicio de sesión -->
+    <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="btn btn-primary w-100 mb-3" OnClick="btnLogin_Click" />
+    
+    <!-- Mensaje de error -->
+    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="d-block mb-3"></asp:Label>
+    
+    <!-- Enlaces adicionales -->
+    <div class="d-flex flex-column align-items-center">
+        <a href="12-RestablecerPassword.aspx" class="register-link mb-2">¿Olvidaste tu contraseña?</a>
+        <a href="21-AltaUsuario.aspx" class="register-link">¿No tienes cuenta? Regístrate</a>
+    </div>
+</div>
+
         </div>
     </form>
     

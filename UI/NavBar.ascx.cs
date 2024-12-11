@@ -506,6 +506,17 @@ namespace UI
             var dropdownMenu = new HtmlGenericControl("ul");
             dropdownMenu.Attributes["class"] = "dropdown-menu dropdown-menu-end";
 
+            // Opción de cambiar contraseña
+            var changePasswordItem = new HtmlGenericControl("li");
+            var changePasswordLink = new HtmlAnchor
+            {
+                HRef = "23-CambiarPassword.aspx",
+                InnerText = IdiomaManager.Instance.GetTraduccion("change_password") ?? "Cambiar Contraseña"
+            };
+            changePasswordLink.Attributes["class"] = "dropdown-item";
+            changePasswordItem.Controls.Add(changePasswordLink);
+
+            // Opción de cerrar sesión
             var logoutItem = new HtmlGenericControl("li");
             var logoutLink = new HtmlAnchor
             {
@@ -515,12 +526,15 @@ namespace UI
             logoutLink.Attributes["class"] = "dropdown-item btn-logout";
             logoutItem.Controls.Add(logoutLink);
 
+            // Agregar opciones al menú desplegable
+            dropdownMenu.Controls.Add(changePasswordItem);
             dropdownMenu.Controls.Add(logoutItem);
 
             dropdownDiv.Controls.Add(dropdownMenu);
 
             return dropdownDiv;
         }
+
 
 
         private void SetDefaultNavigation()

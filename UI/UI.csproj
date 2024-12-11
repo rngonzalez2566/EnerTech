@@ -213,12 +213,14 @@
   <ItemGroup>
     <Content Include="100-Ventas.aspx" />
     <Content Include="11-Login.aspx" />
+    <Content Include="12-RestablecerPassword.aspx" />
     <Content Include="120-Carrito.aspx" />
     <Content Include="121-Compras.aspx" />
     <Content Include="122-MisCompras.aspx" />
     <Content Include="13-MenuPrincipal.aspx" />
     <Content Include="14-Logout.aspx" />
     <Content Include="21-AltaUsuario.aspx" />
+    <Content Include="23-CambiarPassword.aspx" />
     <Content Include="31-AsignarPermiso.aspx" />
     <Content Include="32-AsignarPermisoPatente.aspx" />
     <Content Include="33-DesasignarPermiso.aspx" />
@@ -339,6 +341,13 @@
     <Compile Include="11-Login.aspx.designer.cs">
       <DependentUpon>11-Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="12-RestablecerPassword.aspx.cs">
+      <DependentUpon>12-RestablecerPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="12-RestablecerPassword.aspx.designer.cs">
+      <DependentUpon>12-RestablecerPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="120-Carrito.aspx.cs">
       <DependentUpon>120-Carrito.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -380,6 +389,13 @@
     </Compile>
     <Compile Include="21-AltaUsuario.aspx.designer.cs">
       <DependentUpon>21-AltaUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="23-CambiarPassword.aspx.cs">
+      <DependentUpon>23-CambiarPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="23-CambiarPassword.aspx.designer.cs">
+      <DependentUpon>23-CambiarPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="31-AsignarPermiso.aspx.cs">
       <DependentUpon>31-AsignarPermiso.aspx</DependentUpon>

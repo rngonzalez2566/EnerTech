@@ -25,7 +25,15 @@
     "add_product": "Alta Producto",
     "sales": "Ventas",
     "language": "Idioma",
-    "profile": "Perfil"
+    "profile": "Perfil",
+    "change_password_title": "Cambiar Contraseña",
+    "current_password": "Contraseña Actual",
+    "new_password": "Nueva Contraseña",
+    "confirm_password": "Confirmar Nueva Contraseña",
+    "change_password_button": "Cambiar Contraseña",
+    "reset_password_title": "Restablecer Contraseña",
+    "email": "Correo Electrónico",
+    "reset_password_button": "Enviar"
   },
   "en": {
     "brand_name": "EnerTech",
@@ -53,6 +61,15 @@
     "add_product": "Add Product",
     "sales": "Sales",
     "language": "Language",
-    "profile": "Profile"
+    "profile": "Profile",
+    "change_password_title": "Change Password",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_password": "Confirm New Password",
+    "change_password_button": "Change Password",
+    "reset_password_title": "Reset Password",
+    "email": "Email Address",
+    "reset_password_button": "Submit"
+
   }
 }
