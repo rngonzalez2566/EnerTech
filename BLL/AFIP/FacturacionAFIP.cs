@@ -71,6 +71,7 @@ namespace BLL.AFIP
                         ImpTotal = (double)venta.Total,
                         MonCotiz = 1,
                         MonId = "PES",
+                        CondicionIVAReceptorId = 5,
                         ImpIVA = (double)venta.IVA,
                         Iva = ivaList
                     }

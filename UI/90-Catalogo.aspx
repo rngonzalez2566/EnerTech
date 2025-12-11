@@ -33,22 +33,27 @@
         <div class="main-container">
             <!-- Filtros -->
             <div class="filters-container">
-                <h3>Filtrar Productos</h3>
+               <h3 data-translate="filter_products" runat="server" >Filtrar Productos</h3>
                 <div>
-                    <label>Marca:</label>
+                    <label data-translate="brand_label" runat="server">Marca:</label>
                     <asp:DropDownList ID="ddlMarca" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="AplicarFiltros"></asp:DropDownList>
                 </div>
                 <div>
-                    <label>Categoría:</label>
+                     <label data-translate="category_label" runat="server">Categoría:</label>
                     <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="AplicarFiltros"></asp:DropDownList>
                 </div>
-                <div class="d-flex align-items-center">
-                    <label class="me-2">Precio Mín:</label>
+                 <div class="d-flex align-items-center">
+                    <label class="me-2" data-translate="min_price_label" runat="server">Precio Mín:</label>
                     <asp:TextBox ID="txtPrecioMin" runat="server" CssClass="form-control me-2" TextMode="Number" />
-                    <label class="me-2">Precio Máx:</label>
+                    <label class="me-2" data-translate="max_price_label" runat="server">Precio Máx:</label>
                     <asp:TextBox ID="txtPrecioMax" runat="server" CssClass="form-control me-2" TextMode="Number" />
-                    <asp:Button ID="btnAplicarFiltroPrecio" runat="server" CssClass="btn btn-success" Text="Aplicar" OnClick="AplicarFiltros" />
-                </div>
+                    <asp:Button ID="btnAplicarFiltroPrecio"
+                    runat="server"
+                    CssClass="btn btn-success"
+                    Text="Aplicar"
+                    data-translate="apply_filters"
+                    OnClick="AplicarFiltros" />
+                 </div>
             </div>
 
             <!-- Catálogo con UpdatePanel -->
@@ -68,8 +73,9 @@
                                         CommandArgument='<%# Eval("id_producto") %>'
                                         OnClick="btnAgregarCarrito_Click"
                                         CssClass="btn-add-cart"
+                                        data-translate="add_to_cart"
                                         Visible='<%# Convert.ToInt32(Eval("Cantidad")) > 0 %>' />
-                                    <asp:Label ID="lblSinStock" runat="server" Text="Sin stock" CssClass="no-stock" Visible='<%# Convert.ToInt32(Eval("Cantidad")) <= 0 %>' />
+                                    <asp:Label ID="lblSinStock" runat="server"  data-translate="no_stock" Text="Sin stock" CssClass="no-stock" Visible='<%# Convert.ToInt32(Eval("Cantidad")) <= 0 %>' />
                                 </div>
                             </ItemTemplate>
                         </asp:Repeater>
@@ -82,7 +88,7 @@
         <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11;">
             <div id="cartToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
                 <div class="d-flex">
-                    <div class="toast-body">
+                    <div class="toast-body" data-translate="cart_add_success" runat="server">
                         ¡Producto agregado al carrito con éxito!
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>

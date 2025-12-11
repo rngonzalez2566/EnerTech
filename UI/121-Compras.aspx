@@ -145,8 +145,8 @@
         <!-- Carrito de compras -->
         <div class="cart-container">
             <div class="cart-header">
-                <span>Carrito de Compras</span>
-                <span><a href="90-Catalogo.aspx">Continuar Comprando</a></span>
+                <span runat="server" data-translate="shopping_cart">Carrito de Compras</span>
+                <span><a runat="server" data-translate="continue_shopping" href="90-Catalogo.aspx">Continuar Comprando</a></span>
             </div>
 
             <asp:Repeater ID="rptCarrito" runat="server">
@@ -158,50 +158,97 @@
                                   : ResolveUrl("~/Images/default.jpg") %>' 
                              alt="Imagen del Producto" class="cart-item-img" />
 
-                        <!-- Información del producto -->
-                        <div class="cart-item-details">
-                            <div class="cart-item-name"><%# Eval("Producto.Descripcion") %></div>
-                            <div class="cart-item-price">Precio unitario: $<%# Eval("Producto.Precio", "{0:N2}") %></div>
-                            <div class="cart-item-quantity">Cantidad: <%# Eval("Cantidad") %></div>
-                            <div class="cart-item-total">Total: $<%# String.Format("{0:N2}", Convert.ToDecimal(Eval("Producto.Precio")) * Convert.ToDecimal(Eval("Cantidad"))) %></div>
-                        </div>
-                    </div>
+                     <!-- Información del producto -->
+            <div class="cart-item-details">
+                <div class="cart-item-name"><%# Eval("Producto.Descripcion") %></div>
+
+                <div class="cart-item-price">
+                    <span runat="server" data-translate="unit_price_label">
+                        Precio unitario:
+                    </span>
+                    $<%# Eval("Producto.Precio", "{0:N2}") %>
+                </div>
+
+                <div class="cart-item-quantity">
+                    <span runat="server" data-translate="quantity_label">
+                        Cantidad:
+                    </span>
+                    <%# Eval("Cantidad") %>
+                </div>
+
+                <div class="cart-item-total">
+                    <span runat="server" data-translate="line_total_label">
+                        Total:
+                    </span>
+                    $<%# String.Format("{0:N2}", Convert.ToDecimal(Eval("Producto.Precio")) * Convert.ToDecimal(Eval("Cantidad"))) %>
+                </div>
+            </div>
+        </div>
                 </ItemTemplate>
             </asp:Repeater>
         </div>
 
         <!-- Detalles de pago -->
-        <div class="payment-container">
-            <div class="payment-header">Detalles de Pago</div>
-            <div class="payment-group">
-                <label for="cardType">Tipo de Tarjeta</label>
-                <asp:DropDownList ID="ddlCardType" runat="server" CssClass="form-control">
-                    <asp:ListItem Value="Visa">Visa</asp:ListItem>
-                    <asp:ListItem Value="MasterCard">MasterCard</asp:ListItem>
-                    <asp:ListItem Value="Amex">Amex</asp:ListItem>
-                    <asp:ListItem Value="PayPal">PayPal</asp:ListItem>
-                </asp:DropDownList>
-            </div>
-            <div class="payment-group">
-                <label>Nombre en la Tarjeta</label>
-                <asp:TextBox ID="txtCardName" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="payment-group">
-                <label>Número de la Tarjeta</label>
-                <asp:TextBox ID="txtCardNumber" runat="server" CssClass="form-control" MaxLength="16" TextMode="Number"></asp:TextBox>
-            </div>
-            <div class="payment-group">
-                <label>Fecha de Expiración</label>
-                <asp:TextBox ID="txtExpDate" runat="server" CssClass="form-control" Placeholder="MM/YY"></asp:TextBox>
-            </div>
-            <div class="payment-group">
-                <label>CVV</label>
-                <asp:TextBox ID="txtCVV" runat="server" CssClass="form-control" MaxLength="3" TextMode="Number"></asp:TextBox>
-            </div>
-            <div class="order-summary">
-                <div class="order-summary-item"><span>Total (Incl. impuestos)</span> <span>$<asp:Label ID="lblTotal" runat="server" Text="0.00" /></span></div>
-            </div>
-            <asp:Button ID="btnCheckout" runat="server" Text="Finalizar Compra" CssClass="btn-checkout" OnClick="btnCheckout_Click" />
+      <div class="payment-container">
+    <div class="payment-header" id="lblPaymentHeader" runat="server" data-translate="payment_details">
+        Detalles de Pago
+    </div>
+
+    <div class="payment-group">
+        <label for="cardType" id="lblCardType" runat="server" data-translate="card_type">
+            Tipo de Tarjeta
+        </label>
+        <asp:DropDownList ID="ddlCardType" runat="server" CssClass="form-control">
+            <asp:ListItem Value="Visa">Visa</asp:ListItem>
+            <asp:ListItem Value="MasterCard">MasterCard</asp:ListItem>
+            <asp:ListItem Value="Amex">Amex</asp:ListItem>
+            <asp:ListItem Value="PayPal">PayPal</asp:ListItem>
+        </asp:DropDownList>
+    </div>
+
+    <div class="payment-group">
+        <label id="lblCardName" runat="server" data-translate="card_name">
+            Nombre en la Tarjeta
+        </label>
+        <asp:TextBox ID="txtCardName" runat="server" CssClass="form-control"></asp:TextBox>
+    </div>
+
+    <div class="payment-group">
+        <label id="lblCardNumber" runat="server" data-translate="card_number">
+            Número de la Tarjeta
+        </label>
+        <asp:TextBox ID="txtCardNumber" runat="server" CssClass="form-control" MaxLength="16" TextMode="Number"></asp:TextBox>
+    </div>
+
+    <div class="payment-group">
+        <label id="lblExpDate" runat="server" data-translate="expiration_date">
+            Fecha de Expiración
+        </label>
+        <asp:TextBox ID="txtExpDate" runat="server" CssClass="form-control" Placeholder="MM/YY"></asp:TextBox>
+    </div>
+
+    <div class="payment-group">
+        <label id="lblCVV" runat="server" data-translate="cvv">
+            CVV
+        </label>
+        <asp:TextBox ID="txtCVV" runat="server" CssClass="form-control" MaxLength="3" TextMode="Number"></asp:TextBox>
+    </div>
+
+    <div class="order-summary">
+        <div class="order-summary-item">
+            <span id="lblOrderTotalText" runat="server" data-translate="order_total_label">
+                Total (Incl. impuestos)
+            </span>
+            <span>$<asp:Label ID="lblTotal" runat="server" Text="0.00" /></span>
         </div>
     </div>
+
+    <asp:Button ID="btnCheckout"
+                runat="server"
+                Text="Finalizar Compra"
+                CssClass="btn-checkout"
+                data-translate="checkout_button"
+                OnClick="btnCheckout_Click" />
+</div>
+</div>
 </asp:Content>

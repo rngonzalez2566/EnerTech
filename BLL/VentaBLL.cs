@@ -110,7 +110,8 @@ namespace BLL
         public void ReprocesarRechazo(int idVenta)
         {
           ventalDAL.ReprocesarRechazo(idVenta);
-          dv.RecalcularDigitosCarrito("Venta", sdv);
+            //dv.RecalcularDigitosCarrito("Venta", sdv);
+            dv.RecalcularDigitosVenta("Venta", sdv);
 
         }
 

@@ -8,10 +8,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Services;
 
 namespace UI
 {
-    public partial class _121_Compras : System.Web.UI.Page
+    public partial class _121_Compras : System.Web.UI.Page, IIdiomaObserver
     {
         private static List<CarritoBE> carrito;
         CarritoBLL _carritoService = new CarritoBLL();
@@ -27,11 +28,35 @@ namespace UI
             if (usuario == null)
             {
                 Response.Redirect("Default.aspx");
+                return;
             }
-            if (!IsPostBack)
+
+            try
             {
-                CargarCarrito();
-                CalcularTotales();
+                if (!IsPostBack)
+                {
+                    // Registrar como observador del idioma
+                    IdiomaManager.Instance.RegistrarObservador(this);
+
+                    CargarCarrito();
+                    CalcularTotales();
+                }
+
+                // Leer el idioma del querystring (?lang=es / ?lang=en)
+                string idiomaSeleccionado = Request.QueryString["lang"];
+                if (!string.IsNullOrEmpty(idiomaSeleccionado))
+                {
+                    IdiomaManager.Instance.CambiarIdioma(idiomaSeleccionado);
+                }
+
+                // Aplicar traducciones
+                AplicarTraducciones(this);
+            }
+            catch (Exception ex)
+            {
+                // Manejo simple de error
+                Console.WriteLine($"Error en 121-Compras: {ex.Message}");
+                Response.Redirect("Default.aspx");
             }
         }
 
@@ -155,5 +180,77 @@ namespace UI
         //    return taxGroups;
         //    //RelatedTax = taxGroups;
         //}
+
+        protected void AplicarTraducciones(Control control)
+        {
+            foreach (Control childControl in control.Controls)
+            {
+                // 1) Anchor <a runat="server">
+                if (childControl is System.Web.UI.HtmlControls.HtmlAnchor anchor &&
+                    anchor.Attributes["data-translate"] != null)
+                {
+                    string clave = anchor.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        anchor.InnerHtml = traduccion;
+                    }
+                }
+                // 2) Controles HTML genéricos (span, div, h3, label, etc.)
+                else if (childControl is System.Web.UI.HtmlControls.HtmlGenericControl generic &&
+                         generic.Attributes["data-translate"] != null)
+                {
+                    string clave = generic.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        generic.InnerText = traduccion;
+                    }
+                }
+                // 3) Controles ASP.NET clásicos (Label, Button, TextBox, etc.)
+                else if (childControl is WebControl webControl &&
+                         webControl.Attributes["data-translate"] != null)
+                {
+                    string clave = webControl.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        // Label, Literal, TextBox, etc.
+                        if (childControl is ITextControl textControl)
+                        {
+                            textControl.Text = traduccion;
+                        }
+                        // Button, LinkButton, etc.
+                        else if (childControl is IButtonControl buttonControl)
+                        {
+                            buttonControl.Text = traduccion;
+                        }
+                    }
+                }
+
+                // Recursivo
+                if (childControl.HasControls())
+                {
+                    AplicarTraducciones(childControl);
+                }
+            }
+        }
+
+        public void UpdateIdioma(string nuevoIdioma)
+        {
+            // Cuando cambia el idioma, vuelvo a aplicar traducciones
+            AplicarTraducciones(this);
+        }
+
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            IdiomaManager.Instance.EliminarObservador(this);
+        }
+
     }
+
+
 }

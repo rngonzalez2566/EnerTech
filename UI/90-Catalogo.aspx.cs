@@ -6,10 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Services;
 
 namespace UI
 {
-    public partial class _90_Catalogo : System.Web.UI.Page
+    public partial class _90_Catalogo : System.Web.UI.Page, IIdiomaObserver
     {
         ProductoBLL _productoService = new ProductoBLL();
         MarcaBLL _marcaService = new MarcaBLL();
@@ -22,11 +23,47 @@ namespace UI
         {
             //usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
             //_sessionManager.Set("Usuario", usuario);
+            //usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+            //if (!IsPostBack)
+            //{
+            //    CargarCatalogo();
+            //    CargarFiltros();
+            //}
+
             usuario = _sessionManager.Get<UsuarioBE>("Usuario");
-            if (!IsPostBack)
+
+            if (usuario == null)
             {
-                CargarCatalogo();
-                CargarFiltros();
+                Response.Redirect("Default.aspx");
+                return;
+            }
+
+            try
+            {
+                if (!IsPostBack)
+                {
+                    // Registrar como observador del idioma (igual que NavBar)
+                    IdiomaManager.Instance.RegistrarObservador(this);
+
+                    // Cargar datos iniciales
+                    CargarCatalogo();
+                    CargarFiltros();
+                }
+
+                // Leer el idioma del querystring (ej: ?lang=es)
+                string idiomaSeleccionado = Request.QueryString["lang"];
+                if (!string.IsNullOrEmpty(idiomaSeleccionado))
+                {
+                    IdiomaManager.Instance.CambiarIdioma(idiomaSeleccionado);
+                }
+
+                // Aplicar traducciones a todos los controles de la página
+                AplicarTraducciones(this);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en 90-Catalogo: {ex.Message}");
+                Response.Redirect("Default.aspx");
             }
         }
 
@@ -76,6 +113,9 @@ namespace UI
             // Cargar los productos filtrados en el Repeater
             rptCatalogo.DataSource = productos;
             rptCatalogo.DataBind();
+
+            // Reaplicar traducciones después del DataBind
+            AplicarTraducciones(this);
         }
 
 
@@ -108,13 +148,77 @@ namespace UI
             Response.Redirect(Request.RawUrl);
             // Mostrar el toast sin refrescar la página completa
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showToast", "showCartToast();", true);
-            
-           
+
+
 
         }
 
-    }
 
-  
-    
-}
+
+        protected void AplicarTraducciones(Control control)
+        {
+            foreach (Control childControl in control.Controls)
+            {
+                // Controles ASP.NET con atributo data-translate
+                if (childControl is WebControl webControl && webControl.Attributes["data-translate"] != null)
+                {
+                    string clave = webControl.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        // 1) Controles con Text (Label, TextBox, Literal, etc.)
+                        if (childControl is ITextControl textControl)
+                        {
+                            textControl.Text = traduccion;
+                        }
+                        // 2) Botones (asp:Button, LinkButton, ImageButton)
+                        else if (childControl is IButtonControl buttonControl)
+                        {
+                            buttonControl.Text = traduccion;
+                        }
+                        // 3) Controles HTML genéricos con runat="server" (h3, label, div, etc.)
+                        else if (childControl is System.Web.UI.HtmlControls.HtmlGenericControl genericControl)
+                        {
+                            genericControl.InnerText = traduccion;
+                        }
+                    }
+                }
+                // Controles HTML genéricos puros (no WebControl) con data-translate
+                else if (childControl is System.Web.UI.HtmlControls.HtmlGenericControl genericControl &&
+                         genericControl.Attributes["data-translate"] != null)
+                {
+                    string clave = genericControl.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        genericControl.InnerText = traduccion;
+                    }
+                }
+
+                // Recursivo para hijos
+                if (childControl.HasControls())
+                {
+                    AplicarTraducciones(childControl);
+                }
+            }
+        }
+
+
+        // Implementación del observer
+        public void UpdateIdioma(string nuevoIdioma)
+        {
+            // Cuando cambia el idioma, vuelvo a aplicar traducciones
+            AplicarTraducciones(this);
+        }
+
+        // Desregistrar el observer al descargar la página
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            IdiomaManager.Instance.EliminarObservador(this);
+        }
+
+
+    }
+    }

@@ -91,37 +91,57 @@
      
 
         <div class="cart-container">
-            <h1 class="cart-header">Carrito de Compras</h1>
+            <h1 class="cart-header" runat="server" data-translate="shopping_cart">Carrito de Compras</h1>
             
             <!-- Repeater para mostrar los productos en el carrito -->
             <asp:Repeater ID="rptCarrito" runat="server">
-                <ItemTemplate>
-                    <div class="cart-item">
-                        <img src='<%# Eval("Producto.Imagen") != null && !string.IsNullOrEmpty(Eval("Producto.Imagen").ToString()) ? ResolveUrl(Eval("Producto.Imagen").ToString()) : ResolveUrl("~/Images/default.jpg") %>' alt="Imagen del Producto" style="width:80px; height:auto;" />
+    <ItemTemplate>
+        <div class="cart-item">
+            <img src='<%# Eval("Producto.Imagen") != null && !string.IsNullOrEmpty(Eval("Producto.Imagen").ToString()) 
+                        ? ResolveUrl(Eval("Producto.Imagen").ToString()) 
+                        : ResolveUrl("~/Images/default.jpg") %>' 
+                 alt="Imagen del Producto" style="width:80px; height:auto;" />
                         
-                        <div class="cart-item-info">
-                            <div class="cart-item-name"><%# Eval("Producto.Descripcion") %></div>
-                            <span class="cart-item-price">$ <%# String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C}", Eval("Producto.Precio")) %></span>
-                        </div>
+            <div class="cart-item-info">
+                <div class="cart-item-name"><%# Eval("Producto.Descripcion") %></div>
+                <span class="cart-item-price">
+                    $ <%# String.Format(new System.Globalization.CultureInfo("es-AR"), "{0:C}", Eval("Producto.Precio")) %>
+                </span>
+            </div>
 
-                        <div class="cart-quantity">
-                            <asp:Button ID="btnDecrease" runat="server" Text="-" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnDecrease_Click" />
-                            <asp:TextBox ID="txtCantidad" runat="server" CssClass="quantity-input" Text='<%# Eval("Cantidad") %>' Enabled="false" />
-                            <asp:Button ID="btnIncrease" runat="server" Text="+" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnIncrease_Click" />
-                        </div>
+            <div class="cart-quantity">
+                <asp:Button ID="btnDecrease" runat="server" Text="-" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnDecrease_Click" />
+                <asp:TextBox ID="txtCantidad" runat="server" CssClass="quantity-input" Text='<%# Eval("Cantidad") %>' Enabled="false" />
+                <asp:Button ID="btnIncrease" runat="server" Text="+" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnIncrease_Click" />
+            </div>
 
-                        <asp:LinkButton ID="btnRemove" runat="server" Text="Eliminar" CommandArgument='<%# Eval("Producto.id_producto") %>' OnClick="btnRemove_Click" CssClass="btn-remove" />
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+            <asp:LinkButton ID="btnRemove"
+                            runat="server"
+                            Text="Eliminar"
+                            data-translate="remove_item"
+                            CommandArgument='<%# Eval("Producto.id_producto") %>'
+                            OnClick="btnRemove_Click"
+                            CssClass="btn-remove" />
+        </div>
+    </ItemTemplate>
+</asp:Repeater>
 
             <!-- Resumen del carrito -->
             <div class="cart-summary">
-                Subtotal: $<asp:Label ID="lblSubtotal" runat="server" Text="0.00" />
-            </div>
+    <span runat="server" data-translate="subtotal_label">
+        Subtotal:
+    </span>
+    $<asp:Label ID="lblSubtotal" runat="server" Text="0.00" />
+</div>
 
+          
             <!-- Botón para continuar a la compra -->
-            <asp:Button ID="btnCheckout" runat="server" Text="Finalizar Compra" CssClass="btn-checkout" OnClick="btnCheckout_Click" />
+<asp:Button ID="btnCheckout"
+            runat="server"
+            Text="Finalizar Compra"
+            CssClass="btn-checkout"
+            data-translate="checkout_button"
+            OnClick="btnCheckout_Click" />
         </div>
     </form>
 </body>

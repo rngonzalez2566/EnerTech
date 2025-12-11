@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AfipWsfeClient, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AfipWsfeClient.1.1.0\lib\netstandard2.0\AfipWsfeClient.dll</HintPath>
-    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.NetCore.2.2.1\lib\net45\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -101,6 +98,10 @@
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{3123ebc4-abd7-4712-91af-f56cde121039}</Project>
       <Name>Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\afipwsfeclient\AfipWsfeClient.csproj">
+      <Project>{6311c69e-3864-4776-df91-da484bac1ce7}</Project>
+      <Name>AfipWsfeClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{ec8634b5-2634-4a4f-aca0-f989433dcb1a}</Project>

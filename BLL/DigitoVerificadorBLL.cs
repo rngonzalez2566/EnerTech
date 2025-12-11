@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BE;
+using DAL;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
-using DAL;
-using BE;
-using System.Data;
 using System.Web.UI.WebControls;
 
 namespace BLL
@@ -23,8 +24,19 @@ namespace BLL
         
         public void RecalcularDigitos()
         {
-
-            dv.RecalcularDigitos();
+            try
+            {
+                UsuarioBE usuario = new UsuarioBE();
+                usuario.id_usuario = 1;
+                usuario.Nombre = "Sistema";
+                dv.RecalcularDigitos();
+                bit.RegistrarBitacora("Se recalcularon correctamente los digitos verificadores", "ALTA", usuario);
+            }
+            catch
+            {
+                
+            }
+            
         }
 
         public bool VerificarDV()
@@ -36,6 +48,10 @@ namespace BLL
                 usuario.Nombre = "Sistema";
                 bool xValido = true;
 
+                if (!ValidarDVV())
+                {
+                    xValido = false;
+                }
 
                 var lista = new List<String>();
                 lista = dv.VerificarDV();
@@ -240,6 +256,38 @@ namespace BLL
             return xValido;
         }
 
+
+        public bool ValidarDVV()
+        {
+            UsuarioBE usuario = new UsuarioBE
+            {
+                id_usuario = 1,
+                Nombre = "Sistema"
+            };
+
+            bool esValido = true;
+
+         
+            var erroresVerticales = dv.VerificarDV();
+
+            foreach (var mensaje in erroresVerticales)
+            {
+                // Logueo en la bitácora el error vertical
+                bit.RegistrarBitacora(mensaje, "ALTA", usuario);
+
+               
+                var partes = mensaje.Split(new[] { "tabla:" }, StringSplitOptions.RemoveEmptyEntries);
+                //if (partes.Length > 1)
+                //{
+                //    string tabla = partes[1].Trim();
+                //    dv.AltaDVV(tabla); // vuelve a recalcular el DVV de esa tabla
+                //}
+
+                esValido = false;
+            }
+
+            return esValido;
+        }
 
     }
 }

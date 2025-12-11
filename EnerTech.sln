@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34728.123
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{8866BF62-5EDC-4945-99CA-5DF67B648633}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{3123EBC4-ABD7-4712-91AF-F56CDE121039}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{EC8634B5-2634-4A4F-ACA0-F989433DCB1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AfipWsfeClient", "libs\afipwsfeclient\AfipWsfeClient.csproj", "{6311C69E-3864-4776-DF91-DA484BAC1CE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EC8634B5-2634-4A4F-ACA0-F989433DCB1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC8634B5-2634-4A4F-ACA0-F989433DCB1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC8634B5-2634-4A4F-ACA0-F989433DCB1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6311C69E-3864-4776-DF91-DA484BAC1CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6311C69E-3864-4776-DF91-DA484BAC1CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6311C69E-3864-4776-DF91-DA484BAC1CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6311C69E-3864-4776-DF91-DA484BAC1CE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

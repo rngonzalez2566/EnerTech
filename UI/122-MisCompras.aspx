@@ -19,6 +19,8 @@
         .status-canceled { background-color: #dc3545; color: white; }
         .status-pending { background-color: #17a2b8; color: white; }
     </style>
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 </head>
 <body>
     <!-- Incluir el Navbar -->
@@ -26,59 +28,72 @@
 
     <form id="form1" runat="server">
         <div class="container my-5">
-            <h2 class="text-center mb-5">Mis Compras</h2>
+            <h2 class="text-center mb-5" runat="server" data-translate="my_purchases_title">
+                 Mis Compras
+            </h2>
 
             <!-- Compras List -->
-            <asp:Repeater ID="ComprasRepeater" runat="server">
-                <HeaderTemplate>
-                    <div class="row gy-4">
-                </HeaderTemplate>
+         <asp:Repeater ID="ComprasRepeater" runat="server" OnItemDataBound="ComprasRepeater_ItemDataBound">
+    <HeaderTemplate>
+        <div class="row gy-4">
+    </HeaderTemplate>
 
-                <ItemTemplate>
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card shadow-lg border-0 h-100">
-                            <div class="card-body d-flex flex-column">
-                                <!-- Información de la compra -->
-                                <h5 class="card-title">Compra #<%# Eval("id_venta") %></h5>
-                                <span class="card-status <%# Eval("Estado").ToString() == "Facturado" ? "status-facturado" : Eval("Estado").ToString() == "En camino" ? "status-shipping" : Eval("Estado").ToString() == "Cancelado" ? "status-canceled" : "status-pending" %>">
-                                    <%# Eval("Estado") %>
-                                </span>
-                                <hr />
+    <ItemTemplate>
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg border-0 h-100">
+                <div class="card-body d-flex flex-column">
+                    <!-- Información de la compra -->
+                    <h5 class="card-title">
+                        <span runat="server" data-translate="purchase_label">Compra #</span>
+                        <%# Eval("id_venta") %>
+                    </h5>
 
-                                <!-- Detalles -->
-                                <p class="mb-1"><i class="bi bi-calendar-event"></i> Fecha: <%# Eval("Fecha", "{0:dd/MM/yyyy}") %></p>
-                                <p class="mb-1"><i class="bi bi-currency-dollar"></i> Total: $<%# Eval("Total", "{0:N2}") %></p>
+                    <span id="lblEstado" runat="server" class="card-status"></span>
 
-                                <!-- Botones siempre visibles -->
-                                <div class="d-flex justify-content-between mt-auto">
-                                    <!-- Botón Ver Detalles (siempre visible) -->
-                                    <asp:HyperLink runat="server"
-                                        NavigateUrl='<%# "DetalleCompra.aspx?ventaId=" + Eval("id_venta") + "&fecha=" + Eval("Fecha", "{0:yyyy-MM-dd}") + "&total=" + Eval("Total", "{0:N2}") %>'
-                                        CssClass="btn btn-primary btn-sm">
-                                        <i class="bi bi-eye"></i> Ver Detalles
-                                    </asp:HyperLink>
+                    <hr />
 
-                                    <!-- Botón Descargar Factura (solo visible si está facturado) -->
-                                    <asp:Button runat="server"
-                                        CssClass="btn btn-outline-secondary btn-sm"
-                                        CommandArgument='<%# Eval("id_venta") %>'
-                                        OnClick="btnPDF_Click"
-                                        Visible='<%# Eval("Estado").ToString() == "Facturado" %>'
-                                        Text="Descargar Factura" />
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Detalles -->
+                    <p class="mb-1">
+                        <i class="bi bi-calendar-event"></i>
+                        <span runat="server" data-translate="date_label">Fecha:</span>
+                        <%# Eval("Fecha", "{0:dd/MM/yyyy}") %>
+                    </p>
+
+                    <p class="mb-1">
+                        <i class="bi bi-currency-dollar"></i>
+                        <span runat="server" data-translate="total_label">Total:</span>
+                        $<%# Eval("Total", "{0:N2}") %>
+                    </p>
+
+                    <!-- Botones siempre visibles -->
+                    <div class="d-flex justify-content-between mt-auto">
+                        <asp:HyperLink runat="server"
+                            NavigateUrl='<%# "DetalleCompra.aspx?ventaId=" + Eval("id_venta") + "&fecha=" + Eval("Fecha", "{0:yyyy-MM-dd}") + "&total=" + Eval("Total", "{0:N2}") %>'
+                            CssClass="btn btn-primary btn-sm">
+                            <i class="bi bi-eye"></i>
+                            <span runat="server" data-translate="view_details"> Ver Detalles</span>
+                        </asp:HyperLink>
+
+                        <asp:Button runat="server"
+                            CssClass="btn btn-outline-secondary btn-sm"
+                            CommandArgument='<%# Eval("id_venta") %>'
+                            OnClick="btnPDF_Click"
+                            Visible='<%# Eval("Estado").ToString() == "Facturado" %>'
+                            Text="Descargar Factura"
+                            data-translate="download_invoice" />
                     </div>
-                </ItemTemplate>
+                </div>
+            </div>
+        </div>
+    </ItemTemplate>
 
-                <FooterTemplate>
-                    </div> <!-- Cierre del row -->
-                </FooterTemplate>
-            </asp:Repeater>
+    <FooterTemplate>
+        </div> <!-- Cierre del row -->
+    </FooterTemplate>
+</asp:Repeater>
         </div>
     </form>
 
-    <!-- Bootstrap 5 JS and Icons -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+   
 </body>
 </html>

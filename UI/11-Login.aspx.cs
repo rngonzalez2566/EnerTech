@@ -31,9 +31,10 @@ namespace UI
             try
             {
 
-               UsuarioBE usuario = usuarioBLL.Login(txtEmail.Text, txtPassword.Text);
+            
                if(dv.VerificarDV())
                 {
+                    UsuarioBE usuario = usuarioBLL.Login(txtEmail.Text, txtPassword.Text);
                     if (usuario != null)
                     {
                         _sessionManager.Set("Usuario", usuario);
