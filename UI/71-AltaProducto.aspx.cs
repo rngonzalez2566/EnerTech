@@ -1,73 +1,84 @@
 ﻿using BE;
 using BE.AFIP;
 using BLL;
+using Services;                    
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;  
 
 namespace UI
 {
-    public partial class _71_AltaProducto : System.Web.UI.Page
+    public partial class _71_AltaProducto : System.Web.UI.Page, IIdiomaObserver
     {
         MarcaBLL _serviceMarca = new MarcaBLL();
         CategoriaBLL _serviceCategoria = new CategoriaBLL();
         ProductoBLL _serviceProducto = new ProductoBLL();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                // Puedes cargar las categorías y marcas desde la base de datos aquí si es necesario
-                List<MarcaBE> listMarca = new List<MarcaBE>();
-                List<CategoriaBE> listCategoria = new List<CategoriaBE>();
+                if (!IsPostBack)
+                {
+                    // Me registro como observador del idioma
+                    IdiomaManager.Instance.RegistrarObservador(this);
 
-                listMarca = _serviceMarca.GetMarcas();
-                listCategoria = _serviceCategoria.GetCategorias();
-                List<CodigoIVA> listIVA = CodigoIVA.ObtenerListaIVA();
+                    // Cargo combos
+                    CargarCombos();
+                }
 
-                // Cargar las marcas en el DropDownList de Marca
-                ddlMarca.DataSource = listMarca;
-                ddlMarca.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlMarca.DataValueField = "id_marca";     // Valor que se enviará
-                ddlMarca.DataBind();
+                // Leer idioma seleccionado (?lang=es / ?lang=en)
+                string idiomaSeleccionado = Request.QueryString["lang"];
+                if (!string.IsNullOrEmpty(idiomaSeleccionado))
+                {
+                    IdiomaManager.Instance.CambiarIdioma(idiomaSeleccionado);
+                }
 
-                // Agregar un ítem por defecto para seleccionar una opción
-                ddlMarca.Items.Insert(0, new ListItem("Seleccione una marca", ""));
-
-                // Cargar las categorías en el DropDownList de Categoría
-                ddlCategoria.DataSource = listCategoria;
-                ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
-                ddlCategoria.DataBind();
-
-                // Agregar un ítem por defecto para seleccionar una opción
-                ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", ""));
-
-                ddlCategoria.DataSource = listCategoria;
-                ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
-                ddlCategoria.DataBind();
-
-
-                ddlIVA.DataSource = listIVA;
-                ddlIVA.DataTextField = "Porcentaje";
-                ddlIVA.DataValueField = "Codigo";
-                ddlIVA.DataBind();
-
-
-                ddlIVA.Items.Insert(0, new ListItem("Seleccione una Tasa de IVA", ""));
-
+                // Aplico traducciones siempre
+                AplicarTraducciones(this);
             }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error en Alta de Producto: " + ex.Message;
+                lblMessage.CssClass = "error-message";
+            }
+        }
+
+        private void CargarCombos()
+        {
+            List<MarcaBE> listMarca = _serviceMarca.GetMarcas();
+            List<CategoriaBE> listCategoria = _serviceCategoria.GetCategorias();
+            List<CodigoIVA> listIVA = CodigoIVA.ObtenerListaIVA();
+
+            // Marcas
+            ddlMarca.DataSource = listMarca;
+            ddlMarca.DataTextField = "Nombre";
+            ddlMarca.DataValueField = "id_marca";
+            ddlMarca.DataBind();
+            ddlMarca.Items.Insert(0, new ListItem("Seleccione una marca", ""));
+
+            // Categorías
+            ddlCategoria.DataSource = listCategoria;
+            ddlCategoria.DataTextField = "Nombre";
+            ddlCategoria.DataValueField = "id_categoria";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", ""));
+
+            // IVA
+            ddlIVA.DataSource = listIVA;
+            ddlIVA.DataTextField = "Porcentaje";
+            ddlIVA.DataValueField = "Codigo";
+            ddlIVA.DataBind();
+            ddlIVA.Items.Insert(0, new ListItem("Seleccione una Tasa de IVA", ""));
         }
 
         protected void btnGuardarProducto_Click(object sender, EventArgs e)
         {
             try
             {
-                // Obtener los valores del formulario
                 string codigo = txtCodigo.Text;
                 string descripcion = txtDescripcion.Text;
                 string categoria = ddlCategoria.SelectedValue;
@@ -76,7 +87,7 @@ namespace UI
                 int codIva = Convert.ToInt32(ddlIVA.SelectedValue);
                 decimal precio = decimal.Parse(txtPrecio.Text);
 
-                // Manejar la subida de la imagen
+                // Imagen
                 string rutaImagen = string.Empty;
                 if (fuImagen.HasFile)
                 {
@@ -85,8 +96,6 @@ namespace UI
                     fuImagen.SaveAs(Server.MapPath(rutaImagen));
                 }
 
-                // Aquí puedes insertar el producto en la base de datos o realizar otra lógica de negocio
-                // Ejemplo:
                 ProductoBE nuevoProducto = new ProductoBE
                 {
                     Codigo = codigo,
@@ -99,17 +108,89 @@ namespace UI
                     Precio = precio
                 };
 
-                // Código para guardar el producto en la base de datos o lógica adicional
                 _serviceProducto.RegistrarProducto(nuevoProducto);
-                // Redirigir o mostrar mensaje de éxito
+
                 Response.Redirect("70-Productos.aspx");
             }
             catch (Exception ex)
             {
-                // Manejo de errores
                 lblMessage.Text = "Ocurrió un error al guardar el producto: " + ex.Message;
                 lblMessage.CssClass = "error-message";
             }
+        }
+
+        
+
+        private void AplicarTraducciones(Control control)
+        {
+            foreach (Control childControl in control.Controls)
+            {
+               
+                if (childControl is HtmlAnchor anchor &&
+                    anchor.Attributes["data-translate"] != null)
+                {
+                    string clave = anchor.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                       
+                        anchor.InnerText = traduccion;
+                    }
+                }
+                
+                else if (childControl is HtmlGenericControl generic &&
+                         generic.Attributes["data-translate"] != null)
+                {
+                    string clave = generic.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        generic.InnerText = traduccion;
+                    }
+                }
+            
+                else if (childControl is WebControl webControl &&
+                         webControl.Attributes["data-translate"] != null)
+                {
+                    string clave = webControl.Attributes["data-translate"];
+                    string traduccion = IdiomaManager.Instance.GetTraduccion(clave);
+
+                    if (!string.IsNullOrEmpty(traduccion))
+                    {
+                        if (childControl is IButtonControl buttonControl)
+                        {
+                            buttonControl.Text = traduccion;
+                        }
+                        else if (childControl is TextBox textBox)
+                        {
+                            textBox.Attributes["placeholder"] = traduccion;
+                        }
+                        else if (childControl is ITextControl textControl)
+                        {
+                            textControl.Text = traduccion;
+                        }
+                    }
+                }
+
+              
+                if (childControl.HasControls())
+                {
+                    AplicarTraducciones(childControl);
+                }
+            }
+        }
+
+       
+        public void UpdateIdioma(string nuevoIdioma)
+        {
+            AplicarTraducciones(this);
+        }
+
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            IdiomaManager.Instance.EliminarObservador(this);
         }
     }
 }

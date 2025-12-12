@@ -24,13 +24,13 @@ namespace UI
         protected global::UI.NavBar navigationBar;
 
         /// <summary>
-        /// Control PanelModificacionProducto.
+        /// Control lnkBackToProducts.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelModificacionProducto;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lnkBackToProducts;
 
         /// <summary>
         /// Control txtCodigo.
@@ -49,15 +49,6 @@ namespace UI
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescripcion;
-
-        /// <summary>
-        /// Control rfvDescripcion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDescripcion;
 
         /// <summary>
         /// Control ddlCategoria.

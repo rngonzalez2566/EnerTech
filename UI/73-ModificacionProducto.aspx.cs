@@ -1,128 +1,180 @@
 ﻿using BE;
 using BE.AFIP;
 using BLL;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 
 namespace UI
 {
-    public partial class _73_ModificacionProducto : System.Web.UI.Page
+    public partial class _73_ModificacionProducto : System.Web.UI.Page, IIdiomaObserver
     {
         ProductoBLL _productoService = new ProductoBLL();
-           MarcaBLL _serviceMarca = new MarcaBLL();
+        MarcaBLL _serviceMarca = new MarcaBLL();
         CategoriaBLL _serviceCategoria = new CategoriaBLL();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                string codigo = Request.QueryString["codigo"];
-            if (!string.IsNullOrEmpty(codigo))
-            {
-                CargarProducto(codigo);
+                if (!IsPostBack)
+                {
+                    IdiomaManager.Instance.RegistrarObservador(this);
+
+                    string codigo = Request.QueryString["codigo"];
+                    if (!string.IsNullOrEmpty(codigo))
+                        CargarProducto(codigo);
+                }
+
+                string idioma = Request.QueryString["lang"];
+                if (!string.IsNullOrEmpty(idioma))
+                    IdiomaManager.Instance.CambiarIdioma(idioma);
+
+                AplicarTraducciones(this);
             }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error: " + ex.Message;
             }
         }
 
         private void CargarProducto(string codigo)
         {
             var producto = _productoService.GetProductoCodigo(codigo);
-            if (producto != null)
+            if (producto == null)
+                return;
+
+            txtCodigo.Text = producto.Codigo;
+            txtDescripcion.Text = producto.Descripcion;
+            txtCantidad.Text = producto.Cantidad.ToString();
+            txtPrecio.Text = producto.Precio.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+            // Cargar combos
+            List<MarcaBE> marcas = _serviceMarca.GetMarcas();
+            List<CategoriaBE> categorias = _serviceCategoria.GetCategorias();
+            List<CodigoIVA> ivas = CodigoIVA.ObtenerListaIVA();
+
+            ddlMarca.DataSource = marcas;
+            ddlMarca.DataTextField = "Nombre";
+            ddlMarca.DataValueField = "id_marca";
+            ddlMarca.DataBind();
+            ddlMarca.SelectedValue = producto.Marca.id_marca.ToString();
+
+            ddlCategoria.DataSource = categorias;
+            ddlCategoria.DataTextField = "Nombre";
+            ddlCategoria.DataValueField = "id_categoria";
+            ddlCategoria.DataBind();
+            ddlCategoria.SelectedValue = producto.Categoria.id_categoria.ToString();
+
+            ddlIVA.DataSource = ivas;
+            ddlIVA.DataTextField = "Porcentaje";
+            ddlIVA.DataValueField = "Codigo";
+            ddlIVA.DataBind();
+
+            if (!string.IsNullOrEmpty(producto.Imagen))
             {
-                txtCodigo.Text = producto.Codigo;
-                txtDescripcion.Text = producto.Descripcion;
-             
-                txtCantidad.Text = producto.Cantidad.ToString();
-                txtPrecio.Text = producto.Precio.ToString("0.00");
-                // Puedes cargar las categorías y marcas desde la base de datos aquí si es necesario
-                List<MarcaBE> listMarca = new List<MarcaBE>();
-                List<CategoriaBE> listCategoria = new List<CategoriaBE>();
-
-                listMarca = _serviceMarca.GetMarcas();
-                listCategoria = _serviceCategoria.GetCategorias();
-                List<CodigoIVA> listIVA = CodigoIVA.ObtenerListaIVA();
-
-                // Cargar las marcas en el DropDownList de Marca
-                ddlMarca.DataSource = listMarca;
-                ddlMarca.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlMarca.DataValueField = "id_marca";     // Valor que se enviará
-                ddlMarca.DataBind();
-
-                // Agregar un ítem por defecto para seleccionar una opción
-                ddlMarca.Items.Insert(0, new ListItem("Seleccione una marca", ""));
-
-                // Cargar las categorías en el DropDownList de Categoría
-                ddlCategoria.DataSource = listCategoria;
-                ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
-                ddlCategoria.DataBind();
-
-                // Agregar un ítem por defecto para seleccionar una opción
-                ddlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", ""));
-
-                ddlCategoria.DataSource = listCategoria;
-                ddlCategoria.DataTextField = "Nombre";  // Propiedad que se mostrará
-                ddlCategoria.DataValueField = "id_categoria";     // Valor que se enviará
-                ddlCategoria.DataBind();
-
-
-                ddlIVA.DataSource = listIVA;
-                ddlIVA.DataTextField = "Porcentaje";
-                ddlIVA.DataValueField = "Codigo";
-                ddlIVA.DataBind();
-
-                ddlCategoria.SelectedValue = producto.Categoria.id_categoria.ToString();
-                ddlMarca.SelectedValue = producto.Marca.id_marca.ToString();
-
-                if (!string.IsNullOrEmpty(producto.Imagen))
-                {
-                    imgProducto.ImageUrl = producto.Imagen;
-                    imgProducto.Visible = true;
-                }
-
-
+                imgProducto.ImageUrl = producto.Imagen;
+                imgProducto.Visible = true;
             }
         }
 
         protected void btnGuardarCambios_Click(object sender, EventArgs e)
         {
-            int codIva = Convert.ToInt32(ddlIVA.SelectedValue);
-
-            // Manejar la imagen
-            string imagenPath = null;
-            if (fuImagen.HasFile)
+            try
             {
-                // Guardar la nueva imagen en el servidor
-                string fileName = Path.GetFileName(fuImagen.FileName);
-                string filePath = Server.MapPath("~/Images/") + fileName;
-                fuImagen.SaveAs(filePath);
-                imagenPath = "~/Images/" + fileName;
+                int codIva = Convert.ToInt32(ddlIVA.SelectedValue);
+
+                string imagenPath = imgProducto.ImageUrl;
+
+                if (fuImagen.HasFile)
+                {
+                    string fileName = Path.GetFileName(fuImagen.FileName);
+                    string path = Server.MapPath("~/Images/") + fileName;
+                    fuImagen.SaveAs(path);
+                    imagenPath = "~/Images/" + fileName;
+                }
+
+                var producto = new ProductoBE
+                {
+                    Codigo = txtCodigo.Text,
+                    Descripcion = txtDescripcion.Text,
+                    Categoria = new CategoriaBE { id_categoria = int.Parse(ddlCategoria.SelectedValue) },
+                    Marca = new MarcaBE { id_marca = int.Parse(ddlMarca.SelectedValue) },
+                    codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva),
+                    Cantidad = int.Parse(txtCantidad.Text),
+                    Precio = decimal.Parse(txtPrecio.Text),
+                    Imagen = imagenPath
+                };
+
+                _productoService.EditarProducto(producto);
+                Response.Redirect("70-Productos.aspx");
             }
-            else if (imgProducto.ImageUrl != null)
+            catch (Exception ex)
             {
-                // Si no se sube una nueva imagen, mantener la existente
-                imagenPath = imgProducto.ImageUrl;
+                lblMessage.Text = "Error: " + ex.Message;
             }
+        }
 
-            var producto = new ProductoBE
+        // =====================================
+        //       SISTEMA DE TRADUCCIÓN
+        // =====================================
+
+        private void AplicarTraducciones(Control control)
+        {
+            foreach (Control child in control.Controls)
             {
-                Codigo = txtCodigo.Text,
-                Descripcion = txtDescripcion.Text,
-                Categoria = new CategoriaBE { id_categoria = int.Parse(ddlCategoria.SelectedValue) },
-                Marca = new MarcaBE { id_marca = int.Parse(ddlMarca.SelectedValue) },
-                codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva),
-                Cantidad = int.Parse(txtCantidad.Text),
-                Precio = decimal.Parse(txtPrecio.Text),
-                Imagen = imagenPath
-            };
+                // <a runat="server">
+                if (child is HtmlAnchor anchor &&
+                    anchor.Attributes["data-translate"] != null)
+                {
+                    string key = anchor.Attributes["data-translate"];
+                    string text = IdiomaManager.Instance.GetTraduccion(key);
+                    if (!string.IsNullOrEmpty(text))
+                        anchor.InnerText = text;
+                }
+                // Html genérico
+                else if (child is HtmlGenericControl generic &&
+                         generic.Attributes["data-translate"] != null)
+                {
+                    string key = generic.Attributes["data-translate"];
+                    string text = IdiomaManager.Instance.GetTraduccion(key);
+                    if (!string.IsNullOrEmpty(text))
+                        generic.InnerText = text;
+                }
+                // WebControls (Button, TextBox, Label)
+                else if (child is WebControl wc &&
+                         wc.Attributes["data-translate"] != null)
+                {
+                    string key = wc.Attributes["data-translate"];
+                    string text = IdiomaManager.Instance.GetTraduccion(key);
 
-            _productoService.EditarProducto(producto);
-            Response.Redirect("70-Productos.aspx");
+                    if (child is IButtonControl btn)
+                        btn.Text = text;
 
+                    else if (child is TextBox txt)
+                        txt.Attributes["placeholder"] = text;
+
+                    else if (child is ITextControl lbl)
+                        lbl.Text = text;
+                }
+
+                if (child.HasControls())
+                    AplicarTraducciones(child);
+            }
+        }
+
+        public void UpdateIdioma(string idioma)
+        {
+            AplicarTraducciones(this);
+        }
+
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            IdiomaManager.Instance.EliminarObservador(this);
         }
     }
 }

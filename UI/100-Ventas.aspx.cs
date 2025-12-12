@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Xml;
 using UI.WebServices;
@@ -17,7 +18,7 @@ using UI.WebServices;
 
 namespace UI
 {
-    public partial class _100_Ventas : System.Web.UI.Page
+    public partial class _100_Ventas : System.Web.UI.Page, IIdiomaObserver
     {
         FacturacionAFIP _facturaacionService = new FacturacionAFIP();
         VentaBLL _ventaService = new VentaBLL();
@@ -26,20 +27,28 @@ namespace UI
         public UsuarioBE usuario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
-            //_sessionManager.Set("Usuario", usuario);
-            usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+            
+            string idioma = Request.QueryString["lang"];
+            if (!string.IsNullOrEmpty(idioma))
+                IdiomaManager.Instance.CambiarIdioma(idioma);
+
+            
             if (!IsPostBack)
             {
-                CargarVentas();
+                IdiomaManager.Instance.RegistrarObservador(this);
+                CargarVentas();         
             }
-        }
 
+          
+            AplicarTraducciones(this);
+
+                    }
         private void CargarVentas()
         {
             List<VentaBE> ventas = _ventaService.GetVentas();
             gvVentas.DataSource = ventas;
             gvVentas.DataBind();
+           
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
@@ -57,7 +66,7 @@ namespace UI
             List<VentaBE> ventasFiltradas = _ventaService.GetVentasFiltradas(fechaDesde, fechaHasta, esFacturado);
             gvVentas.DataSource = ventasFiltradas;
             gvVentas.DataBind();
-        }
+                    }
         protected void gvVentas_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
@@ -283,7 +292,75 @@ namespace UI
                 Response.Close(); // Asegurar que la respuesta se cierre correctamente en caso de error
             }
         }
+
+        private void AplicarTraducciones(Control control)
+        {
+            foreach (Control child in control.Controls)
+            {
+                // HTML genérico <span>, <label>, <h2>, <div>, <a>, etc.
+                if (child is HtmlGenericControl html &&
+                    html.Attributes["data-translate"] != null)
+                {
+                    string key = html.Attributes["data-translate"];
+                    string translated = IdiomaManager.Instance.GetTraduccion(key);
+                    if (!string.IsNullOrEmpty(translated))
+                        html.InnerText = translated;
+                }
+                // WebControls (Button, TextBox, DropDownList, etc)
+                else if (child is WebControl web &&
+                         web.Attributes["data-translate"] != null)
+                {
+                    string key = web.Attributes["data-translate"];
+                    string translated = IdiomaManager.Instance.GetTraduccion(key);
+
+                    if (!string.IsNullOrEmpty(translated))
+                    {
+                        if (child is IButtonControl btn)
+                            btn.Text = translated;
+                        else if (child is ITextControl txt)
+                            txt.Text = translated;
+                        else if (child is TextBox t)
+                            t.Attributes["placeholder"] = translated;
+                    }
+                }
+
+                if (child.HasControls())
+                    AplicarTraducciones(child);
+            }
+        }
+
+        protected void gvVentas_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType != DataControlRowType.Header)
+                return;
+
+            // Ojo: el orden de las celdas debe coincidir con las columnas
+            e.Row.Cells[0].Text = IdiomaManager.Instance.GetTraduccion("date_header") ?? e.Row.Cells[0].Text;
+            e.Row.Cells[1].Text = IdiomaManager.Instance.GetTraduccion("client_header") ?? e.Row.Cells[1].Text;
+            e.Row.Cells[2].Text = IdiomaManager.Instance.GetTraduccion("total_header") ?? e.Row.Cells[2].Text;
+            e.Row.Cells[3].Text = IdiomaManager.Instance.GetTraduccion("pv_header") ?? e.Row.Cells[3].Text;
+            e.Row.Cells[4].Text = IdiomaManager.Instance.GetTraduccion("number_header") ?? e.Row.Cells[4].Text;
+            e.Row.Cells[5].Text = IdiomaManager.Instance.GetTraduccion("cae_header") ?? e.Row.Cells[5].Text;
+            e.Row.Cells[6].Text = IdiomaManager.Instance.GetTraduccion("status_header") ?? e.Row.Cells[6].Text;
+            e.Row.Cells[7].Text = IdiomaManager.Instance.GetTraduccion("notes_header") ?? e.Row.Cells[7].Text;
+            e.Row.Cells[8].Text = IdiomaManager.Instance.GetTraduccion("actions_header") ?? e.Row.Cells[8].Text;
+        }
+
+
+        public void UpdateIdioma(string nuevoIdioma)
+        {
+            AplicarTraducciones(this);
+            
+        }
+
+        protected void Page_Unload(object sender, EventArgs e)
+        {
+            IdiomaManager.Instance.EliminarObservador(this);
+        }
+
+
+
     }
 
 
-    }
+}

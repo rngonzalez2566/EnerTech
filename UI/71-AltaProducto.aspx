@@ -6,7 +6,8 @@
 <head runat="server">
     <title>Alta de Producto</title>
     <!-- Bootstrap 5 -->
- 
+    <!-- <link ...> si lo estás usando en el master o layout -->
+
     <style>
         body {
             margin: 0;
@@ -40,72 +41,194 @@
     </style>
 </head>
 <body>
-    <!-- Incluir el Navbar -->
+    <!-- Navbar -->
     <uc:Navbar ID="navigationBar" runat="server" />
 
     <form runat="server">
         <div class="content">
-            <h2 class="text-center text-success mb-4">Alta de Producto</h2>
+            <!-- Título -->
+            <h2 id="titleAltaProducto"
+                runat="server"
+                class="text-center text-success mb-4"
+                data-translate="product_create_title">
+                Alta de Producto
+            </h2>
 
             <!-- Volver a Productos -->
             <div class="mb-4">
-                <a href="70-Productos.aspx" class="btn btn-outline-secondary">Volver a Productos</a>
+                <a id="lnkBackToProducts"
+                   runat="server"
+                   href="70-Productos.aspx"
+                   class="btn btn-outline-secondary"
+                   data-translate="back_to_products">
+                    Volver a Productos
+                </a>
             </div>
 
-            <!-- Formulario de Alta de Producto en dos columnas -->
+            <!-- Formulario de Alta de Producto -->
             <asp:Panel ID="PanelAltaProducto" runat="server">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="txtCodigo" class="form-label">Código del Producto</label>
-                        <asp:TextBox ID="txtCodigo" runat="server" CssClass="form-control" placeholder="Ingrese el código" />
-                        <asp:RequiredFieldValidator ID="rfvCodigo" runat="server" ControlToValidate="txtCodigo" ErrorMessage="El código es obligatorio" CssClass="error-message" Display="Dynamic" />
+                        <label id="lblCodigo"
+                               runat="server"
+                               for="txtCodigo"
+                               class="form-label"
+                               data-translate="product_code_label">
+                            Código del Producto
+                        </label>
+                        <asp:TextBox ID="txtCodigo"
+                                     runat="server"
+                                     CssClass="form-control"
+                                     placeholder="Ingrese el código"
+                                     data-translate="product_code_placeholder" />
+                        <asp:RequiredFieldValidator ID="rfvCodigo" runat="server"
+                            ControlToValidate="txtCodigo"
+                            ErrorMessage="El código es obligatorio"
+                            CssClass="error-message"
+                            Display="Dynamic" />
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="txtDescripcion" class="form-label">Descripción</label>
-                        <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" placeholder="Ingrese la descripción" />
-                        <asp:RequiredFieldValidator ID="rfvDescripcion" runat="server" ControlToValidate="txtDescripcion" ErrorMessage="La descripción es obligatoria" CssClass="error-message" Display="Dynamic" />
+                        <label id="lblDescripcion"
+                               runat="server"
+                               for="txtDescripcion"
+                               class="form-label"
+                               data-translate="description_label">
+                            Descripción
+                        </label>
+                        <asp:TextBox ID="txtDescripcion"
+                                     runat="server"
+                                     CssClass="form-control"
+                                     placeholder="Ingrese la descripción"
+                                     data-translate="description_placeholder" />
+                        <asp:RequiredFieldValidator ID="rfvDescripcion" runat="server"
+                            ControlToValidate="txtDescripcion"
+                            ErrorMessage="La descripción es obligatoria"
+                            CssClass="error-message"
+                            Display="Dynamic" />
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="ddlCategoria" class="form-label">Categoría</label>
-                        <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select" />
-                        <asp:RequiredFieldValidator ID="rfvCategoria" runat="server" ControlToValidate="ddlCategoria" InitialValue="" ErrorMessage="Debe seleccionar una categoría" CssClass="error-message" Display="Dynamic" />
+                        <label id="lblCategoria"
+                               runat="server"
+                               for="ddlCategoria"
+                               class="form-label"
+                               data-translate="category_label">
+                            Categoría
+                        </label>
+                        <asp:DropDownList ID="ddlCategoria"
+                                          runat="server"
+                                          CssClass="form-select" />
+                        <asp:RequiredFieldValidator ID="rfvCategoria" runat="server"
+                            ControlToValidate="ddlCategoria"
+                            InitialValue=""
+                            ErrorMessage="Debe seleccionar una categoría"
+                            CssClass="error-message"
+                            Display="Dynamic" />
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="ddlMarca" class="form-label">Marca</label>
-                        <asp:DropDownList ID="ddlMarca" runat="server" CssClass="form-select" />
-                        <asp:RequiredFieldValidator ID="rfvMarca" runat="server" ControlToValidate="ddlMarca" InitialValue="" ErrorMessage="Debe seleccionar una marca" CssClass="error-message" Display="Dynamic" />
+                        <label id="lblMarca"
+                               runat="server"
+                               for="ddlMarca"
+                               class="form-label"
+                               data-translate="brand_label">
+                            Marca
+                        </label>
+                        <asp:DropDownList ID="ddlMarca"
+                                          runat="server"
+                                          CssClass="form-select" />
+                        <asp:RequiredFieldValidator ID="rfvMarca" runat="server"
+                            ControlToValidate="ddlMarca"
+                            InitialValue=""
+                            ErrorMessage="Debe seleccionar una marca"
+                            CssClass="error-message"
+                            Display="Dynamic" />
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="ddlIVA" class="form-label">IVA</label>
-                        <asp:DropDownList ID="ddlIVA" runat="server" CssClass="form-select" />
-                        <asp:RequiredFieldValidator ID="rfvIVA" runat="server" ControlToValidate="ddlIVA" InitialValue="" ErrorMessage="Debe seleccionar el IVA" CssClass="error-message" Display="Dynamic" />
+                        <label id="lblIVA"
+                               runat="server"
+                               for="ddlIVA"
+                               class="form-label"
+                               data-translate="iva_label">
+                            IVA
+                        </label>
+                        <asp:DropDownList ID="ddlIVA"
+                                          runat="server"
+                                          CssClass="form-select" />
+                        <asp:RequiredFieldValidator ID="rfvIVA" runat="server"
+                            ControlToValidate="ddlIVA"
+                            InitialValue=""
+                            ErrorMessage="Debe seleccionar el IVA"
+                            CssClass="error-message"
+                            Display="Dynamic" />
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="txtCantidad" class="form-label">Cantidad</label>
-                        <asp:TextBox ID="txtCantidad" runat="server" CssClass="form-control" TextMode="Number" placeholder="Ingrese la cantidad" />
-                        <asp:RequiredFieldValidator ID="rfvCantidad" runat="server" ControlToValidate="txtCantidad" ErrorMessage="La cantidad es obligatoria" CssClass="error-message" Display="Dynamic" />
+                        <label id="lblCantidad"
+                               runat="server"
+                               for="txtCantidad"
+                               class="form-label"
+                               data-translate="quantity_label">
+                            Cantidad
+                        </label>
+                        <asp:TextBox ID="txtCantidad"
+                                     runat="server"
+                                     CssClass="form-control"
+                                     TextMode="Number"
+                                     placeholder="Ingrese la cantidad"
+                                     data-translate="quantity_placeholder" />
+                        <asp:RequiredFieldValidator ID="rfvCantidad" runat="server"
+                            ControlToValidate="txtCantidad"
+                            ErrorMessage="La cantidad es obligatoria"
+                            CssClass="error-message"
+                            Display="Dynamic" />
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="txtPrecio" class="form-label">Precio</label>
-                        <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" TextMode="Number" placeholder="Ingrese el precio" />
-                        <asp:RequiredFieldValidator ID="rfvPrecio" runat="server" ControlToValidate="txtPrecio" ErrorMessage="El precio es obligatorio" CssClass="error-message" Display="Dynamic" />
+                        <label id="lblPrecio"
+                               runat="server"
+                               for="txtPrecio"
+                               class="form-label"
+                               data-translate="price_label">
+                            Precio
+                        </label>
+                        <asp:TextBox ID="txtPrecio"
+                                     runat="server"
+                                     CssClass="form-control"
+                                     TextMode="Number"
+                                     placeholder="Ingrese el precio"
+                                     data-translate="price_placeholder" />
+                        <asp:RequiredFieldValidator ID="rfvPrecio" runat="server"
+                            ControlToValidate="txtPrecio"
+                            ErrorMessage="El precio es obligatorio"
+                            CssClass="error-message"
+                            Display="Dynamic" />
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="fuImagen" class="form-label">Imagen del Producto (opcional)</label>
-                        <asp:FileUpload ID="fuImagen" runat="server" CssClass="form-control" />
+                        <label id="lblImagen"
+                               runat="server"
+                               for="fuImagen"
+                               class="form-label"
+                               data-translate="image_label">
+                            Imagen del Producto (opcional)
+                        </label>
+                        <asp:FileUpload ID="fuImagen"
+                                        runat="server"
+                                        CssClass="form-control" />
                     </div>
                 </div>
 
                 <!-- Botón para guardar -->
                 <div class="d-grid gap-2">
-                    <asp:Button ID="btnGuardarProducto" runat="server" Text="Guardar Producto" CssClass="btn btn-primary" OnClick="btnGuardarProducto_Click" />
+                    <asp:Button ID="btnGuardarProducto"
+                                runat="server"
+                                Text="Guardar Producto"
+                                CssClass="btn btn-primary"
+                                data-translate="save_product_button"
+                                OnClick="btnGuardarProducto_Click" />
                 </div>
             </asp:Panel>
 

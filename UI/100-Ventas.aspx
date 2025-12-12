@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="100-Ventas.aspx.cs" Inherits="UI._100_Ventas" Async="true" %>
+
 <%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
 
 <!DOCTYPE html>
@@ -7,7 +8,7 @@
     <meta charset="UTF-8">
     <title>Listado de Ventas</title>
     <!-- Incluir Bootstrap 5 -->
- 
+
     <style>
         /* Estilos generales */
         body {
@@ -98,37 +99,48 @@
 <body>
     <form id="mainForm" runat="server">
         <div class="container mt-5">
-            <h2 class="cart-header">Listado de Ventas</h2>
+            <h2 class="cart-header" runat="server" data-translate="sales_list_title">Listado de Ventas</h2>
+
 
             <!-- Filtros de búsqueda -->
             <div class="row g-3 mb-4">
                 <div class="col-md-3">
-                    <label for="txtFechaDesde" class="form-label">Fecha Desde</label>
+                    <label runat="server" data-translate="date_from">Fecha Desde</label>
                     <asp:TextBox ID="txtFechaDesde" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                 </div>
                 <div class="col-md-3">
-                    <label for="txtFechaHasta" class="form-label">Fecha Hasta</label>
+                    <label runat="server" data-translate="date_to">Fecha Hasta</label>
                     <asp:TextBox ID="txtFechaHasta" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
                 </div>
                 <div class="col-md-3">
-                    <label for="ddlFacturado" class="form-label">Facturado</label>
+                    <label runat="server" data-translate="invoiced">Facturado</label>
                     <asp:DropDownList ID="ddlFacturado" runat="server" CssClass="form-select">
-                        <asp:ListItem Value="">Todos</asp:ListItem>
-                        <asp:ListItem Value="true">Sí</asp:ListItem>
-                        <asp:ListItem Value="false">No</asp:ListItem>
+                        <asp:ListItem Value="" data-translate="all">Todos</asp:ListItem>
+                        <asp:ListItem Value="true" data-translate="yes">Sí</asp:ListItem>
+                        <asp:ListItem Value="false" data-translate="no">No</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
-                    <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-primary w-100" OnClick="btnFiltrar_Click" />
+                    <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar"
+                        data-translate="filter_button"
+                        CssClass="btn btn-primary w-100" />
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
-                    <asp:Button ID="btnExportarXML" runat="server" Text="Exportar a XML" CssClass="btn btn-secondary w-100" OnClick="btnExportarXML_Click" />
+                    <asp:Button ID="btnExportarXML" runat="server" Text="Exportar a XML"
+                        data-translate="export_xml_button"
+                        CssClass="btn btn-secondary w-100" />
                 </div>
             </div>
 
             <!-- Tabla de Ventas -->
             <div class="table-responsive table-container">
-                <asp:GridView ID="gvVentas" runat="server" CssClass="table table-hover align-middle" AutoGenerateColumns="False" OnRowCommand="gvVentas_RowCommand" OnRowDataBound="gvVentas_RowDataBound">
+                <asp:GridView ID="gvVentas" runat="server"
+                    CssClass="table table-hover align-middle"
+                    AutoGenerateColumns="False"
+                    OnRowCommand="gvVentas_RowCommand"
+                    OnRowDataBound="gvVentas_RowDataBound"
+                    OnRowCreated="gvVentas_RowCreated">
+
                     <Columns>
                         <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:yyyy-MM-dd}" ItemStyle-Width="120px" />
                         <asp:BoundField DataField="Usuario.Identificacion" HeaderText="Cliente" ItemStyle-Width="150px" />
@@ -144,6 +156,7 @@
                                 <asp:Button ID="btnFacturar" runat="server" Text="Facturar"
                                     CssClass="btn btn-success btn-sm"
                                     OnClick="btnFacturar_Click"
+                                    data-translate="bill_button"
                                     CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "" %>' />
 
@@ -151,6 +164,7 @@
                                 <asp:Button ID="btnReprocesar" runat="server" Text="Reprocesar"
                                     CssClass="btn btn-danger btn-sm"
                                     OnClick="btnReprocesar_Click"
+                                    data-translate="retry_button"
                                     CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "R" %>' />
 
@@ -167,7 +181,7 @@
                                     CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "A" %>' />
 
-                                 <asp:Button ID="Button1" runat="server" Text="EMAIL"
+                                <asp:Button ID="Button1" runat="server" Text="EMAIL"
                                     CssClass="btn btn-warning btn-sm"
                                     OnClick="Button1_Click"
                                     CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'

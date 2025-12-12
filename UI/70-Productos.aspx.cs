@@ -1,11 +1,12 @@
-﻿using BLL;
-using BE;
+﻿using BE;
+using BLL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Web.UI.WebControls;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace UI
 {
@@ -17,6 +18,13 @@ namespace UI
         private IdiomaManager _idiomaManager = IdiomaManager.Instance;
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Leer idioma del querystring, igual que en las otras páginas
+            string idiomaSeleccionado = Request.QueryString["lang"];
+            if (!string.IsNullOrEmpty(idiomaSeleccionado))
+            {
+                _idiomaManager.CambiarIdioma(idiomaSeleccionado);
+            }
+
             if (!IsPostBack)
             {
                 _idiomaManager.RegistrarObservador(this);
@@ -131,33 +139,65 @@ namespace UI
             {
                 AplicarTraduccionesRecursivo(control, idiomaManager);
             }
+
+            TraducirHeadersGrid(idiomaManager);
         }
 
         private void AplicarTraduccionesRecursivo(Control control, IdiomaManager idiomaManager)
         {
-            if (control is WebControl webControl)
+            // 1) Controles HTML genéricos (h2, div, span, etc.)
+            if (control is HtmlGenericControl generic &&
+                generic.Attributes["data-translate"] != null)
             {
-                // Busca el atributo data-translate
+                string clave = generic.Attributes["data-translate"];
+                string traduccion = idiomaManager.GetTraduccion(clave);
+                if (!string.IsNullOrEmpty(traduccion))
+                {
+                    generic.InnerText = traduccion;
+                }
+            }
+            // 2) WebControls (Button, Label, TextBox, etc.)
+            else if (control is WebControl webControl)
+            {
                 string claveTraduccion = webControl.Attributes["data-translate"];
+
                 if (!string.IsNullOrEmpty(claveTraduccion))
                 {
+                    string traduccion = idiomaManager.GetTraduccion(claveTraduccion);
+
                     if (webControl is IButtonControl buttonControl)
                     {
-                        // Botones
-                        buttonControl.Text = idiomaManager.GetTraduccion(claveTraduccion);
+                        buttonControl.Text = traduccion;
                     }
                     else if (webControl is TextBox textBox)
                     {
-                        // Placeholders
-                        textBox.Attributes["placeholder"] = idiomaManager.GetTraduccion(claveTraduccion);
+                        // placeholder
+                        textBox.Attributes["placeholder"] = traduccion;
+                    }
+                    else if (webControl is ITextControl textControl)
+                    {
+                        textControl.Text = traduccion;
                     }
                 }
             }
 
-            // Iterar sobre los hijos del control
+            // Recursivo
             foreach (Control childControl in control.Controls)
             {
                 AplicarTraduccionesRecursivo(childControl, idiomaManager);
+            }
+        }
+
+         private void TraducirHeadersGrid(IdiomaManager idiomaManager)
+        {
+            // Ojo con los índices: coinciden con el orden de las columnas
+            if (gvProductos.Columns.Count >= 6)
+            {
+                // Columnas 0,1 son template (Catálogo, Imagen) -> se traducen por Label
+                gvProductos.Columns[2].HeaderText = idiomaManager.GetTraduccion("code_header")        ?? "Código";
+                gvProductos.Columns[3].HeaderText = idiomaManager.GetTraduccion("description_header") ?? "Descripción";
+                gvProductos.Columns[4].HeaderText = idiomaManager.GetTraduccion("quantity_header")    ?? "Cantidad";
+                gvProductos.Columns[5].HeaderText = idiomaManager.GetTraduccion("options_header")     ?? "Opciones";
             }
         }
 

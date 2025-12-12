@@ -6,22 +6,28 @@
     <title>Editar Datos del Negocio - EnerTech</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+
     <style>
-         body {
+        body {
             background-color: #f7f9fc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-                display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
+        /* Contenedor de toda la página (debajo del navbar) */
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Zona donde centramos el formulario */
         .form-wrapper {
+            flex: 1; /* ocupa el alto disponible */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: calc(100vh - 70px); /* Ajustar al tamaño del navbar */
+            padding: 40px 10px;
         }
 
         .form-container {
@@ -33,16 +39,12 @@
             max-width: 400px;
         }
 
-        .form-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-        }
         .form-container h2 {
             color: #00796b;
             margin-bottom: 30px;
+            text-align: center;
         }
+
         .form-control {
             background-color: #f8f9fa;
             border: none;
@@ -62,51 +64,52 @@
             background-color: #005f56;
             transform: translateY(-3px);
         }
+
         footer {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
             text-align: center;
-            color: #ffffff;
+            padding: 10px 0;
             font-size: 0.9rem;
+            color: #666;
         }
     </style>
 </head>
 <body>
-     <!-- Incluir el Navbar -->
-      <uc:Navbar ID="navigationBar" runat="server" />
+    <!-- Navbar fijo arriba -->
+    <uc:Navbar ID="navigationBar" runat="server" />
+
     <form id="form1" runat="server">
-        <div class="d-flex flex-column align-items-center justify-content-center vh-100">
-            <div class="form-container">
-                <h2>Editar Datos del Negocio</h2>
+        <div class="page-wrapper">
+            <!-- Contenido centrado -->
+            <div class="form-wrapper">
+                <div class="form-container">
+                    <h2>Editar Datos del Negocio</h2>
 
-                <!-- Campos del formulario -->
-                <div class="mb-3">
-                    <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Placeholder="Razón Social"></asp:TextBox>
-                </div>
-                <div class="mb-3">
-                    <asp:TextBox ID="txtIdentificacion" runat="server" CssClass="form-control" Placeholder="Identificación"></asp:TextBox>
-                </div>
-                <div class="mb-3">
-                    <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Placeholder="Dirección"></asp:TextBox>
-                </div>
-                <div class="mb-3">
-                    <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Placeholder="Teléfono" TextMode="Phone"></asp:TextBox>
-                </div>
+                    <div class="mb-3">
+                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Placeholder="Razón Social" />
+                    </div>
+                    <div class="mb-3">
+                        <asp:TextBox ID="txtIdentificacion" runat="server" CssClass="form-control" Placeholder="Identificación" />
+                    </div>
+                    <div class="mb-3">
+                        <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Placeholder="Dirección" />
+                    </div>
+                    <div class="mb-3">
+                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Placeholder="Teléfono" TextMode="Phone" />
+                    </div>
 
-                <!-- Botón para guardar los datos -->
-                <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn btn-primary w-100 mb-3" OnClick="btnGuardar_Click" />
+                    <asp:Button ID="btnGuardar" runat="server"
+                        Text="Guardar"
+                        CssClass="btn btn-primary w-100 mb-3"
+                        OnClick="btnGuardar_Click" />
 
-                <!-- Mensaje de confirmación o error -->
-                <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="d-block mb-3"></asp:Label>
+                    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="d-block mb-3"></asp:Label>
+                </div>
             </div>
+
+            <footer>
+                &copy; 2024 EnerTech | Energías Renovables
+            </footer>
         </div>
     </form>
-
-    <footer>
-        &copy; 2024 EnerTech | Energías Renovables
-    </footer>
-
-    
 </body>
 </html>
