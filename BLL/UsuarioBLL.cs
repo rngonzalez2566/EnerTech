@@ -176,5 +176,67 @@ namespace BLL
             string regex = @"^(?=.*[A-Z])(?=.*[\W_]).{8,}$";
             return Regex.IsMatch(password, regex);
         }
+
+
+        public void RestablecerPasswordYEnviar(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new Exception(ErrorMessages.ERR002);
+
+            // 1) Buscar usuario por email (en tu sistema se guarda encriptado)
+            var usuario = usuarioDAL.Login(Encriptador.Encriptar(email));
+
+            // IMPORTANTE: para demo, no revelar si existe o no.
+            if (usuario == null)
+                return;
+
+            // 2) Generar password temporal (cumple: 8+, 1 mayúscula, 1 símbolo)
+            string tempPassword = GenerarPasswordTemporal();
+
+            // 3) Guardar hasheado y resetear contador + dvh
+            usuario.Password = Encriptador.Hash(tempPassword);
+            usuario.Contador = 0;
+
+            usuario.DVH = dv.CalcularDV(usuario);
+
+            usuarioDAL.UpdatePasswordReset(usuario.id_usuario, usuario.Password, usuario.DVH);
+
+            // 4) DVV
+            dvDAL.AltaDVV("Usuario");
+
+            // 5) Bitácora (si querés)
+            bitacora.RegistrarBitacora($"{email} - Restablecimiento de contraseña solicitado", "Media", usuario);
+
+            // 6) Enviar email (usás tu EmailService)
+            var mail = new Services.EmailService();
+
+            string subject = "Restablecimiento de contraseña - EnerTech";
+            string bodyHtml = $@"
+        <div style='font-family:Segoe UI,Arial'>
+            <h2>Restablecimiento de contraseña</h2>
+            <p>Tu contraseña temporal es:</p>
+            <p style='font-size:18px'><b>{tempPassword}</b></p>
+            <p>Por favor iniciá sesión y cambiá la contraseña desde tu perfil.</p>
+        </div>";
+
+            // Ajustá el nombre del método a tu EmailService real
+            mail.EnviarEmail("rngonzalez2566@gmail.com", subject, bodyHtml);
+        }
+
+        private string GenerarPasswordTemporal()
+        {
+            // Simple y efectivo para demo: 10 chars + mayúscula + símbolo asegurado
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var rnd = new Random();
+
+            var sb = new StringBuilder();
+            for (int i = 0; i < 8; i++)
+                sb.Append(chars[rnd.Next(chars.Length)]);
+
+            sb.Append("A"); // mayúscula
+            sb.Append("!"); // símbolo
+
+            return sb.ToString();
+        }
     }
 }

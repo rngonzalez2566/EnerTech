@@ -8,66 +8,98 @@
 
     <style>
         body {
-            background-color: #f7f9fc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-                display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
         }
 
-        .form-wrapper {
+        /* wrapper solo para centrar la card, sin afectar navbar */
+        .page-wrapper {
+            min-height: calc(100vh - 70px);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: calc(100vh - 70px); /* Ajustar al tamaño del navbar */
+            padding: 40px 15px;
         }
 
         .form-container {
             background-color: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.10);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
         }
 
         .form-title {
-            font-size: 1.5rem;
+            font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
         }
 
+        .form-label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+
+        /* botón estilo similar a tu look */
         .btn-primary {
             width: 100%;
-            border-radius: 5px;
-            font-size: 1rem;
+            background-color: #0d6efd;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
             padding: 10px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
         }
     </style>
 </head>
+
 <body>
     <uc:Navbar ID="navigationBar" runat="server" />
-    <div class="form-wrapper">
-        <form id="formCambiarPassword" runat="server">
+
+    <form id="formCambiarPassword" runat="server">
+        <div class="page-wrapper">
             <div class="form-container">
-                <h1 class="form-title" data-translate="change_password_title">Cambiar Contraseña</h1>
-                <div class="mb-3">
-                    <label for="txtCurrentPassword" class="form-label" data-translate="current_password">Contraseña Actual</label>
-                    <asp:TextBox ID="txtCurrentPassword" runat="server" CssClass="form-control" TextMode="Password" />
-                </div>
-                <div class="mb-3">
-                    <label for="txtNewPassword" class="form-label" data-translate="new_password">Nueva Contraseña</label>
-                    <asp:TextBox ID="txtNewPassword" runat="server" CssClass="form-control" TextMode="Password" />
-                </div>
-                <div class="mb-3">
-                    <label for="txtConfirmPassword" class="form-label" data-translate="confirm_password">Confirmar Nueva Contraseña</label>
-                    <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" TextMode="Password" />
-                </div>
-                <asp:Button ID="btnChangePassword" runat="server" CssClass="btn btn-primary" Text="Cambiar Contraseña" OnClick="btnChangePassword_Click" data-translate="change_password_button" />
+
+                <h1 class="form-title" runat="server" data-translate="change_password_title">Cambiar Contraseña</h1>
+
+                <label class="form-label" runat="server" for="txtCurrentPassword" data-translate="current_password">Contraseña Actual</label>
+                <asp:TextBox ID="txtCurrentPassword" runat="server" CssClass="form-control" TextMode="Password" />
+
+                <label class="form-label" runat="server" for="txtNewPassword" data-translate="new_password">Nueva Contraseña</label>
+                <asp:TextBox ID="txtNewPassword" runat="server" CssClass="form-control" TextMode="Password" />
+
+                <label class="form-label" runat="server" for="txtConfirmPassword" data-translate="confirm_password">Confirmar Nueva Contraseña</label>
+                <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control" TextMode="Password" />
+
+                <asp:Button ID="btnChangePassword"
+                    runat="server"
+                    CssClass="btn-primary"
+                    Text="Cambiar Contraseña"
+                    data-translate="change_password_button"
+                    OnClick="btnChangePassword_Click" />
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </body>
 </html>

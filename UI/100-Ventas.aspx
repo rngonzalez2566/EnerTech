@@ -97,6 +97,25 @@
 <uc:Navbar ID="navigationBar" runat="server" />
 
 <body>
+    <!-- Overlay de carga -->
+<div id="emailOverlay" style="display:none; position:fixed; inset:0; background:rgba(255,255,255,.85); z-index:2000;">
+    <div class="d-flex flex-column justify-content-center align-items-center h-100">
+        <div class="spinner-border text-primary mb-3" role="status"></div>
+        <div class="fw-semibold text-secondary">Enviando email…</div>
+    </div>
+</div>
+
+<!-- Toast Bootstrap -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="emailToast" class="toast align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                Email enviado correctamente.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
     <form id="mainForm" runat="server">
         <div class="container mt-5">
             <h2 class="cart-header" runat="server" data-translate="sales_list_title">Listado de Ventas</h2>
@@ -181,10 +200,11 @@
                                     CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "A" %>' />
 
-                                <asp:Button ID="Button1" runat="server" Text="EMAIL"
+                          <asp:Button ID="Button1" runat="server" Text="EMAIL"
                                     CssClass="btn btn-warning btn-sm"
+                                    OnClientClick="showEmailOverlay();"
                                     OnClick="Button1_Click"
-                                    CommandArgument='<%# Eval("id_venta") != null ? Eval("id_venta").ToString() : "" %>'
+                                    CommandArgument='<%# Eval("id_venta") %>' 
                                     Visible='<%# Eval("Estado") != null && Eval("Estado").ToString() == "A" %>' />
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -195,3 +215,18 @@
     </form>
 </body>
 </html>
+<script>
+    function showEmailOverlay() {
+        document.getElementById("emailOverlay").style.display = "block";
+    }
+
+    function hideEmailOverlay() {
+        document.getElementById("emailOverlay").style.display = "none";
+    }
+
+    function showEmailToast() {
+        const toastEl = document.getElementById('emailToast');
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    }
+</script>

@@ -24,6 +24,7 @@ namespace UI
         VentaBLL _ventaService = new VentaBLL();
         SessionManager _sessionManager = new SessionManager();
         UsuarioBLL _usuarioService = new UsuarioBLL();
+        Services.EmailService _emailService = new Services.EmailService();
         public UsuarioBE usuario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -147,7 +148,50 @@ namespace UI
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                Button btn = (Button)sender;
+                string ventaId = btn.CommandArgument;
+
+                if (string.IsNullOrEmpty(ventaId))
+                    throw new Exception("No se recibió el id de la venta.");
+
+                VentaBE venta = _ventaService.GetVenta(int.Parse(ventaId));
+                if (venta == null)
+                    throw new Exception("No se encontró la venta.");
+
+                // 📌 Email destino: usá el mail del usuario de la venta
+                // Ajustá esta propiedad si en tu BE se llama distinto
+                string toEmail = "rngonzalez2566@gmail.com";
+
+                if (string.IsNullOrWhiteSpace(toEmail))
+                    throw new Exception("El cliente no tiene Email cargado.");
+
+                // Genero PDF como bytes
+                byte[] pdfBytes = GenerarPdfVenta(venta);
+
+                // Asunto/cuerpo simples (demo)
+                string subject = $"Factura Venta #{venta.NumeroVenta} - EnerTech";
+                string bodyHtml =
+                    $"<h3>Factura EnerTech</h3>" +
+                    $"<p>Adjuntamos la factura de la venta <b>#{venta.NumeroVenta}</b>.</p>" +
+                    $"<p>Total: <b>{venta.Total:C}</b></p>" +
+                    $"<p>Gracias.</p>";
+
+                string fileName = $"Factura_{venta.PuntoDeVenta}_{venta.NumeroVenta}.pdf";
+
+                // Enviar
+                _emailService.EnviarFacturaPdf(toEmail, subject, bodyHtml, pdfBytes, fileName);
+
+                // Mensaje ok
+                ScriptManager.RegisterStartupScript(this, GetType(), "ok",
+                    "hideEmailOverlay(); showEmailToast();", true);
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "err",
+                      "hideEmailOverlay(); alert('Error enviando email');", true);
+            }
         }
         protected void btnPDF_Click(object sender, EventArgs e)
         {
@@ -356,6 +400,33 @@ namespace UI
         protected void Page_Unload(object sender, EventArgs e)
         {
             IdiomaManager.Instance.EliminarObservador(this);
+        }
+
+        private byte[] GenerarPdfVenta(VentaBE venta)
+        {
+            GeneraPdfAfip.BusinessInfo businessInfo = new GeneraPdfAfip.BusinessInfo
+            {
+                BusinessName = "ENERTECH",
+                Address = "Av. Varlos Pellegrini 218",
+                IVACondition = "Responsable Inscripto",
+                CUIT = 20358545492,
+                GrossIncome = "Exento",
+                InitialActivities = new DateTime(2024, 05, 01),
+                PathImage = Server.MapPath("~/Images/afip_logo.png")
+            };
+
+            GeneraPdfAfip.ClientInfo clientInfo = new GeneraPdfAfip.ClientInfo
+            {
+                BusinessName = venta.usuario.RazonSocial,
+                FirstName = venta.usuario.Nombre,
+                LastName = venta.usuario.Apellido,
+                Address = "Laprida 231",
+                IVACondition = "Monotributista",
+                CUIT = venta.usuario.Identificacion,
+                SaleCondition = "Tarjeta"
+            };
+
+            return GeneraPdfAfip.ReceipToPdf(businessInfo, clientInfo, venta);
         }
 
 

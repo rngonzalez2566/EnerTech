@@ -145,7 +145,7 @@ namespace UI
                 {
             ("21-AltaUsuario", "add_user"),
             ("#", "modify_user"),
-            ("#", "change_password"),
+            ("12-RestablecerPassword", "change_password"),
             ("#", "delete_user")
                 }
             );
@@ -545,7 +545,7 @@ namespace UI
             var changePasswordItem = new HtmlGenericControl("li");
             var changePasswordLink = new HtmlAnchor
             {
-                HRef = "23-CambiarPassword.aspx",
+                HRef = BuildPreserveQueryUrl("23-CambiarPassword.aspx"),
                 InnerText = IdiomaManager.Instance.GetTraduccion("change_password") ?? "Cambiar Contraseña"
             };
             changePasswordLink.Attributes["class"] = "dropdown-item";
@@ -781,6 +781,13 @@ namespace UI
         protected void Page_Unload(object sender, EventArgs e)
         {
             IdiomaManager.Instance.EliminarObservador(this);
+        }
+
+        private string BuildPreserveQueryUrl(string path)
+        {
+            var qs = HttpUtility.ParseQueryString(Request.Url.Query);
+            string newQuery = qs.ToString();
+            return string.IsNullOrEmpty(newQuery) ? path : $"{path}?{newQuery}";
         }
 
 

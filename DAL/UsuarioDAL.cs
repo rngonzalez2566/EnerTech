@@ -160,5 +160,24 @@ namespace DAL
 
             return usuario;
         }
+
+        public void UpdatePasswordReset(int idUsuario, string hashedPassword, int dvh)
+        {
+            try
+            {
+                xCommandText = Querys.UsuarioQuerys.UpdatePasswordReset;
+
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@id", idUsuario);
+                xParameters.Parameters.AddWithValue("@pass", hashedPassword);
+                xParameters.Parameters.AddWithValue("@dvh", dvh);
+
+                executeNonQuery();
+            }
+            catch
+            {
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
     }
 }

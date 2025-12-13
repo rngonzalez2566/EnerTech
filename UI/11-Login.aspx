@@ -74,44 +74,67 @@
         }
     </style>
 </head>
+
 <body>
     <form id="form1" runat="server">
         <div class="d-flex flex-column align-items-center justify-content-center vh-100">
             <div class="login-container">
-    <!-- Logotipo -->
-    <img src="Images/logo.png" alt="Logo EnerTech" class="logo">
-    
-    <h2>Iniciar Sesión</h2>
-    
-    <!-- Campos del formulario -->
-    <div class="mb-3">
-        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Email" TextMode="Email"></asp:TextBox>
-    </div>
-    <div class="mb-3">
-        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" Placeholder="Contraseña" TextMode="Password"></asp:TextBox>
-    </div>
-    
-    <!-- Botón de inicio de sesión -->
-    <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" CssClass="btn btn-primary w-100 mb-3" OnClick="btnLogin_Click" />
-    
-    <!-- Mensaje de error -->
-    <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="d-block mb-3"></asp:Label>
-    
-    <!-- Enlaces adicionales -->
-    <div class="d-flex flex-column align-items-center">
-        <a href="12-RestablecerPassword.aspx" class="register-link mb-2">¿Olvidaste tu contraseña?</a>
-        <a href="21-AltaUsuario.aspx" class="register-link">¿No tienes cuenta? Regístrate</a>
-    </div>
-</div>
 
+                <!-- Logotipo -->
+                <img src="Images/logo.png" alt="Logo EnerTech" class="logo">
+
+                <h2 runat="server" data-translate="login_title">Iniciar Sesión</h2>
+
+                <!-- Campos del formulario -->
+                <div class="mb-3">
+                    <asp:TextBox ID="txtEmail"
+                                 runat="server"
+                                 CssClass="form-control"
+                                 TextMode="Email"
+                                 data-translate-placeholder="login_email_placeholder" />
+                </div>
+
+                <div class="mb-3">
+                    <asp:TextBox ID="txtPassword"
+                                 runat="server"
+                                 CssClass="form-control"
+                                 TextMode="Password"
+                                 data-translate-placeholder="login_password_placeholder" />
+                </div>
+
+                <!-- Botón de inicio de sesión -->
+                <asp:Button ID="btnLogin"
+                            runat="server"
+                            CssClass="btn btn-primary w-100 mb-3"
+                            Text="Iniciar Sesión"
+                            data-translate="login_button"
+                            OnClick="btnLogin_Click" />
+
+                <!-- Mensaje de error -->
+                <asp:Label ID="lblMessage"
+                           runat="server"
+                           ForeColor="Red"
+                           CssClass="d-block mb-3"
+                           Visible="false"></asp:Label>
+
+                <!-- Enlaces adicionales (se les agrega lang desde code-behind) -->
+                <div class="d-flex flex-column align-items-center">
+                    <a id="lnkReset" runat="server" class="register-link mb-2" data-translate="forgot_password_link">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+                    <a id="lnkRegister" runat="server" class="register-link" data-translate="no_account_register_link">
+                        ¿No tienes cuenta? Regístrate
+                    </a>
+                </div>
+
+            </div>
         </div>
     </form>
-    
-    <footer>
+
+    <footer runat="server" data-translate="login_footer">
         &copy; 2024 EnerTech | Energías Renovables
     </footer>
 
-    <!-- Scripts de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

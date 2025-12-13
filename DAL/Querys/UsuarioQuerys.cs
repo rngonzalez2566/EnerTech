@@ -16,5 +16,12 @@ namespace DAL.Querys
         public const string UnlockUser = "UPDATE Usuario SET Contador = 0, DVH = @dv WHERE id_usuario = @user ";
         public const string addBlock = "UPDATE Usuario SET Contador = Contador + 1, DVH = @dv WHERE id_usuario = @user ";
         public const string GetUser_id = "SELECT TOP 1 * FROM Usuario WHERE id_usuario = @user";
+        public const string UpdatePasswordReset = @"
+                                                    UPDATE Usuario
+                                                    SET Password = @pass,
+                                                        Contador = 0,
+                                                        DVH = @dvh
+                                                    WHERE id_usuario = @id
+                                                    ";
     }
 }
