@@ -9,53 +9,59 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        .card-header-custom {
-            background-color: #007bff;
-            color: white;
-        }
-        .submit-btn {
-            background-color: #28a745;
-            color: white;
-        }
-        .form-label {
-            font-weight: bold;
-        }
-        .button-group .btn {
-            margin-right: 10px;
-        }
+        .card-header-custom { background-color: #007bff; color: white; }
+        .submit-btn { background-color: #28a745; color: white; }
+        .form-label { font-weight: bold; }
     </style>
 </head>
-      <!-- Incluir el Navbar -->
- <uc:Navbar ID="navigationBar" runat="server" />
-<body>
-    <div class="container my-5">
-        <!-- Título de la página -->
-        <h2 class="text-center mb-5"><i class="bi bi-pencil-square"></i> Modificar Familia</h2>
 
-        <!-- Formulario para modificar la familia -->
-        <form id="form1" runat="server" class="mb-5">
+<body>
+    <!-- Navbar SIEMPRE dentro del body -->
+    <uc:Navbar ID="navigationBar" runat="server" />
+
+    <div class="container my-5">
+
+        <!-- Título -->
+        <h2 class="text-center mb-5" runat="server" data-translate="family_edit_title">
+            <i class="bi bi-pencil-square"></i>
+            <span>Modificar Familia</span>
+        </h2>
+
+        <form id="form1" runat="server">
+
+            <!-- Datos -->
             <div class="card shadow-lg border-0 mb-5">
                 <div class="card-body">
-                    <h4 class="mb-4">Detalles de la Familia</h4>
+                    <h4 class="mb-4" runat="server" data-translate="family_edit_details">
+                        Detalles de la Familia
+                    </h4>
+
                     <div class="mb-3">
-                        <label for="nombreFamilia" class="form-label">Nombre de la Familia</label>
-                        <input type="text" id="nombreFamilia" name="nombreFamilia" class="form-control" value="<%= Familia.Nombre %>" required />
+                        <label class="form-label" runat="server" data-translate="family_name_label">
+                            Nombre de la Familia
+                        </label>
+                        <input type="text" id="nombreFamilia" name="nombreFamilia"
+                               class="form-control"
+                               value="<%= Familia.Nombre %>" required />
                     </div>
                 </div>
             </div>
 
-            <!-- Tabla de Patentes Existentes -->
+            <!-- Patentes existentes -->
             <div class="card shadow-lg border-0 mb-5">
                 <div class="card-header card-header-custom">
-                    <h5 class="mb-0"><i class="bi bi-shield-check"></i> Patentes Existentes</h5>
+                    <h5 runat="server" data-translate="family_existing_permissions">
+                        Patentes Existentes
+                    </h5>
                 </div>
+
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mt-0">
+                    <table class="table table-hover align-middle">
                         <thead>
                             <tr>
-                                <th scope="col">Seleccionar</th>
-                                <th scope="col">Nombre de Patente</th>
-                                <th scope="col">Descripción</th>
+                                <th runat="server" data-translate="select">Seleccionar</th>
+                                <th runat="server" data-translate="permission_name">Nombre de Patente</th>
+                                <th runat="server" data-translate="description">Descripción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -72,20 +78,30 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="button" class="btn btn-primary mt-3 btn-success" onclick="agregarPatente()">Agregar Patente</button>
+
+                <button type="button"
+                        runat="server"
+                        class="btn btn-success mt-3"
+                        data-translate="family_add_permission"
+                        onclick="agregarPatente()">
+                    Agregar Patente
+                </button>
             </div>
 
-            <!-- Tabla de Patentes Asignadas -->
+            <!-- Patentes asignadas -->
             <div class="card shadow-lg border-0 mb-5">
                 <div class="card-header card-header-custom">
-                    <h5 class="mb-0"><i class="bi bi-plus-circle"></i> Patentes Asignadas</h5>
+                    <h5 runat="server" data-translate="family_assigned_permissions">
+                        Patentes Asignadas
+                    </h5>
                 </div>
+
                 <div class="table-responsive">
-                    <table class="table table-striped align-middle mt-0" id="tablaAgregadas">
+                    <table class="table table-striped" id="tablaAgregadas">
                         <thead>
                             <tr>
-                                <th scope="col">Nombre de Patente</th>
-                                <th scope="col">Descripción</th>
+                                <th runat="server" data-translate="permission_name">Nombre</th>
+                                <th runat="server" data-translate="description">Descripción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,44 +119,15 @@
 
             <input type="hidden" id="patentesSeleccionadas" name="patentesSeleccionadas" />
 
-            <!-- Botón Guardar -->
-            <asp:Button ID="btnCrear" runat="server" Text="Guardar" CssClass="btn submit-btn btn-success" OnClientClick="return prepararEnvio();" OnClick="btnGuardar_Click" /> 
-                
-            
+            <!-- Guardar -->
+            <asp:Button ID="btnGuardar"
+                runat="server"
+                CssClass="btn submit-btn btn-success"
+                Text="Guardar"
+                data-translate="save"
+                OnClientClick="return prepararEnvio();"
+                OnClick="btnGuardar_Click" />
         </form>
     </div>
-
-
-
-    <script>
-        function agregarPatente() {
-            const checkboxes = document.querySelectorAll('.select-patente:checked');
-            const tablaAgregadas = document.getElementById('tablaAgregadas').querySelector('tbody');
-
-            checkboxes.forEach(checkbox => {
-                const fila = checkbox.closest('tr');
-                const nuevaFila = fila.cloneNode(true);
-
-                const inputHidden = fila.querySelector('.id-patente').outerHTML;
-                nuevaFila.deleteCell(0);
-                nuevaFila.innerHTML += `<td style="display: none;">${inputHidden}</td>`;
-
-                tablaAgregadas.appendChild(nuevaFila);
-
-                checkbox.checked = false;
-                checkbox.disabled = true;
-            });
-        }
-
-        function prepararEnvio() {
-            const patentesIds = [];
-            document.querySelectorAll('#tablaAgregadas .id-patente').forEach(input => {
-                patentesIds.push(input.value);
-            });
-
-            document.getElementById('patentesSeleccionadas').value = patentesIds.join(',');
-            return patentesIds.length > 0;
-        }
-    </script>
 </body>
 </html>

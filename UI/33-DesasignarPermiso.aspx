@@ -6,42 +6,36 @@
 <head runat="server">
     <meta charset="utf-8" />
     <title>Desasignar Patentes</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        .card-header-custom {
-            background-color: #007bff;
-            color: white;
-        }
-        .submit-btn {
-            background-color: #dc3545;
-            color: white;
-        }
-        .table-responsive {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        .form-label {
-            font-weight: bold;
-        }
+        .card-header-custom { background-color: #007bff; color: white; }
+        .submit-btn { background-color: #dc3545; color: white; }
+        .table-responsive { max-height: 300px; overflow-y: auto; }
+        .form-label { font-weight: bold; }
     </style>
 </head>
-      <!-- Incluir el Navbar -->
- <uc:Navbar ID="navigationBar" runat="server" />
+
 <body>
+    <!-- Incluir el Navbar -->
+    <uc:Navbar ID="navigationBar" runat="server" />
+
     <div class="container my-5">
         <!-- Título de la página -->
-        <h2 class="text-center mb-5"><i class="bi bi-shield-x"></i> Desasignar Patentes a Usuario</h2>
+        <h2 class="text-center mb-5" runat="server" data-translate="unassign_patents_title">
+            <i class="bi bi-shield-x"></i> Desasignar Patentes a Usuario
+        </h2>
 
-        <!-- Formulario de eliminación de patentes -->
         <form id="form1" runat="server" class="mb-5">
-            
 
             <!-- Seleccionar Usuario -->
             <div class="mb-4">
-                <label for="selectUsuario" class="form-label"><i class="bi bi-person"></i> Seleccionar Usuario</label>
+                <label for="selectUsuario" class="form-label" runat="server" id="lblSelectUser" data-translate="select_user_label">
+                    <i class="bi bi-person"></i> Seleccionar Usuario
+                </label>
+
                 <select id="selectUsuario" name="usuarioSeleccionado" class="form-select" onchange="this.form.submit()">
-                    <option value="">Selecciona un usuario</option>
+                    <option value="" data-translate="select_user_option">Selecciona un usuario</option>
                     <% foreach (var usuario in Usuarios) { %>
                         <option value="<%= usuario.id_usuario %>" <%= usuario.id_usuario == UsuarioSeleccionadoId ? "selected" : "" %>>
                             <%= usuario.RazonSocial %>
@@ -53,17 +47,21 @@
             <!-- Tabla de Patentes Asignadas -->
             <div class="card shadow mb-5">
                 <div class="card-header card-header-custom">
-                    <h5><i class="bi bi-check-circle"></i> Patentes Asignadas</h5>
+                    <h5 runat="server" id="lblAssignedPatents" data-translate="assigned_patents_title">
+                        <i class="bi bi-check-circle"></i> Patentes Asignadas
+                    </h5>
                 </div>
+
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead>
                             <tr>
-                                <th>Seleccionar</th>
-                                <th>Nombre de Patente</th>
-                                <th>Descripción</th>
+                                <th id="thSelect" runat="server">Seleccionar</th>
+                                <th id="thPatentName" runat="server">Nombre de Patente</th>
+                                <th id="thPatentDesc" runat="server">Descripción</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <% foreach (var patente in PatentesAsignadas) { %>
                                 <tr>
@@ -82,11 +80,14 @@
             <input type="hidden" id="patentesSeleccionadas" name="patentesSeleccionadas" />
 
             <!-- Botón de eliminación -->
-            <asp:Button ID="btnEliminar" runat="server" Text="Desasignar Patentes" CssClass="btn submit-btn btn-danger" OnClientClick="return prepararEnvio();" OnClick="btnEliminar_Click" />
+            <asp:Button ID="btnEliminar" runat="server"
+                Text="Desasignar Patentes"
+                CssClass="btn submit-btn btn-danger"
+                data-translate="unassign_patents_button"
+                OnClientClick="return prepararEnvio();"
+                OnClick="btnEliminar_Click" />
         </form>
     </div>
-
-
 
     <script>
         function prepararEnvio() {
@@ -96,25 +97,12 @@
             });
 
             document.getElementById('patentesSeleccionadas').value = patentesIds.join(',');
-            
-            // Validar que al menos una patente esté seleccionada
+
             if (patentesIds.length === 0) {
                 alert("Por favor, selecciona al menos una patente para desasignar.");
                 return false;
             }
-            
             return true;
-        }
-
-        function filtrarUsuarios() {
-            const filtro = document.getElementById('filtroUsuario').value.toLowerCase();
-            const selectUsuario = document.getElementById('selectUsuario');
-            const opciones = selectUsuario.getElementsByTagName('option');
-
-            for (let i = 1; i < opciones.length; i++) {
-                const texto = opciones[i].textContent.toLowerCase();
-                opciones[i].style.display = texto.includes(filtro) ? '' : 'none';
-            }
         }
     </script>
 </body>

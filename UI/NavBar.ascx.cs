@@ -680,21 +680,17 @@ namespace UI
             menu.Attributes["class"] = "dropdown-menu dropdown-menu-end";
             menu.Attributes["aria-labelledby"] = dropdownId;
 
+            // ✅ arma URLs preservando querystring (id, etc.)
+            string esUrl = BuildLangUrl("es");
+            string enUrl = BuildLangUrl("en");
+
             var españolItem = new HtmlGenericControl("li");
-            var españolLink = new HtmlAnchor
-            {
-                HRef = "?lang=es",
-                InnerText = "Español"
-            };
+            var españolLink = new HtmlAnchor { HRef = esUrl, InnerText = "Español" };
             españolLink.Attributes["class"] = "dropdown-item";
             españolItem.Controls.Add(españolLink);
 
             var englishItem = new HtmlGenericControl("li");
-            var englishLink = new HtmlAnchor
-            {
-                HRef = "?lang=en",
-                InnerText = "English"
-            };
+            var englishLink = new HtmlAnchor { HRef = enUrl, InnerText = "English" };
             englishLink.Attributes["class"] = "dropdown-item";
             englishItem.Controls.Add(englishLink);
 
@@ -702,8 +698,20 @@ namespace UI
             menu.Controls.Add(englishItem);
 
             dropdownDiv.Controls.Add(menu);
-
             return dropdownDiv;
+        }
+
+        private string BuildLangUrl(string lang)
+        {
+            var uri = Request.Url; // URL completa actual
+            var qs = HttpUtility.ParseQueryString(uri.Query);
+
+            qs.Set("lang", lang); // agrega o reemplaza lang
+
+            string path = uri.AbsolutePath; // /42-ModificarFamilias.aspx
+            string newQuery = qs.ToString();
+
+            return string.IsNullOrEmpty(newQuery) ? path : $"{path}?{newQuery}";
         }
 
 

@@ -4,13 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Registro de Usuario</title>
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #004d40; /* Cambiado a un verde oscuro */
+            background-color: #004d40;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -72,62 +74,65 @@
             color: red;
             font-size: 14px;
         }
-
-        /* Animación de botones */
-        .btn-register {
-            transform: translateY(0);
-            animation: buttonHover 0.3s ease-in-out;
-        }
-
-        @keyframes buttonHover {
-            from { transform: translateY(-3px); }
-            to { transform: translateY(0); }
-        }
     </style>
 </head>
 
 <body>
     <form id="form1" runat="server">
         <div class="register-container">
-            <!-- Mensaje de error -->
             <asp:Label ID="lblError" runat="server" CssClass="error-label" Visible="false"></asp:Label>
-            
-            <!-- Encabezado -->
-            <h2>Registro de Usuario</h2>
-            
-            <!-- Email -->
-            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Email" TextMode="Email" OnTextChanged="txtEmail_TextChanged"></asp:TextBox>
-            
-            <!-- Contraseña -->
-            <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" Placeholder="Contraseña" TextMode="Password"></asp:TextBox>
-            
-            <!-- Razón Social -->
-            <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Placeholder="Razón Social"></asp:TextBox>
-            
-            <!-- Identificación -->
-            <asp:TextBox ID="txtIdentificacion" runat="server" CssClass="form-control" Placeholder="Identificación"></asp:TextBox>
-            
-            <!-- Nombre -->
-            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Placeholder="Nombre"></asp:TextBox>
-            
-            <!-- Apellido -->
-            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" Placeholder="Apellido"></asp:TextBox>
-            
-            <!-- Tipo de Documento -->
+
+            <h2 runat="server" data-translate="register_title">Registro de Usuario</h2>
+
+            <asp:TextBox ID="txtEmail" runat="server"
+                CssClass="form-control"
+                Placeholder="Email"
+                TextMode="Email"
+                data-translate="register_email_placeholder"
+                OnTextChanged="txtEmail_TextChanged" />
+
+            <asp:TextBox ID="txtPassword" runat="server"
+                CssClass="form-control"
+                Placeholder="Contraseña"
+                TextMode="Password"
+                data-translate="register_password_placeholder" />
+
+            <asp:TextBox ID="txtRazonSocial" runat="server"
+                CssClass="form-control"
+                Placeholder="Razón Social"
+                data-translate="register_business_name_placeholder" />
+
+            <asp:TextBox ID="txtIdentificacion" runat="server"
+                CssClass="form-control"
+                Placeholder="Identificación"
+                data-translate="register_identification_placeholder" />
+
+            <asp:TextBox ID="txtNombre" runat="server"
+                CssClass="form-control"
+                Placeholder="Nombre"
+                data-translate="register_firstname_placeholder" />
+
+            <asp:TextBox ID="txtApellido" runat="server"
+                CssClass="form-control"
+                Placeholder="Apellido"
+                data-translate="register_lastname_placeholder" />
+
             <asp:DropDownList ID="ddlTipoDocumento" runat="server" CssClass="form-select">
                 <asp:ListItem Value="DNI">DNI</asp:ListItem>
                 <asp:ListItem Value="CUIT">CUIT</asp:ListItem>
                 <asp:ListItem Value="Pasaporte">Pasaporte</asp:ListItem>
             </asp:DropDownList>
-            
-            <!-- Tipo Cliente -->
+
             <asp:DropDownList ID="ddlTipoCliente" runat="server" CssClass="form-select">
                 <asp:ListItem Value="Consumidor Final">Consumidor Final</asp:ListItem>
                 <asp:ListItem Value="Responsable Inscripto">Responsable Inscripto</asp:ListItem>
             </asp:DropDownList>
-            
-            <!-- Botón de Registro -->
-            <asp:Button ID="btnRegister" runat="server" CssClass="btn btn-register" Text="Registrarse" OnClick="btnRegister_Click" />
+
+            <asp:Button ID="btnRegister" runat="server"
+                CssClass="btn btn-register"
+                Text="Registrarse"
+                data-translate="register_button"
+                OnClick="btnRegister_Click" />
         </div>
     </form>
 </body>

@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="111-EditarDatos.aspx.cs" Inherits="UI._111_EditarDatos" %>
 <%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">
@@ -14,16 +15,14 @@
             margin: 0;
         }
 
-        /* Contenedor de toda la página (debajo del navbar) */
         .page-wrapper {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* Zona donde centramos el formulario */
         .form-wrapper {
-            flex: 1; /* ocupa el alto disponible */
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -55,6 +54,7 @@
         .form-control:focus {
             box-shadow: 0 4px 12px rgba(0, 121, 107, 0.2);
         }
+
         .btn-primary {
             background-color: #00796b;
             border-color: #00796b;
@@ -73,33 +73,51 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- Navbar fijo arriba -->
     <uc:Navbar ID="navigationBar" runat="server" />
 
     <form id="form1" runat="server">
         <div class="page-wrapper">
-            <!-- Contenido centrado -->
             <div class="form-wrapper">
                 <div class="form-container">
-                    <h2>Editar Datos del Negocio</h2>
+                    <h2 runat="server" data-translate="edit_business_title">
+                        Editar Datos del Negocio
+                    </h2>
 
                     <div class="mb-3">
-                        <asp:TextBox ID="txtRazonSocial" runat="server" CssClass="form-control" Placeholder="Razón Social" />
+                        <asp:TextBox ID="txtRazonSocial" runat="server"
+                            CssClass="form-control"
+                            Placeholder="Razón Social"
+                            data-translate="business_name_placeholder" />
                     </div>
+
                     <div class="mb-3">
-                        <asp:TextBox ID="txtIdentificacion" runat="server" CssClass="form-control" Placeholder="Identificación" />
+                        <asp:TextBox ID="txtIdentificacion" runat="server"
+                            CssClass="form-control"
+                            Placeholder="Identificación"
+                            data-translate="business_id_placeholder" />
                     </div>
+
                     <div class="mb-3">
-                        <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Placeholder="Dirección" />
+                        <asp:TextBox ID="txtDireccion" runat="server"
+                            CssClass="form-control"
+                            Placeholder="Dirección"
+                            data-translate="business_address_placeholder" />
                     </div>
+
                     <div class="mb-3">
-                        <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Placeholder="Teléfono" TextMode="Phone" />
+                        <asp:TextBox ID="txtTelefono" runat="server"
+                            CssClass="form-control"
+                            Placeholder="Teléfono"
+                            TextMode="Phone"
+                            data-translate="business_phone_placeholder" />
                     </div>
 
                     <asp:Button ID="btnGuardar" runat="server"
                         Text="Guardar"
                         CssClass="btn btn-primary w-100 mb-3"
+                        data-translate="save_button"
                         OnClick="btnGuardar_Click" />
 
                     <asp:Label ID="lblMessage" runat="server" ForeColor="Red" CssClass="d-block mb-3"></asp:Label>
