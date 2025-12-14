@@ -80,9 +80,10 @@ namespace BLL
 
                 return xValido;
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                throw new Exception("DV ERROR: " + ex.Message, ex);
+                //return false;
             }
 
         }

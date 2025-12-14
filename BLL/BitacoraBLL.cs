@@ -56,5 +56,26 @@ namespace BLL
 
             return bitacora;
         }
+
+        public void DepurarBitacora(DateTime? desde, DateTime? hastaExclusivo)
+        {
+            try
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    BitacoraDAL.DepurarBitacora(desde, hastaExclusivo);
+
+                    // Recalcular DVV Bitacora después del borrado
+                    dvs.AltaDVV("Bitacora");
+
+                    scope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

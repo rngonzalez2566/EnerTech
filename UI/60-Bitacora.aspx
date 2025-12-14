@@ -113,6 +113,66 @@
             font-size: 16px;
             color: #333;
         }
+
+        .actions-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Botón compacto */
+        .btn-action {
+            width: auto !important; /* evita que ocupen todo el ancho */
+            min-width: 140px; /* tamaño parejo */
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Colores */
+        .btn-search {
+            background: #00796b;
+        }
+            /* tu verde actual */
+            .btn-search:hover {
+                background: #005f56;
+            }
+
+        .btn-export {
+            background: #0d6efd;
+        }
+            /* azul */
+            .btn-export:hover {
+                background: #0b5ed7;
+            }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+            /* rojo */
+            .btn-danger:hover {
+                background: #bb2d3b;
+            }
+
+        /* Checkbox inline prolijo */
+        .purge-confirm {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 14px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -144,8 +204,33 @@
                     <asp:TextBox ID="txtFechaHasta" runat="server" TextMode="Date"></asp:TextBox>
                 </div>
 
-                <div style="flex-basis: 100%; text-align: center;">
-                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" data-translate="search_button" OnClick="btnBuscar_Click" />
+                <div class="actions-row">
+                    <asp:Button ID="btnBuscar" runat="server"
+                        Text="Buscar"
+                        CssClass="btn-action btn-search"
+                        data-translate="search_button"
+                        OnClick="btnBuscar_Click" />
+
+                    <asp:Button ID="btnExportJson" runat="server"
+                        Text="Exportar JSON"
+                        CssClass="btn-action btn-export"
+                        OnClick="btnExportJson_Click" />
+
+                    <asp:Button ID="btnExportXml" runat="server"
+                        Text="Exportar XML"
+                        CssClass="btn-action btn-export"
+                        OnClick="btnExportXml_Click" />
+
+                    <div class="purge-confirm">
+                        <asp:CheckBox ID="chkConfirmPurge" runat="server" />
+                        <span>Confirmo borrar el rango</span>
+                    </div>
+
+                    <asp:Button ID="btnDepurar" runat="server"
+                        Text="Depurar"
+                        CssClass="btn-action btn-danger"
+                        OnClick="btnDepurar_Click"
+                        OnClientClick="return confirm('¿Seguro? Se exportará y luego se borrará la bitácora en el rango seleccionado.');" />
                 </div>
             </div>
 

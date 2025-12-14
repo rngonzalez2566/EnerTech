@@ -77,5 +77,31 @@ namespace DAL
                 throw new Exception(ErrorMessages.ERR001);
             }
         }
+
+        public void DepurarBitacora(DateTime? desde, DateTime? hastaExclusivo)
+        {
+            try
+            {
+                // Si no mandan fechas, NO BORRAMOS NADA (seguridad)
+                if (!desde.HasValue && !hastaExclusivo.HasValue)
+                    throw new Exception("Debe indicar al menos una fecha para depurar.");
+
+                xCommandText = @"
+                                DELETE FROM Bitacora
+                                WHERE (@desde IS NULL OR Fecha >= @desde)
+                                  AND (@hasta IS NULL OR Fecha < @hasta);";
+
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@desde", (object)desde ?? DBNull.Value);
+                xParameters.Parameters.AddWithValue("@hasta", (object)hastaExclusivo ?? DBNull.Value);
+
+                executeNonQuery();
+            }
+            catch
+            {
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
     }
 }

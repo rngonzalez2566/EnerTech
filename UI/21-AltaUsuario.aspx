@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Registro de Usuario" Language="C#" AutoEventWireup="true" CodeBehind="21-AltaUsuario.aspx.cs" Inherits="UI._21_AltaUsuario" %>
+<%@ Register Src="~/controls/ValidarAltaUsuario.ascx" TagPrefix="uc" TagName="ValidarAltaUsuario" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -43,7 +44,7 @@
 
         .form-control {
             border-radius: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 6px;
             transition: all 0.3s ease;
         }
 
@@ -67,7 +68,7 @@
 
         .form-select {
             border-radius: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .error-label {
@@ -80,58 +81,19 @@
 <body>
     <form id="form1" runat="server">
         <div class="register-container">
+
             <asp:Label ID="lblError" runat="server" CssClass="error-label" Visible="false"></asp:Label>
 
             <h2 runat="server" data-translate="register_title">Registro de Usuario</h2>
 
-            <asp:TextBox ID="txtEmail" runat="server"
-                CssClass="form-control"
-                Placeholder="Email"
-                TextMode="Email"
-                data-translate="register_email_placeholder"
-                OnTextChanged="txtEmail_TextChanged" />
-
-            <asp:TextBox ID="txtPassword" runat="server"
-                CssClass="form-control"
-                Placeholder="Contraseña"
-                TextMode="Password"
-                data-translate="register_password_placeholder" />
-
-            <asp:TextBox ID="txtRazonSocial" runat="server"
-                CssClass="form-control"
-                Placeholder="Razón Social"
-                data-translate="register_business_name_placeholder" />
-
-            <asp:TextBox ID="txtIdentificacion" runat="server"
-                CssClass="form-control"
-                Placeholder="Identificación"
-                data-translate="register_identification_placeholder" />
-
-            <asp:TextBox ID="txtNombre" runat="server"
-                CssClass="form-control"
-                Placeholder="Nombre"
-                data-translate="register_firstname_placeholder" />
-
-            <asp:TextBox ID="txtApellido" runat="server"
-                CssClass="form-control"
-                Placeholder="Apellido"
-                data-translate="register_lastname_placeholder" />
-
-            <asp:DropDownList ID="ddlTipoDocumento" runat="server" CssClass="form-select">
-                <asp:ListItem Value="DNI">DNI</asp:ListItem>
-                <asp:ListItem Value="CUIT">CUIT</asp:ListItem>
-                <asp:ListItem Value="Pasaporte">Pasaporte</asp:ListItem>
-            </asp:DropDownList>
-
-            <asp:DropDownList ID="ddlTipoCliente" runat="server" CssClass="form-select">
-                <asp:ListItem Value="Consumidor Final">Consumidor Final</asp:ListItem>
-                <asp:ListItem Value="Responsable Inscripto">Responsable Inscripto</asp:ListItem>
-            </asp:DropDownList>
+            <!-- ✅ CONTROL DE VALIDACIÓN (TODO EL FORMULARIO ADENTRO) -->
+            <uc:ValidarAltaUsuario ID="ValidarAltaUsuarioControl" runat="server" />
 
             <asp:Button ID="btnRegister" runat="server"
                 CssClass="btn btn-register"
                 Text="Registrarse"
                 data-translate="register_button"
+                ValidationGroup="AltaUsuario"
                 OnClick="btnRegister_Click" />
         </div>
     </form>

@@ -24,25 +24,32 @@ namespace UI
                 IdiomaManager.Instance.RegistrarObservador(this);
             }
 
-            // 2) Traducir siempre
+            // 2) Traducir siempre (incluye el UserControl porque es parte del árbol de controles)
             AplicarTraducciones(this);
             TraducirCombos();
         }
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            lblError.Visible = false;
+            lblError.Text = "";
+
+            // ✅ Si falla, los validators ya muestran el mensaje debajo del campo
+            if (!Page.IsValid)
+                return;
+
             try
             {
                 UsuarioBE usuario = new UsuarioBE()
                 {
-                    Nombre = txtNombre.Text,
-                    Apellido = txtApellido.Text,
-                    Email = txtEmail.Text,
-                    Password = txtPassword.Text,
-                    RazonSocial = txtRazonSocial.Text,
-                    Identificacion = int.Parse(txtIdentificacion.Text),
-                    TipoCliente = ddlTipoCliente.SelectedValue,
-                    TipoDocumento = ddlTipoDocumento.SelectedValue,
+                    Nombre = ValidarAltaUsuarioControl.NombreValue,
+                    Apellido = ValidarAltaUsuarioControl.ApellidoValue,
+                    Email = ValidarAltaUsuarioControl.EmailValue,
+                    Password = ValidarAltaUsuarioControl.PasswordValue,
+                    RazonSocial = ValidarAltaUsuarioControl.RazonSocialValue,
+                    Identificacion = int.Parse(ValidarAltaUsuarioControl.IdentificacionValue),
+                    TipoCliente = ValidarAltaUsuarioControl.TipoClienteValue,
+                    TipoDocumento = ValidarAltaUsuarioControl.TipoDocumentoValue,
                     Estado = "Activo"
                 };
 
@@ -55,8 +62,6 @@ namespace UI
                 lblError.Visible = true;
             }
         }
-
-        protected void txtEmail_TextChanged(object sender, EventArgs e) { }
 
         // ==== TRADUCCIONES ====
 
@@ -95,18 +100,20 @@ namespace UI
 
         private void TraducirCombos()
         {
-            // Tipo Documento
-            TraducirListItem(ddlTipoDocumento, "DNI", "doc_dni");
-            TraducirListItem(ddlTipoDocumento, "CUIT", "doc_cuit");
-            TraducirListItem(ddlTipoDocumento, "Pasaporte", "doc_passport");
+            // Tipo Documento (están dentro del UserControl)
+            TraducirListItem(ValidarAltaUsuarioControl.FindControl("ddlTipoDocumento") as DropDownList, "DNI", "doc_dni");
+            TraducirListItem(ValidarAltaUsuarioControl.FindControl("ddlTipoDocumento") as DropDownList, "CUIT", "doc_cuit");
+            TraducirListItem(ValidarAltaUsuarioControl.FindControl("ddlTipoDocumento") as DropDownList, "Pasaporte", "doc_passport");
 
             // Tipo Cliente
-            TraducirListItem(ddlTipoCliente, "Consumidor Final", "client_final_consumer");
-            TraducirListItem(ddlTipoCliente, "Responsable Inscripto", "client_registered");
+            TraducirListItem(ValidarAltaUsuarioControl.FindControl("ddlTipoCliente") as DropDownList, "Consumidor Final", "client_final_consumer");
+            TraducirListItem(ValidarAltaUsuarioControl.FindControl("ddlTipoCliente") as DropDownList, "Responsable Inscripto", "client_registered");
         }
 
         private void TraducirListItem(DropDownList ddl, string value, string key)
         {
+            if (ddl == null) return;
+
             ListItem item = ddl.Items.FindByValue(value);
             if (item == null) return;
 

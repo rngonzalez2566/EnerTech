@@ -225,5 +225,139 @@ namespace UI
         {
             IdiomaManager.Instance.EliminarObservador(this);
         }
+        private (DateTime? desde, DateTime? hastaExclusivo) GetRangoFechas()
+        {
+            DateTime? fechaDesde = string.IsNullOrEmpty(txtFechaDesde.Text) ? (DateTime?)null : DateTime.Parse(txtFechaDesde.Text);
+            DateTime? fechaHasta = string.IsNullOrEmpty(txtFechaHasta.Text) ? (DateTime?)null : DateTime.Parse(txtFechaHasta.Text);
+
+            if (fechaDesde.HasValue && fechaHasta.HasValue && fechaDesde > fechaHasta)
+                throw new Exception(ErrorMessages.ERR026);
+
+            // hacemos "hasta" exclusivo para incluir todo el día (00:00 del día siguiente)
+            DateTime? hastaExclusivo = null;
+            if (fechaHasta.HasValue)
+                hastaExclusivo = fechaHasta.Value.Date.AddDays(1);
+
+            return (fechaDesde, hastaExclusivo);
+        }
+
+        private List<BitacoraBE> FiltrarBitacora(string usuario, string criticidad, DateTime? desde, DateTime? hastaExclusivo)
+        {
+            var allRecords = _bitacoraService.GetBitacora();
+
+            if (!string.IsNullOrEmpty(usuario))
+                allRecords = allRecords.Where(r => r.usuario.Nombre.Contains(usuario)).ToList();
+
+            if (!string.IsNullOrEmpty(criticidad))
+                allRecords = allRecords.Where(r => r.Criticidad.Equals(criticidad, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (desde.HasValue)
+                allRecords = allRecords.Where(r => r.Fecha >= desde.Value).ToList();
+
+            if (hastaExclusivo.HasValue)
+                allRecords = allRecords.Where(r => r.Fecha < hastaExclusivo.Value).ToList();
+
+            return allRecords;
+        }
+
+        protected void btnExportJson_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string usuario = txtUsuario.Text.Trim();
+                string criticidad = ddlCriticidad.SelectedValue;
+                var (desde, hastaExclusivo) = GetRangoFechas();
+
+                var data = FiltrarBitacora(usuario, criticidad, desde, hastaExclusivo);
+
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.AddHeader("Content-Disposition", "attachment; filename=bitacora.json");
+                Response.Write(json);
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Visible = true;
+                lblErrorMessage.Text = ex.Message;
+            }
+        }
+
+        protected void btnExportXml_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string usuario = txtUsuario.Text.Trim();
+                string criticidad = ddlCriticidad.SelectedValue;
+                var (desde, hastaExclusivo) = GetRangoFechas();
+
+                var data = FiltrarBitacora(usuario, criticidad, desde, hastaExclusivo);
+
+                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(List<BitacoraBE>));
+                using (var sw = new System.IO.StringWriter())
+                {
+                    serializer.Serialize(sw, data);
+                    string xml = sw.ToString();
+
+                    Response.Clear();
+                    Response.ContentType = "application/xml";
+                    Response.AddHeader("Content-Disposition", "attachment; filename=bitacora.xml");
+                    Response.Write(xml);
+                    Response.End();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Visible = true;
+                lblErrorMessage.Text = ex.Message;
+            }
+        }
+
+        protected void btnDepurar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!chkConfirmPurge.Checked)
+                {
+                    lblErrorMessage.Visible = true;
+                    lblErrorMessage.Text = "Debes confirmar el borrado.";
+                    return;
+                }
+
+                string usuario = txtUsuario.Text.Trim();
+                string criticidad = ddlCriticidad.SelectedValue;
+                var (desde, hastaExclusivo) = GetRangoFechas();
+
+                // 1) Exportar backup (de lo filtrado)
+                var data = FiltrarBitacora(usuario, criticidad, desde, hastaExclusivo);
+                string json = Newtonsoft.Json.JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+
+                // 2) Borrar en DB SOLO por rango de fechas (recomendado)
+                // (Si querés que también borre por usuario/criticidad, se puede, pero hoy lo dejamos por fecha)
+                _bitacoraService.DepurarBitacora(desde, hastaExclusivo);
+
+                // 3) Recargar grilla
+                CurrentPage = 1;
+                CargarRegistros(CurrentPage, string.Empty, string.Empty, null, null);
+
+                // 4) Descargar backup
+                Response.Clear();
+                Response.ContentType = "application/json";
+                Response.AddHeader("Content-Disposition", "attachment; filename=bitacora_backup_antes_depurar.json");
+                Response.Write(json);
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                lblErrorMessage.Visible = true;
+                lblErrorMessage.Text = ex.Message;
+            }
+        }
+
+
+
+
     }
 }

@@ -253,6 +253,8 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="controls\ValidarAltaProducto.ascx" />
+    <Content Include="controls\ValidarAltaUsuario.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleCompra.aspx" />
     <Content Include="ErrorCodes.aspx" />
@@ -522,6 +524,20 @@
     </Compile>
     <Compile Include="CambiarIdioma.aspx.designer.cs">
       <DependentUpon>CambiarIdioma.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ValidarAltaProducto.ascx.cs">
+      <DependentUpon>ValidarAltaProducto.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ValidarAltaProducto.ascx.designer.cs">
+      <DependentUpon>ValidarAltaProducto.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ValidarAltaUsuario.ascx.cs">
+      <DependentUpon>ValidarAltaUsuario.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ValidarAltaUsuario.ascx.designer.cs">
+      <DependentUpon>ValidarAltaUsuario.ascx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
