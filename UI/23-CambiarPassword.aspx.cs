@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿using BE;
+using BLL;
 using Services;
 using System;
 using System.Web.UI;
@@ -40,26 +41,47 @@ namespace UI
             string newPassword = txtNewPassword.Text.Trim();
             string confirmPassword = txtConfirmPassword.Text.Trim();
 
-            if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+            if (string.IsNullOrEmpty(currentPassword) ||
+                string.IsNullOrEmpty(newPassword) ||
+                string.IsNullOrEmpty(confirmPassword))
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Por favor, complete todos los campos.');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "alert", "alert('Por favor complete todos los campos');", true);
                 return;
             }
 
             if (newPassword != confirmPassword)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('La nueva contraseña y su confirmación no coinciden.');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "alert", "alert('La nueva contraseña no coincide');", true);
                 return;
             }
 
-            bool passwordChanged = true; // TODO: tu lógica real
-            if (passwordChanged)
+            try
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('La contraseña se cambió correctamente.');", true);
+                var usuario = (UsuarioBE)Session["Usuario"];
+                if (usuario == null)
+                    throw new Exception("Sesión expirada");
+
+                UsuarioBLL bll = new UsuarioBLL();
+
+                bll.CambiarPassword(
+                    usuario.id_usuario,
+                    currentPassword,
+                    newPassword
+                );
+
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "alert", "alert('Contraseña cambiada correctamente');", true);
+
+                txtCurrentPassword.Text = "";
+                txtNewPassword.Text = "";
+                txtConfirmPassword.Text = "";
             }
-            else
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), "alert", "alert('Error al cambiar la contraseña. Por favor, intente nuevamente.');", true);
+                ScriptManager.RegisterStartupScript(this, GetType(),
+                    "alert", $"alert('{ex.Message}');", true);
             }
         }
 

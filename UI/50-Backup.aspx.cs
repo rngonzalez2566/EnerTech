@@ -1,6 +1,8 @@
-﻿using BLL;
+﻿using BE;
+using BLL;
 using Services;
 using System;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,6 +14,27 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            var session = new SessionManager();
+            UsuarioBE usuario = session.Get<UsuarioBE>("Usuario");
+
+            if (usuario == null)
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            string usuarioEmergencia = ConfigurationManager.AppSettings["usuario"];
+            if (
+                    usuario.Email != usuarioEmergencia &&
+                    !PermisoCheck.VerificarPermiso(usuario.Permisos, BE.Enums.Permiso.AdministracionBaseDeDatos)
+                )
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
             try
             {
                 if (!IsPostBack)

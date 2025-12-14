@@ -21,33 +21,24 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 1) Cambiar idioma si viene en querystring ANTES de traducir
             string idioma = Request.QueryString["lang"];
             if (!string.IsNullOrEmpty(idioma))
                 IdiomaManager.Instance.CambiarIdioma(idioma);
 
+            // 🔴 SIEMPRE obtener el ID
+            if (!int.TryParse(Request.QueryString["id"], out _familiaId))
+                _familiaId = 0;
+
             if (!IsPostBack)
             {
                 IdiomaManager.Instance.RegistrarObservador(this);
-
-                // Cargar datos
-                _familiaId = int.Parse(Request.QueryString["id"]);
-                CargarFamiliasPatentes();
-
-                // Traducir controles (texto + botones)
-                AplicarTraducciones(this);
-
-                // Si querés traducir placeholders (inputs HTML)
-                TraducirPlaceholders();
-
-                // Si tenés GridView, acá sería el lugar de traducir headers (en esta página no hay GridView)
             }
-            else
-            {
-                // En postback: el usuario pudo cambiar idioma desde navbar (observador)
-                AplicarTraducciones(this);
-                TraducirPlaceholders();
-            }
+
+            // ✅ SIEMPRE cargar datos (GET y POST)
+            CargarFamiliasPatentes();
+
+            AplicarTraducciones(this);
+            TraducirPlaceholders();
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -57,8 +48,8 @@ namespace UI
                 string nombreFamilia = Request.Form["nombreFamilia"];
                 string patentesSeleccionadas = Request.Form["patentesSeleccionadas"];
 
-                string[] patentesIds = (patentesSeleccionadas ?? "")
-                    .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] patentesIds = patentesSeleccionadas.Split(',');
+                   
 
                 if (!string.IsNullOrEmpty(nombreFamilia) && patentesIds.Length > 0)
                 {

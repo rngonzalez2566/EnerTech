@@ -19,12 +19,20 @@ namespace UI
         SessionManager _sessionManager = new SessionManager();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //usuario = _usuarioService.Login("UAC@gmail.com", "S@nlorenzo2566");
-            //_sessionManager.Set("Usuario", usuario);
-            usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+           
+             usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+
             if (usuario == null)
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            if (!PermisoCheck.VerificarPermiso(usuario.Permisos, BE.Enums.Permiso.Catalogo))
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
                 return;
             }
 

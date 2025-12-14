@@ -1,5 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="41-CrearFamilias.aspx.cs" Inherits="UI._41_CrearFamilias" %>
+
 <%@ Register Src="~/Navbar.ascx" TagPrefix="uc" TagName="Navbar" %>
+<%@ Register Src="~/controls/ValidarCrearFamilia.ascx"
+    TagPrefix="uc"
+    TagName="ValidarCrearFamilia" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +14,15 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
     <style>
-        .card-header-custom { background-color: #007bff; color: white; }
-        .submit-btn { background-color: #28a745; color: white; }
+        .card-header-custom {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+        }
     </style>
 </head>
 
@@ -21,34 +33,28 @@
     <div class="container my-5">
         <!-- Título de la página -->
         <h2 class="text-center mb-5" runat="server" data-translate="family_create_title">
-            <i class="bi bi-folder-plus"></i> Alta de Familia
+            <i class="bi bi-folder-plus"></i>Alta de Familia
         </h2>
 
         <form id="form1" runat="server" class="mb-5">
             <div class="card shadow-lg border-0 mb-5">
                 <div class="card-body">
-                    <h4 class="mb-4" runat="server" data-translate="family_create_details_title">
-                        Detalles de la Familia
+                    <h4 class="mb-4" runat="server" data-translate="family_create_details_title">Detalles de la Familia
                     </h4>
+                    <uc:ValidarCrearFamilia
+                        ID="ValidarCrearFamiliaControl"
+                        runat="server" />
 
-                    <div class="mb-3">
-                        <label for="nombreFamilia" class="form-label" runat="server" data-translate="family_create_name_label">
-                            Nombre de Familia
-                        </label>
-
-                        <!-- input html: si querés placeholder traducible, usá un span hidden o convertí a asp:TextBox -->
-                        <input type="text" id="nombreFamilia" name="nombreFamilia" class="form-control" required />
-                    </div>
                 </div>
             </div>
 
             <!-- Botón traducible -->
-            <asp:Button ID="btnCrear" runat="server"
-                Text="Crear"
-                CssClass="btn submit-btn btn-success"
-                data-translate="family_create_btn_create"
-                OnClientClick="return prepararEnvio();"
-                OnClick="btnCrear_Click" />
+           <asp:Button ID="btnCrear" runat="server"
+    Text="Crear"
+    CssClass="btn submit-btn btn-success"
+    data-translate="family_create_btn_create"
+    ValidationGroup="CrearFamilia"
+    OnClick="btnCrear_Click" />
         </form>
     </div>
 

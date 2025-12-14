@@ -1,7 +1,9 @@
 ﻿using BE;
 using BLL;
+using Services;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web.UI;
@@ -18,6 +20,24 @@ namespace UI
         private IdiomaManager _idiomaManager = IdiomaManager.Instance;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            var session = new SessionManager();
+            UsuarioBE usuario = session.Get<UsuarioBE>("Usuario");
+
+            if (usuario == null)
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            if (!PermisoCheck.VerificarPermiso(usuario.Permisos, BE.Enums.Permiso.AdministracionProductos))
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
             // Leer idioma del querystring, igual que en las otras páginas
             string idiomaSeleccionado = Request.QueryString["lang"];
             if (!string.IsNullOrEmpty(idiomaSeleccionado))

@@ -90,22 +90,25 @@ namespace UI
 
         protected void btnCrear_Click(object sender, EventArgs e)
         {
+            if (!Page.IsValid)
+                return;
+
             try
             {
-                string nombreFamilia = Request.Form["nombreFamilia"];
-                string patentesSeleccionadas = Request.Form["patentesSeleccionadas"]; // si no usás patentes, esto puede venir null
-
-                string[] patentesIds = string.IsNullOrEmpty(patentesSeleccionadas)
-                    ? new string[0]
-                    : patentesSeleccionadas.Split(',');
+                string nombreFamilia = ValidarCrearFamiliaControl.NombreFamilia;
 
                 if (!string.IsNullOrEmpty(nombreFamilia))
                 {
-                    GuardarFamilia(nombreFamilia, patentesIds);
+                    GuardarFamilia(nombreFamilia, new string[0]);
+                    ValidarCrearFamiliaControl.Limpiar();
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                
+            }
         }
+
 
         private void GuardarFamilia(string nombreFamilia, string[] patentesIds)
         {

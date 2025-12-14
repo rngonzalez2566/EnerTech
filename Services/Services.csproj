@@ -47,6 +47,7 @@
     <Compile Include="EmailService.cs" />
     <Compile Include="Encriptador.cs" />
     <Compile Include="ErrorMessages.cs" />
+    <Compile Include="PermisoCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

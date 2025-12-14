@@ -19,6 +19,24 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            var session = new SessionManager();
+            UsuarioBE usuario = session.Get<UsuarioBE>("Usuario");
+
+            if (usuario == null)
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            if (!PermisoCheck.VerificarPermiso(usuario.Permisos, BE.Enums.Permiso.ModificarProducto))
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
             try
             {
                 if (!IsPostBack)
@@ -48,65 +66,85 @@ namespace UI
             if (producto == null)
                 return;
 
-            txtCodigo.Text = producto.Codigo;
-            txtDescripcion.Text = producto.Descripcion;
-            txtCantidad.Text = producto.Cantidad.ToString();
-            txtPrecio.Text = producto.Precio.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
             // Cargar combos
             List<MarcaBE> marcas = _serviceMarca.GetMarcas();
             List<CategoriaBE> categorias = _serviceCategoria.GetCategorias();
             List<CodigoIVA> ivas = CodigoIVA.ObtenerListaIVA();
 
-            ddlMarca.DataSource = marcas;
-            ddlMarca.DataTextField = "Nombre";
-            ddlMarca.DataValueField = "id_marca";
-            ddlMarca.DataBind();
-            ddlMarca.SelectedValue = producto.Marca.id_marca.ToString();
+            // Marcas
+            ValidarModificacionProductoControl.DdlMarca.DataSource = marcas;
+            ValidarModificacionProductoControl.DdlMarca.DataTextField = "Nombre";
+            ValidarModificacionProductoControl.DdlMarca.DataValueField = "id_marca";
+            ValidarModificacionProductoControl.DdlMarca.DataBind();
+            ValidarModificacionProductoControl.DdlMarca.Items.Insert(0, new ListItem("Seleccione una marca", ""));
 
-            ddlCategoria.DataSource = categorias;
-            ddlCategoria.DataTextField = "Nombre";
-            ddlCategoria.DataValueField = "id_categoria";
-            ddlCategoria.DataBind();
-            ddlCategoria.SelectedValue = producto.Categoria.id_categoria.ToString();
+            // Categorias
+            ValidarModificacionProductoControl.DdlCategoria.DataSource = categorias;
+            ValidarModificacionProductoControl.DdlCategoria.DataTextField = "Nombre";
+            ValidarModificacionProductoControl.DdlCategoria.DataValueField = "id_categoria";
+            ValidarModificacionProductoControl.DdlCategoria.DataBind();
+            ValidarModificacionProductoControl.DdlCategoria.Items.Insert(0, new ListItem("Seleccione una categoría", ""));
 
-            ddlIVA.DataSource = ivas;
-            ddlIVA.DataTextField = "Porcentaje";
-            ddlIVA.DataValueField = "Codigo";
-            ddlIVA.DataBind();
+            // IVA
+            ValidarModificacionProductoControl.DdlIVA.DataSource = ivas;
+            ValidarModificacionProductoControl.DdlIVA.DataTextField = "Porcentaje";
+            ValidarModificacionProductoControl.DdlIVA.DataValueField = "Codigo";
+            ValidarModificacionProductoControl.DdlIVA.DataBind();
+            ValidarModificacionProductoControl.DdlIVA.Items.Insert(0, new ListItem("Seleccione una Tasa de IVA", ""));
+
+            // Setear valores
+            ValidarModificacionProductoControl.CodigoValue = producto.Codigo;
+            ValidarModificacionProductoControl.DescripcionValue = producto.Descripcion;
+            ValidarModificacionProductoControl.CantidadValue = producto.Cantidad.ToString();
+            ValidarModificacionProductoControl.PrecioValue = producto.Precio.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+            ValidarModificacionProductoControl.MarcaValue = producto.Marca.id_marca.ToString();
+            ValidarModificacionProductoControl.CategoriaValue = producto.Categoria.id_categoria.ToString();
+
+            // Si tu ProductoBE tiene codigoIVA con Codigo, podés setearlo así:
+            // (si no coincide, decime cómo viene tu producto.codigoIVA)
+            if (producto.codigoIVA != null)
+                ValidarModificacionProductoControl.IvaValue = producto.codigoIVA.Codigo.ToString();
 
             if (!string.IsNullOrEmpty(producto.Imagen))
             {
-                imgProducto.ImageUrl = producto.Imagen;
-                imgProducto.Visible = true;
+                ValidarModificacionProductoControl.ImgProducto.ImageUrl = producto.Imagen;
+                ValidarModificacionProductoControl.ImgProducto.Visible = true;
             }
         }
 
-        protected void btnGuardarCambios_Click(object sender, EventArgs e)
+        
+
+    protected void btnGuardarCambios_Click(object sender, EventArgs e)
         {
+            lblMessage.Text = "";
+
+            if (!Page.IsValid)
+                return;
+
             try
             {
-                int codIva = Convert.ToInt32(ddlIVA.SelectedValue);
+                int codIva = Convert.ToInt32(ValidarModificacionProductoControl.IvaValue);
 
-                string imagenPath = imgProducto.ImageUrl;
+                string imagenPath = ValidarModificacionProductoControl.ImgProducto.ImageUrl;
 
-                if (fuImagen.HasFile)
+                if (ValidarModificacionProductoControl.FuImagen.HasFile)
                 {
-                    string fileName = Path.GetFileName(fuImagen.FileName);
+                    string fileName = Path.GetFileName(ValidarModificacionProductoControl.FuImagen.FileName);
                     string path = Server.MapPath("~/Images/") + fileName;
-                    fuImagen.SaveAs(path);
+                    ValidarModificacionProductoControl.FuImagen.SaveAs(path);
                     imagenPath = "~/Images/" + fileName;
                 }
 
                 var producto = new ProductoBE
                 {
-                    Codigo = txtCodigo.Text,
-                    Descripcion = txtDescripcion.Text,
-                    Categoria = new CategoriaBE { id_categoria = int.Parse(ddlCategoria.SelectedValue) },
-                    Marca = new MarcaBE { id_marca = int.Parse(ddlMarca.SelectedValue) },
+                    Codigo = ValidarModificacionProductoControl.CodigoValue,
+                    Descripcion = ValidarModificacionProductoControl.DescripcionValue,
+                    Categoria = new CategoriaBE { id_categoria = int.Parse(ValidarModificacionProductoControl.CategoriaValue) },
+                    Marca = new MarcaBE { id_marca = int.Parse(ValidarModificacionProductoControl.MarcaValue) },
                     codigoIVA = CodigoIVA.ObtenerTipoIVA(codIva),
-                    Cantidad = int.Parse(txtCantidad.Text),
-                    Precio = decimal.Parse(txtPrecio.Text),
+                    Cantidad = int.Parse(ValidarModificacionProductoControl.CantidadValue),
+                    Precio = decimal.Parse(ValidarModificacionProductoControl.PrecioValue),
                     Imagen = imagenPath
                 };
 
@@ -119,9 +157,7 @@ namespace UI
             }
         }
 
-        // =====================================
-        //       SISTEMA DE TRADUCCIÓN
-        // =====================================
+
 
         private void AplicarTraducciones(Control control)
         {

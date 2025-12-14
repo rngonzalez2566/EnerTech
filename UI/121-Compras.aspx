@@ -1,8 +1,15 @@
-﻿<%@ Page Title="Finalizar Compra" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="121-Compras.aspx.cs" Inherits="UI._121_Compras" %>
+﻿<%@ Page Title="Finalizar Compra"
+    Language="C#"
+    MasterPageFile="~/Site.Master"
+    AutoEventWireup="true"
+    CodeBehind="121-Compras.aspx.cs"
+    Inherits="UI._121_Compras" %>
+
+<%@ Register Src="~/controls/ValidarPago.ascx"
+    TagPrefix="uc"
+    TagName="ValidarPago" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <!-- Bootstrap 5 CDN -->
- 
 
     <style>
         body {
@@ -19,7 +26,6 @@
             gap: 30px;
         }
 
-        /* Estilos del carrito de compras */
         .cart-container {
             flex: 2;
             background-color: #ffffff;
@@ -61,11 +67,6 @@
             color: #333;
         }
 
-        .cart-item-price, .cart-item-total {
-            font-size: 16px;
-            color: #555;
-        }
-
         .cart-item-total {
             font-weight: bold;
             color: #00796b;
@@ -80,40 +81,6 @@
             box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .payment-header {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .payment-group {
-            margin-bottom: 20px;
-        }
-
-        .payment-group label {
-            color: #c5e1a5;
-        }
-
-        .payment-group input, .payment-group select {
-            background-color: #e0f2f1;
-            border: none;
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 5px;
-        }
-
-        .order-summary {
-            border-top: 1px solid #c5e1a5;
-            padding-top: 20px;
-            margin-top: 20px;
-        }
-
-        .order-summary-item {
-            display: flex;
-            justify-content: space-between;
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
         .btn-checkout {
             background-color: #4caf50;
             color: white;
@@ -122,133 +89,76 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
             width: 100%;
+            margin-top: 20px;
         }
 
-        .btn-checkout:hover {
-            background-color: #388e3c;
-        }
-
-        a {
-            color: #00796b;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
+            .btn-checkout:hover {
+                background-color: #388e3c;
+            }
     </style>
 
-    <!-- Contenedor principal -->
     <div class="main-container">
-        <!-- Carrito de compras -->
+
+        <!-- CARRITO -->
         <div class="cart-container">
             <div class="cart-header">
                 <span runat="server" data-translate="shopping_cart">Carrito de Compras</span>
-                <span><a runat="server" data-translate="continue_shopping" href="90-Catalogo.aspx">Continuar Comprando</a></span>
+                <a runat="server" href="90-Catalogo.aspx" data-translate="continue_shopping">Continuar Comprando
+                </a>
             </div>
 
             <asp:Repeater ID="rptCarrito" runat="server">
                 <ItemTemplate>
                     <div class="cart-item">
-                        <!-- Imagen del producto -->
-                        <img src='<%# Eval("Producto.Imagen") != null && !string.IsNullOrEmpty(Eval("Producto.Imagen").ToString()) 
-                                  ? ResolveUrl(Eval("Producto.Imagen").ToString()) 
-                                  : ResolveUrl("~/Images/default.jpg") %>' 
-                             alt="Imagen del Producto" class="cart-item-img" />
+                        <img class="cart-item-img"
+                            src='<%# Eval("Producto.Imagen") != null 
+                         && !string.IsNullOrEmpty(Eval("Producto.Imagen").ToString()) 
+                         ? ResolveUrl(Eval("Producto.Imagen").ToString()) 
+                         : ResolveUrl("~/Images/default.jpg") %>'
+                            alt="Imagen del Producto" />
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">
+                                <%# Eval("producto.Descripcion") %>
+                            </div>
 
-                     <!-- Información del producto -->
-            <div class="cart-item-details">
-                <div class="cart-item-name"><%# Eval("Producto.Descripcion") %></div>
+                            <div>
+                                <span runat="server" data-translate="quantity_label">Cantidad:</span>
+                                <%# Eval("Cantidad") %>
+                            </div>
 
-                <div class="cart-item-price">
-                    <span runat="server" data-translate="unit_price_label">
-                        Precio unitario:
-                    </span>
-                    $<%# Eval("Producto.Precio", "{0:N2}") %>
-                </div>
-
-                <div class="cart-item-quantity">
-                    <span runat="server" data-translate="quantity_label">
-                        Cantidad:
-                    </span>
-                    <%# Eval("Cantidad") %>
-                </div>
-
-                <div class="cart-item-total">
-                    <span runat="server" data-translate="line_total_label">
-                        Total:
-                    </span>
-                    $<%# String.Format("{0:N2}", Convert.ToDecimal(Eval("Producto.Precio")) * Convert.ToDecimal(Eval("Cantidad"))) %>
-                </div>
-            </div>
-        </div>
+                            <div class="cart-item-total">
+                                $<%# (Convert.ToDecimal(Eval("producto.Precio")) * Convert.ToInt32(Eval("Cantidad"))).ToString("N2") %>
+                            </div>
+                        </div>
+                    </div>
                 </ItemTemplate>
             </asp:Repeater>
         </div>
 
-        <!-- Detalles de pago -->
-      <div class="payment-container">
-    <div class="payment-header" id="lblPaymentHeader" runat="server" data-translate="payment_details">
-        Detalles de Pago
-    </div>
+        <!-- PAGO -->
+        <div class="payment-container">
+            <h3 runat="server" data-translate="payment_details">Detalles de Pago</h3>
 
-    <div class="payment-group">
-        <label for="cardType" id="lblCardType" runat="server" data-translate="card_type">
-            Tipo de Tarjeta
-        </label>
-        <asp:DropDownList ID="ddlCardType" runat="server" CssClass="form-control">
-            <asp:ListItem Value="Visa">Visa</asp:ListItem>
-            <asp:ListItem Value="MasterCard">MasterCard</asp:ListItem>
-            <asp:ListItem Value="Amex">Amex</asp:ListItem>
-            <asp:ListItem Value="PayPal">PayPal</asp:ListItem>
-        </asp:DropDownList>
-    </div>
+            <!-- CONTROL DE VALIDACIÓN -->
+            <uc:ValidarPago ID="ValidarPagoControl" runat="server" />
 
-    <div class="payment-group">
-        <label id="lblCardName" runat="server" data-translate="card_name">
-            Nombre en la Tarjeta
-        </label>
-        <asp:TextBox ID="txtCardName" runat="server" CssClass="form-control"></asp:TextBox>
-    </div>
+            <hr />
 
-    <div class="payment-group">
-        <label id="lblCardNumber" runat="server" data-translate="card_number">
-            Número de la Tarjeta
-        </label>
-        <asp:TextBox ID="txtCardNumber" runat="server" CssClass="form-control" MaxLength="16" TextMode="Number"></asp:TextBox>
-    </div>
+            <div>
+                <strong runat="server" data-translate="order_total_label">Total</strong>:
+            $<asp:Label ID="lblTotal" runat="server" Text="0.00" />
+            </div>
 
-    <div class="payment-group">
-        <label id="lblExpDate" runat="server" data-translate="expiration_date">
-            Fecha de Expiración
-        </label>
-        <asp:TextBox ID="txtExpDate" runat="server" CssClass="form-control" Placeholder="MM/YY"></asp:TextBox>
-    </div>
-
-    <div class="payment-group">
-        <label id="lblCVV" runat="server" data-translate="cvv">
-            CVV
-        </label>
-        <asp:TextBox ID="txtCVV" runat="server" CssClass="form-control" MaxLength="3" TextMode="Number"></asp:TextBox>
-    </div>
-
-    <div class="order-summary">
-        <div class="order-summary-item">
-            <span id="lblOrderTotalText" runat="server" data-translate="order_total_label">
-                Total (Incl. impuestos)
-            </span>
-            <span>$<asp:Label ID="lblTotal" runat="server" Text="0.00" /></span>
-        </div>
-    </div>
-
-    <asp:Button ID="btnCheckout"
+            <asp:Button ID="btnCheckout"
                 runat="server"
                 Text="Finalizar Compra"
                 CssClass="btn-checkout"
                 data-translate="checkout_button"
+                ValidationGroup="Pago"
                 OnClick="btnCheckout_Click" />
-</div>
-</div>
+        </div>
+
+    </div>
+
 </asp:Content>

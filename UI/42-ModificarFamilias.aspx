@@ -42,7 +42,7 @@
                         </label>
                         <input type="text" id="nombreFamilia" name="nombreFamilia"
                                class="form-control"
-                               value="<%= Familia.Nombre %>" required />
+                              value="<%= (Familia != null ? Familia.Nombre : "") %>" />
                     </div>
                 </div>
             </div>
@@ -129,5 +129,35 @@
                 OnClick="btnGuardar_Click" />
         </form>
     </div>
+          <script>
+              function agregarPatente() {
+                  const checkboxes = document.querySelectorAll('.select-patente:checked');
+                  const tablaAgregadas = document.getElementById('tablaAgregadas').querySelector('tbody');
+
+                  checkboxes.forEach(checkbox => {
+                      const fila = checkbox.closest('tr');
+                      const nuevaFila = fila.cloneNode(true);
+
+                      const inputHidden = fila.querySelector('.id-patente').outerHTML;
+                      nuevaFila.deleteCell(0);
+                      nuevaFila.innerHTML += `<td style="display: none;">${inputHidden}</td>`;
+
+                      tablaAgregadas.appendChild(nuevaFila);
+
+                      checkbox.checked = false;
+                      checkbox.disabled = true;
+                  });
+              }
+
+              function prepararEnvio() {
+                  const patentesIds = [];
+                  document.querySelectorAll('#tablaAgregadas .id-patente').forEach(input => {
+                      patentesIds.push(input.value);
+                  });
+
+                  document.getElementById('patentesSeleccionadas').value = patentesIds.join(',');
+                  return patentesIds.length > 0;
+              }
+    </script>
 </body>
 </html>

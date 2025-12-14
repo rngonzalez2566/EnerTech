@@ -13,7 +13,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Xml;
 using UI.WebServices;
-
+using Services;
 
 
 namespace UI
@@ -28,7 +28,23 @@ namespace UI
         public UsuarioBE usuario { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+
+            if (usuario == null)
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            if (!PermisoCheck.VerificarPermiso(usuario.Permisos, BE.Enums.Permiso.Ventas))
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+
             string idioma = Request.QueryString["lang"];
             if (!string.IsNullOrEmpty(idioma))
                 IdiomaManager.Instance.CambiarIdioma(idioma);

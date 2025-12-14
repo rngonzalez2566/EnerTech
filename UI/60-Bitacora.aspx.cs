@@ -1,11 +1,14 @@
-﻿using System;
+﻿using BE;
+using BE.Enums;
+using BLL;
+using iText.StyledXmlParser.Jsoup.Nodes;
+using Services;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BE;
-using BLL;
-using Services;
 
 namespace UI
 {
@@ -18,6 +21,28 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            var session = new SessionManager();
+            UsuarioBE usuario = session.Get<UsuarioBE>("Usuario");
+
+            if (usuario == null)
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            string usuarioEmergencia = ConfigurationManager.AppSettings["usuario"];
+            if (
+                    usuario.Email != usuarioEmergencia &&
+                    !PermisoCheck.VerificarPermiso(usuario.Permisos, BE.Enums.Permiso.VisualizarBitacora)
+                )
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+
             try
             {
                 if (!IsPostBack)

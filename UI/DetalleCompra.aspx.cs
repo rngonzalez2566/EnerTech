@@ -17,10 +17,20 @@ namespace UI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            usuario = _sessionManager.Get<UsuarioBE>("Usuario");
+            var session = new SessionManager();
+            UsuarioBE usuario = session.Get<UsuarioBE>("Usuario");
+
             if (usuario == null)
             {
-                Response.Redirect("Default.aspx");
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
+            }
+
+            if (!PermisoCheck.VerificarPermiso(usuario.Permisos, BE.Enums.Permiso.MisCompras))
+            {
+                Response.Redirect("Default.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
                 return;
             }
 

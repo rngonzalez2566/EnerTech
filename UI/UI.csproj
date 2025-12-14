@@ -255,6 +255,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="controls\ValidarAltaProducto.ascx" />
     <Content Include="controls\ValidarAltaUsuario.ascx" />
+    <Content Include="controls\ValidarCrearFamilia.ascx" />
+    <Content Include="controls\ValidarModificacionProducto.ascx" />
+    <Content Include="controls\ValidarPago.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="DetalleCompra.aspx" />
     <Content Include="ErrorCodes.aspx" />
@@ -538,6 +541,27 @@
     </Compile>
     <Compile Include="controls\ValidarAltaUsuario.ascx.designer.cs">
       <DependentUpon>ValidarAltaUsuario.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ValidarCrearFamilia.ascx.cs">
+      <DependentUpon>ValidarCrearFamilia.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ValidarCrearFamilia.ascx.designer.cs">
+      <DependentUpon>ValidarCrearFamilia.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ValidarModificacionProducto.ascx.cs">
+      <DependentUpon>ValidarModificacionProducto.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ValidarModificacionProducto.ascx.designer.cs">
+      <DependentUpon>ValidarModificacionProducto.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="controls\ValidarPago.ascx.cs">
+      <DependentUpon>ValidarPago.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ValidarPago.ascx.designer.cs">
+      <DependentUpon>ValidarPago.ascx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
