@@ -180,7 +180,33 @@ namespace DAL
             }
         }
 
-   
+        public void ActualizarUsuario(UsuarioBE usuario)
+        {
+            try
+            {
+                xCommandText = Querys.UsuarioQuerys.UpdateUser;
+
+                xParameters.Parameters.Clear();
+                xParameters.Parameters.AddWithValue("@id", usuario.id_usuario);
+                xParameters.Parameters.AddWithValue("@Email", usuario.Email);
+                xParameters.Parameters.AddWithValue("@RazonSocial", usuario.RazonSocial);
+                xParameters.Parameters.AddWithValue("@Identificacion", usuario.Identificacion);
+                xParameters.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                xParameters.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                xParameters.Parameters.AddWithValue("@TipoDoc", usuario.TipoDocumento);
+                xParameters.Parameters.AddWithValue("@TipoCliente", usuario.TipoCliente);
+                xParameters.Parameters.AddWithValue("@Estado", usuario.Estado);
+                xParameters.Parameters.AddWithValue("@dvh", usuario.DVH);
+
+                executeNonQuery();
+            }
+            catch
+            {
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
+
 
     }
 }

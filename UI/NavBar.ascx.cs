@@ -107,7 +107,7 @@ namespace UI
             // Brand
             var brandLink = new HtmlAnchor
             {
-                HRef = "Home.aspx",
+                HRef = "Default.aspx",
                 InnerText = IdiomaManager.Instance.GetTraduccion("brand_name") ?? "EnerTech"
             };
             brandLink.Attributes["class"] = "navbar-brand";
@@ -144,7 +144,7 @@ namespace UI
                 new List<(string href, string text)>
                 {
             ("21-AltaUsuario", "add_user"),
-            ("#", "modify_user"),
+            ("22-ModificacionUsuario", "modify_user"),
             ("12-RestablecerPassword", "change_password"),
             ("#", "delete_user")
                 }
@@ -265,7 +265,7 @@ namespace UI
             // Brand
             var brandLink = new HtmlAnchor
             {
-                HRef = "Home.aspx",
+                HRef = "Default.aspx",
                 InnerText = IdiomaManager.Instance.GetTraduccion("brand_name") ?? "EnerTech"
             };
             brandLink.Attributes["class"] = "navbar-brand";
@@ -436,7 +436,7 @@ namespace UI
             // Brand
             var brandLink = new HtmlAnchor
             {
-                HRef = "Home.aspx",
+                HRef = "Default.aspx",
                 InnerText = IdiomaManager.Instance.GetTraduccion("brand_name") ?? "EnerTech"
             };
             brandLink.Attributes["class"] = "navbar-brand";

@@ -23,5 +23,20 @@ namespace DAL.Querys
                                                         DVH = @dvh
                                                     WHERE id_usuario = @id
                                                     ";
+
+        public static string UpdateUser = @"
+                                            UPDATE Usuario
+                                            SET
+                                                Email = @Email,
+                                                RazonSocial = @RazonSocial,
+                                                Identificacion = @Identificacion,
+                                                Nombre = @Nombre,
+                                                Apellido = @Apellido,
+                                                TipoDocumento = @TipoDoc,
+                                                TipoCliente = @TipoCliente,
+                                                Estado = @Estado,
+                                                DVH = @dvh
+                                            WHERE id_usuario = @id;
+";
     }
 }

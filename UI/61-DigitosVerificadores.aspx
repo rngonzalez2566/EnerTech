@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Recalcular Dígitos Verificadores</title>
+    <title runat="server" data-translate="dv_title">Recalcular Dígitos Verificadores</title>
+
     <style>
         body {
             margin: 0;
@@ -40,29 +41,38 @@
         }
     </style>
 </head>
+
 <body>
     <uc:Navbar ID="navigationBar" runat="server" />
+
     <form id="form1" runat="server">
         <div class="container">
-    <h1>Recalcular Dígitos Verificadores</h1>
-    <div class="action-container mt-4">
-        <asp:Button 
-            ID="btnRecalcular" 
-            runat="server" 
-            CssClass="btn btn-primary" 
-            Text="Recalcular Dígitos Verificadores" 
-            OnClick="btnRecalcular_Click" />
-        <div class="mt-3">
-            <asp:Label 
-                ID="lblResultado" 
-                runat="server" 
-                CssClass="status-label text-success" 
-                Visible="false"></asp:Label>
-        </div>
-    </div>
-</div>
 
+            <h1 runat="server" data-translate="dv_header">
+                Recalcular Dígitos Verificadores
+            </h1>
+
+            <div class="action-container mt-4">
+
+                <asp:Button
+                    ID="btnRecalcular"
+                    runat="server"
+                    CssClass="btn btn-primary"
+                    Text="Recalcular"
+                    data-translate="dv_recalculate_button"
+                    OnClick="btnRecalcular_Click" />
+
+                <div class="mt-3">
+                    <asp:Label
+                        ID="lblResultado"
+                        runat="server"
+                        CssClass="status-label"
+                        Visible="false">
+                    </asp:Label>
+                </div>
+
+            </div>
+        </div>
     </form>
-    
 </body>
 </html>

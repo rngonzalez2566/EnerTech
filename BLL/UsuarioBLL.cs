@@ -289,6 +289,55 @@ namespace BLL
             }
         }
 
+        public void ActualizarUsuario(UsuarioBE usuario)
+        {
+            // Validaciones mínimas (ajustá a tus reglas)
+            if (usuario == null) throw new Exception(ErrorMessages.ERR002);
+            if (usuario.id_usuario <= 0) throw new Exception(ErrorMessages.ERR002);
+            if (string.IsNullOrWhiteSpace(usuario.Email)) throw new Exception(ErrorMessages.ERR002);
+            if (string.IsNullOrWhiteSpace(usuario.Nombre)) throw new Exception(ErrorMessages.ERR002);
+            if (string.IsNullOrWhiteSpace(usuario.Apellido)) throw new Exception(ErrorMessages.ERR002);
+
+            try
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                 
+                    usuario.Email = Encriptador.Encriptar(usuario.Email);
+                    usuario.Nombre = Encriptador.Encriptar(usuario.Nombre);
+                    usuario.Apellido = Encriptador.Encriptar(usuario.Apellido);
+                    usuario.RazonSocial = string.IsNullOrWhiteSpace(usuario.RazonSocial) ? "" : usuario.RazonSocial; // si querés encriptarla también, hacelo acá
+
+                    
+                    UsuarioBE actual = usuarioDAL.GetUsuarioID(usuario.id_usuario);
+                    if (actual == null) throw new Exception(ErrorMessages.ERR002);
+
+                    
+                    usuario.Password = actual.Password;
+                    usuario.Contador = actual.Contador;
+
+              
+                    usuario.DVH = dv.CalcularDV(usuario);
+
+                    usuarioDAL.ActualizarUsuario(usuario);
+
+                    bitacora.RegistrarBitacora(
+                        $"{usuario.Identificacion} - Se actualizó un usuario correctamente",
+                        "Media",
+                        usuario
+                    );
+
+                    dvDAL.AltaDVV("Usuario");
+
+                    scope.Complete();
+                }
+            }
+            catch
+            {
+                throw new Exception(ErrorMessages.ERR001);
+            }
+        }
+
     }
 
 }

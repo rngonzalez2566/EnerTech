@@ -243,9 +243,27 @@
     "home_footer_address_title": "Dirección",
     "home_footer_address": "Av. Laprida 742, Buenos Aires, Argentina",
     "home_footer_copyright": "© 2024 EnerTech | Energías Renovables - Todos los derechos reservados.",
-    "reset_password_sent": "Si el email existe, te enviamos una contraseña temporal."
-
-
+    "reset_password_sent": "Si el email existe, te enviamos una contraseña temporal.",
+    "dv_title": "Recalcular Dígitos Verificadores",
+    "dv_header": "Recalcular Dígitos Verificadores",
+    "dv_recalculate_button": "Recalcular Dígitos Verificadores",
+    "dv_success": "Dígitos verificadores recalculados correctamente.",
+    "dv_error": "Ocurrió un error al recalcular los dígitos verificadores.",
+    "Recalcular Digitos": "Digitos verificadores",
+    "user_edit_title": "Modificar usuario",
+    "back_to_users": "Volver a usuarios",
+    "user_email": "Email",
+    "user_identification": "Identificación",
+    "user_name": "Nombre",
+    "user_lastname": "Apellido",
+    "user_business_name": "Razón social",
+    "user_document_type": "Tipo de documento",
+    "user_customer_type": "Tipo de cliente",
+    "user_status": "Estado",
+    "validation_email_required": "Email requerido",
+    "validation_identification_required": "Identificación requerida",
+    "validation_name_required": "Nombre requerido",
+    "validation_lastname_required": "Apellido requerido"
   },
   "en": {
     "brand_name": "EnerTech",
@@ -491,8 +509,26 @@
     "home_footer_address_title": "Address",
     "home_footer_address": "Av. Laprida 742, Buenos Aires, Argentina",
     "home_footer_copyright": "© 2024 EnerTech | Renewable Energy - All rights reserved.",
-    "reset_password_sent": "If the email exists, we sent you a temporary password."
-
-
+    "reset_password_sent": "If the email exists, we sent you a temporary password.",
+    "dv_title": "Recalculate Check Digits",
+    "dv_header": "Recalculate Check Digits",
+    "dv_recalculate_button": "Recalculate Check Digits",
+    "dv_success": "Check digits were successfully recalculated.",
+    "dv_error": "An error occurred while recalculating check digits.",
+    "Recalcular Digitos": "Check digits",
+    "user_edit_title": "Edit user",
+    "back_to_users": "Back to users",
+    "user_email": "Email",
+    "user_identification": "Identification",
+    "user_name": "First name",
+    "user_lastname": "Last name",
+    "user_business_name": "Business name",
+    "user_document_type": "Document type",
+    "user_customer_type": "Customer type",
+    "user_status": "Status",
+    "validation_email_required": "Email is required",
+    "validation_identification_required": "Identification is required",
+    "validation_name_required": "First name is required",
+    "validation_lastname_required": "Last name is required"
   }
 }

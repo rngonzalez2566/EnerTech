@@ -75,6 +75,12 @@
             color: red;
             font-size: 14px;
         }
+        .label-title{
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #6c757d; /* gris bootstrap */
+            margin-bottom: 6px;
+        }
     </style>
 </head>
 
